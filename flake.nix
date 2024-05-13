@@ -2,9 +2,7 @@
   description = "My nix config";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-hypr.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     #last revision with yuzu b8697e57f10292a6165a20f03d2f42920dfaf973
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -12,13 +10,13 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
-    nix-gaming.url = "github:fufexan/nix-gaming";
-    neovim-nightly = {
-      url = "github:nix-community/neovim-nightly-overlay";
-    };
-    leiserfg-overlay.url = "github:leiserfg/leiserfg-overlay";
-    blender.url = "github:edolstra/nix-warez?dir=blender";
-    blender.inputs.nixpkgs.follows = "nixpkgs";
+    # nix-gaming.url = "github:fufexan/nix-gaming";
+    # neovim-nightly = {
+    #   url = "github:nix-community/neovim-nightly-overlay";
+    # };
+    # nainai-overlay.url = "github:nainai/nainai-overlay";
+    # blender.url = "github:edolstra/nix-warez?dir=blender";
+    # blender.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
@@ -45,13 +43,6 @@
         }
     );
 
-    nixpkgsHypr = forAllSystems (
-      system:
-        import inputs.nixpkgs-hypr {
-          inherit system;
-          config.allowUnfree = true;
-        }
-    );
   in rec {
     overlays = {
       default = import ./overlay {inherit inputs;};
@@ -77,7 +68,7 @@
           overlays =
             (builtins.attrValues overlays)
             ++ [
-              inputs.blender.overlays.default
+              # inputs.blender.overlays.default
             ];
           config.allowUnfree = true;
           config.permittedInsecurePackages = [];
@@ -85,33 +76,7 @@
     );
 
     nixosConfigurations = {
-      shiralad = nixpkgs.lib.nixosSystem {
-        pkgs = legacyPackages.x86_64-linux;
-        specialArgs = {
-          inherit inputs;
-          unstablePkgs = unstablePackages.x86_64-linux;
-        };
-        modules =
-          (builtins.attrValues nixosModules)
-          ++ [
-            ./hosts/shiralad
-          ];
-      };
-
-      dunkel = nixpkgs.lib.nixosSystem {
-        pkgs = legacyPackages.x86_64-linux;
-        specialArgs = {
-          inherit inputs;
-          unstablePkgs = unstablePackages.x86_64-linux;
-        };
-        modules =
-          (builtins.attrValues nixosModules)
-          ++ [
-            ./hosts/dunkel
-          ];
-      };
-
-      rahmen = nixpkgs.lib.nixosSystem {
+      nixos = nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = {
           inherit inputs;
@@ -121,60 +86,26 @@
           (builtins.attrValues nixosModules)
           ++ [
             nixos-hardware.nixosModules.framework-13-7040-amd
-            ./hosts/rahmen
+            ./hosts/nixos
           ];
       };
     };
 
     homeConfigurations = {
-      "leiserfg@shiralad" = home-manager.lib.homeManagerConfiguration {
+      "nainai@nixos" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs;
-          gamingPkgs = inputs.nix-gaming.packages.x86_64-linux;
-          myPkgs = inputs.leiserfg-overlay.packages.x86_64-linux;
+          # gamingPkgs = inputs.nix-gaming.packages.x86_64-linux;
+          # myPkgs = inputs.nainai-overlay.packages.x86_64-linux;
           unstablePkgs = unstablePackages.x86_64-linux;
-          codeium = inputs.codeium.packages.x86_64-linux;
-          neovimPkgs = inputs.neovim-nightly.packages.x86_64-linux;
+          # codeium = inputs.codeium.packages.x86_64-linux;
+          # neovimPkgs = inputs.neovim-nightly.packages.x86_64-linux;
         };
         modules =
           (builtins.attrValues homeManagerModules)
           ++ [
-            ./home/leiserfg/shiralad.nix
-          ];
-      };
-
-      "leiserfg@rahmen" = home-manager.lib.homeManagerConfiguration {
-        pkgs = legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs;
-          gamingPkgs = inputs.nix-gaming.packages.x86_64-linux;
-          myPkgs = inputs.leiserfg-overlay.packages.x86_64-linux;
-          unstablePkgs = unstablePackages.x86_64-linux;
-          nixpkgsHypr = nixpkgsHypr.x86_64-linux;
-          neovimPkgs = inputs.neovim-nightly.packages.x86_64-linux;
-        };
-        modules =
-          (builtins.attrValues homeManagerModules)
-          ++ [
-            ./home/leiserfg/rahmen.nix
-          ];
-      };
-
-      "leiserfg@dunkel" = home-manager.lib.homeManagerConfiguration {
-        pkgs = legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs;
-          unstablePkgs = unstablePackages.x86_64-linux;
-          gamingPkgs = inputs.nix-gaming.packages.x86_64-linux;
-          myPkgs = inputs.leiserfg-overlay.packages.x86_64-linux;
-          nixpkgsHypr = nixpkgsHypr.x86_64-linux;
-          neovimPkgs = inputs.neovim-nightly.packages.x86_64-linux;
-        };
-        modules =
-          (builtins.attrValues homeManagerModules)
-          ++ [
-            ./home/leiserfg/dunkel.nix
+            ./home/nainai/nixos.nix
           ];
       };
     };

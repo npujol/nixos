@@ -4,9 +4,10 @@
     delta.enable = true;
     lfs.enable = true;
 
-    userEmail = "leiserfg@gmail.com";
-    userName = "leiserfg";
-    signing.key = "/home/leiserfg/.ssh/id_rsa.pub";
+    userEmail = "naivy.luna@gmail.com";
+    userName = "npujol";
+    # NOTE: Check this and add my rsa key
+    # signing.key = "/home/nainai/.ssh/id_rsa.pub";
 
     ignores = [
       ".direnv"
@@ -58,7 +59,7 @@
 
     extraConfig = {
       protocol = {version = 2;};
-      init = {defaultBranch = "master";};
+      
       rerere = {enabled = true;};
       status = {short = true;};
       diff = {
@@ -68,8 +69,8 @@
       push = {default = "current";};
       pull = {rebase = true;};
       rebase = {autoStash = true;};
-      gpg = {format = "ssh";};
-      commit = {gpgsign = true;};
+      #  gpg = {format = "ssh";};
+      # commit = {gpgsign = true;};
       tag = {gpgsign = true;};
       feature = {manyFiles = true;};
       url = {

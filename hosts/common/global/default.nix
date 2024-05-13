@@ -30,7 +30,7 @@
     enableAllTerminfo = true;
   };
 
-  system.stateVersion = "22.05";
+  system.stateVersion = "23.11";
 
   # Allows users to allow others on their binds
   programs.fuse.userAllowOther = true;
@@ -45,6 +45,5 @@
 
   environment.systemPackages = with pkgs; [
     vim
-    cntr
   ];
 }
