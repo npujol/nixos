@@ -11,3 +11,6 @@ sudo cryptsetup config /dev/nvme0n1p3 --label luks-partition
 
 Setup home-manager
 `home-manager switch  --flake .`
+
+Setup nixos:
+`sudo nixos-rebuild boot --flake .`
