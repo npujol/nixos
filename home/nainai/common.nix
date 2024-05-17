@@ -2,17 +2,11 @@
   unstablePkgs,
   lib,
   pkgs,
-  # myPkgs,
-  # neovimPkgs,
   config,
   ...
 }: {
   imports = [
     ../../shared/nix.nix
-    # ./features/rofi.nix
-    # ./features/audio.nix
-    # Move fish config to this package
-    # ./features/fish.nix
     ./features/cmds.nix
     ./features/mpv.nix
     ./features/git.nix
@@ -35,247 +29,100 @@
   home.packages = with pkgs;
   with builtins;
   with lib; [
-    steam-run
-    easyeffects
+    # Package Management & Utilities
     util-linux
     nix-update
-    # inferno
-    # flamegraph
-    # proximity-sort
+    cachix
+    patool
+    
+    # Python Packages
     python311Packages.ipython
-    # fend
-    # nvme-cli
     python312
-    # (unstablePkgs.libjxl)
-    # teip
-    ollama
-    typst
-    # (unstablePkgs.tdesktop)
-    # firefox
-    # (unstablePkgs.fish)
-    (unstablePkgs.ruff)
-    # (myPkgs.basedpyright)
-    nil
-    # pmenu
-    pciutils
-    # image-roll
-    # unstablePkgs.imv
-    # swayimg 
-    unzip
-    # nodePackages.typescript-language-server
-
-    # iw
-    dmidecode
-    # vokoscreen-ng
-    # iredis
-    # dua
-    # picocom # run as:  sudo picocom /dev/ttyACM0
-
-    doggo
-    # (neovimPkgs.neovim)
-
-    # sumneko-lua-language-server
     pipenv
-    alejandra
-    # nix-prefetch-git
-    bc
-    ffmpeg-full
-    jq
-    graphviz
-    gcc
-    usbutils
-    wget
-    # blueman
-    # xfce.thunar
-    # pcmanfm
-    # xarchiver
-    # gdb
-    # ventoy-bin
-    # rink
-    # unstablePkgs.uiua
-    # krita
-    inkscape
-    # tree-sitter
-    nmap
-    # krita
-    # pinentry.qt
-    # unstablePkgs.cinnamon.warpinator
+
+    # Fonts
     (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
     (unstablePkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
-    (unstablePkgs.tdesktop)
-    # (writeShellScriptBin "xdg-open" ''
-    #   # export LD_LIBRARY_PATH=$(echo $LD_LIBRARY_PATH | sed "s/:/\n/g"|grep -v "libXcursor"|xargs|sed "s/ /:/g")
-    #   exec -a $0 ${mimeo}/bin/mimeo "$@"
-    # '')
     noto-fonts-emoji
-    /*
-    twemoji-color-font
-    */
     noto-fonts-cjk-sans
     noto-fonts
 
+    # System Utilities
+    pciutils
+    unzip
+    dmidecode
+    bc
+    jq
+    usbutils
+    wget
+    nmap
     lm_sensors
-    darktable
-    gimp
-    kitty
-    # foot
-    /*
-    awesome
-    */
-    xorg.xkill
-    # unstablePkgs.qtile
-
-    # lua-language-server
     lsof
     file
     unrar
     aria2
     zpaq
     p7zip
-    # d-spy
     gparted
-
-    # age
-    # agebox
-    # age-kegen-deterministic
-
-    # terraform
-    # terraform-ls
-    # awscli2
-
-    # pavucontrol
-    # zathura
-    # xdragon
-    # moreutils
     htop
     lf
     fzf
     ripgrep
+    rsync
+    clinfo
+    powertop
+
+    # Development Tools
+    gcc
     rustup
     simple-http-server
-    /*
-    rust-analyzer-unwrapped
-    */
-    # gnome.gnome-disk-utility
-    rsync
-    # appimage-run
-
-    sshuttle
-    autossh
-    openssh
-
-    # git stuff
     delta
-
     gh
     git
     git-standup
     git-absorb
-    anki
-    patool
-    # stylua
-    # yadm
-    cachix
-    android-tools
     git-lfs
-    clinfo
-    powertop
-    docker-compose
+    vscode
+    (unstablePkgs.ruff)
+
+    # Web Browsers
     brave
+
+    # Networking Tools
+    sshuttle
+    autossh
+    openssh
+    docker-compose
+
+    # Media & Graphics
+    darktable
+    gimp
+    inkscape
+    ffmpeg-full
+    graphviz
+
+    # Terminal & Shell
+    kitty
+    xorg.xkill
+    thefuck
+
+    # Virtualization & Emulation
+    steam-run
+    android-tools
+
+    # Other Applications
+    easyeffects
+    ollama
+    (unstablePkgs.typst)
+    nil
+    doggo
+    anki
     xh
-
-    # My overlay
-    # git-branchless
-    # material-maker
-    # nix-du
-    # qpwgraph
-    # piper-tts
-
-    # libva-utils
-    #scripts
-    # here we don't use the nix binaries to allow rewriting ruff with the correct one
-    # see x11 and wayland
-
-    # (writeShellScriptBin "rofi-launch" ''
-    #   exec -a $0 rofi -combi-modi window,drun,ssh -show combi -modi combi -show-icons
-    # '')
-
-    # (
-    #   writeShellScriptBin "rofi-pp" ''
-    #     printf " Performance\n Balanced\n Power Saver" \
-    #     | rofi -dmenu -i \
-    #     | tr -cd '[:print:]' \
-    #     | xargs|tr " " "-" \
-    #     | tr '[:upper:]' '[:lower:]' \
-    #     | xargs powerprofilesctl set
-    #   ''
-    # )
-    # (
-    #   writeShellScriptBin "pp-state" ''
-    #     state=$(powerprofilesctl get | sed -e "s/.*string//" -e "s/.*save.*/ /"  -e "s/.*perf.*/ /"  -e "s/.*balanced.*/ /")
-    #     echo $state
-    #   ''
-    # )
-    # (
-    #   writeShellScriptBin "game-picker" ''
-    #     exec  sh -c "ls ~/Games/*/*start*.sh  --quoting-style=escape \
-    #     |xargs -n 1 -d '\n' dirname \
-    #     |xargs -d '\n' -n 1 basename \
-    #     |rofi -dmenu -i  \
-    #     |xargs  -d '\n'  -I__  bash -c 'cd $HOME/Games/__/  && source *start*.sh'"
-    #   ''
-    # )
-    # (
-    #   writeShellScriptBin "rofi_power" ''
-    #     enumerate () {
-    #         awk -F"|"  '{ for (i = 1; i <= NF; ++i) print "<big>"$i"</big><sub><small>"i"</small></sub>"; exit } '
-    #     }
-    #     question=$(printf "||||"| enumerate|rofi -dmenu -markup-rows)
-
-    #     case $question in
-    #         **)
-    #             loginctl lock-session $XDG_SESSION_ID
-    #             ;;
-    #         **)
-    #             systemctl suspend
-    #             ;;
-    #         **)
-    #             # bspc quit || qtile cmd-obj -o cmd -f shutdown
-    #             systemctl --user  stop graphical-session.target
-    #             hyprctl dispatch exit || loginctl terminate-session $XDG_SESSION_ID
-    #             ;;
-    #         **)
-    #             systemctl reboot
-    #             ;;
-    #         **)
-    #             systemctl poweroff
-    #             ;;
-    #         *)
-    #             exit 0  # do nothing on wrong response
-    #             ;;
-    #     esac
-    #   ''
-    # )
+    tdrop
+    (unstablePkgs.tdesktop)
+    alejandra
   ];
-  # xdg.configFile."Thunar/uca.xml" = {
-  #   executable = false;
-  #   text = ''
-  #     <?xml version="1.0" encoding="UTF-8"?>
-  #     <actions>
-  #         <action>
-  #             <icon>kitty</icon>
-  #             <name>Open In Kitty</name>
-  #             <submenu></submenu>
-  #             <unique-id>1713512577329704-1</unique-id>
-  #             <command>kitty -1 --directory %f</command>
-  #             <description></description>
-  #             <range>*</range>
-  #             <patterns>*</patterns>
-  #             <directories/>
-  #         </action>
-  #     </actions>
-  #   '';
-  # };
+
   programs = {
     home-manager.enable = true;
    
@@ -283,25 +130,6 @@
 
     firefox = {
       enable = true;
-      # profiles = {
-      #   yolo = {
-      #     settings = {
-      #       "browser.compactmode.show" = true;
-      #       "dom.webgpu.enabled" = true;
-
-      #       # VP9 fails to work with vaapi in framework so we have to disable it until this gets fixed
-      #       # # Delete this after https://gitlab.freedesktop.org/mesa/mesa/-/issues/8044
-      #       # This was a workaround but makes it vp9 only videos not to show in youtube
-      #       # "media.mediasource.vp9.enabled" = false;
-      #       #
-      #       "media.ffmpeg.vaapi.enabled" = true;
-      #       "media.ffvpx.enabled" = true;
-
-      #       # HACK to make slack huddle work
-      #       "general.useragent.override" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:${pkgs.firefox.version}) Gecko/20100101 Firefox/${pkgs.firefox.version}";
-      #     };
-      #   };
-      # };
     };
 
     yt-dlp = {
@@ -314,7 +142,6 @@
 
     bat = {
       enable = true;
-      # config.theme = "base16";
     };
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
@@ -340,71 +167,28 @@
     BROWSER = "brave";
     TERMCMD = "kitty";
     EDITOR = "code";
-    # MANPAGER = "nvim +Man!";
-    MOZ_USE_XINPUT2 = "1";
-
     # Fix telegram input
     ALSOFT_DRIVERS = "pulse";
-
     # Disable qt decoration for telegram
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
-  # home.pointerCursor = {
-  #   package = pkgs.gnome.adwaita-icon-theme;
-  #   name = "Adwaita";
-  #   size = 16;
-  #   x11.enable = true; # This is used also by Xwayland
-  #   gtk.enable = true;
-  # };
-
+  
+  #---------------------------------------------------------------------------
+  # In this section we configure the user services, such as: mpris-proxy, etc.
+  #---------------------------------------------------------------------------
   services = {
-    # gpg-agent.enable = true;
-    # pasystray.enable = true;
-
-    # udiskie = {
-    #   enable = true;
-    #   automount = true;
-    # };
     # mpris-proxy.enable = true;
-    # dunst = {
-    #   enable = true;
-    #   settings = {
-    #     global = {
-    #       frame_color = "#8CAAEE";
-    #       font = "Droid Sans 9";
-    #       frame_width = 2;
-    #       show_indicators = true;
-    #       dmenu = "rofi -dmenu -p dunst";
-    #     };
-    #     urgency_normal = {
-    #       background = "#303446";
-    #       foreground = "#C6D0F5";
-    #     };
-
-    #     urgency_low = {
-    #       background = "#303446";
-    #       foreground = "#C6D0F5";
-    #     };
-
-    #     urgency_critical = {
-    #       background = "#303446";
-    #       foreground = "#C6D0F5";
-    #       frame_color = "#EF9F76";
-    #     };
-    #   };
-    # };
-
   };
+  
   # Force Rewrite
-
   manual.manpages.enable = false; # Doc framework is broken, so let's stop updating this
-  # xdg.enable = true ;
   xdg.configFile."mimeapps.list".force = true;
+  
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      # "text/html" = "firefox.desktop";
       "x-scheme-handler/tg" = "telegram.desktop";
+      # TODO: Update the default applications
       # "inode/directory" = "thunar.desktop";
       # "inode/directory" = "pcmanfm.desktop";
       # "text/x-python" = "code.desktop";
@@ -416,13 +200,9 @@
     };
   };
 
-  # xdg.configFile."mimeo/associations.txt".text = ''
-  #   mpv %U
-  #     ^https?://(www.)?youtube.com/watch\?v=.*$
-  #   mpv --loop %U
-  #     ^.*.gif$
-  # '';
-
+  #---------------------
+  # Clean up nix cache
+  #---------------------
   systemd.user.services = {
     shit_collector = {
       Unit = {
@@ -435,7 +215,6 @@
       Install.WantedBy = ["default.target"];
     };
   };
-
   systemd.user.timers = {
     shit_collector_chron = {
       Unit.Description = "Remove nix shit";
@@ -447,25 +226,4 @@
       Install.WantedBy = ["timers.target"];
     };
   };
-
-  # home.sessionVariables = {
-  #   GIO_EXTRA_MODULES = "${pkgs.gvfs}/lib/gio/modules";
-  # };
-
-  # systemd.user.services.polkit-authentication-agent = {
-  #   Unit = {
-  #     Description = "Polkit authentication agent";
-  #     Documentation = "https://gitlab.freedesktop.org/polkit/polkit/";
-  #     After = ["graphical-session-pre.target"];
-  #     PartOf = ["graphical-session.target"];
-  #   };
-  #
-  #   Service = {
-  #     ExecStart = "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
-  #     Restart = "always";
-  #     BusName = "org.freedesktop.PolicyKit1.Authority";
-  #   };
-  #
-  #   Install.WantedBy = ["graphical-session.target"];
-  # };
 }

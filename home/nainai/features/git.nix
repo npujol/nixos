@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+# Defines the git configurations
+{...}: {
   programs.git = {
     enable = true;
     delta.enable = true;
@@ -7,7 +8,7 @@
     userEmail = "naivy.luna@gmail.com";
     userName = "npujol";
     # NOTE: Check this and add my rsa key
-    # signing.key = "/home/nainai/.ssh/id_rsa.pub";
+    signing.key = "/home/nainai/.ssh/id_ed25519.pub";
 
     ignores = [
       ".direnv"
@@ -69,8 +70,8 @@
       push = {default = "current";};
       pull = {rebase = true;};
       rebase = {autoStash = true;};
-      #  gpg = {format = "ssh";};
-      # commit = {gpgsign = true;};
+       gpg = {format = "ssh";};
+      commit = {gpgsign = true;};
       tag = {gpgsign = true;};
       feature = {manyFiles = true;};
       url = {
