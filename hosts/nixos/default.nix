@@ -1,23 +1,13 @@
-{
-  pkgs,
-  input,
-  config,
-  lib,
-  ...
-}: {
+{...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../common/global
     ../common/users/nainai.nix
     ../common/features/docker.nix
-    # ../common/features/x11.nix
   ];
 
-
   hardware.cpu.amd.updateMicrocode = true;
-
-  # services.fprintd.enable = true;
 
   networking.hostName = "nixos";
 
@@ -35,6 +25,4 @@
     layout = "us";
     xkbVariant = "altgr-intl";
   };
-
-
 }

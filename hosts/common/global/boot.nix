@@ -1,7 +1,6 @@
-{pkgs, unstablePkgs, ...}: {
+{pkgs, ...}: {
   boot = {
-    kernelPackages = unstablePkgs.linuxPackages_6_8;
-    # kernelPackages = unstablePkgs.linuxPackages_xanmod_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     blacklistedKernelModules = ["hid-nintendo"];

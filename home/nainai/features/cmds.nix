@@ -1,4 +1,3 @@
-
 # Add custom scripts to packages
 {pkgs, ...}: {
   home.packages = with pkgs; [
@@ -6,7 +5,7 @@
       adb shell "pm list packages" | sed 's/.*://g'|fzf |xargs adb shell pm uninstall -k --user 0
     '')
     (writeShellScriptBin "mpvyt" ''
-        mpv --no-video --ytdl-format=bestaudio ytdl://ytsearch10:"$@";
+      mpv --no-video --ytdl-format=bestaudio ytdl://ytsearch10:"$@";
     '')
   ];
 }

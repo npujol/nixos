@@ -34,7 +34,7 @@
     nix-update
     cachix
     patool
-    
+
     # Python Packages
     python311Packages.ipython
     python312
@@ -125,7 +125,7 @@
 
   programs = {
     home-manager.enable = true;
-   
+
     fzf.enable = true;
 
     firefox = {
@@ -172,18 +172,18 @@
     # Disable qt decoration for telegram
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
-  
+
   #---------------------------------------------------------------------------
   # In this section we configure the user services, such as: mpris-proxy, etc.
   #---------------------------------------------------------------------------
   services = {
     # mpris-proxy.enable = true;
   };
-  
+
   # Force Rewrite
   manual.manpages.enable = false; # Doc framework is broken, so let's stop updating this
   xdg.configFile."mimeapps.list".force = true;
-  
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {

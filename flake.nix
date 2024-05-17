@@ -4,20 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    #last revision with yuzu b8697e57f10292a6165a20f03d2f42920dfaf973
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
-    # nix-gaming.url = "github:fufexan/nix-gaming";
-    # neovim-nightly = {
-    #   url = "github:nix-community/neovim-nightly-overlay";
-    # };
-    # nainai-overlay.url = "github:nainai/nainai-overlay";
-    # blender.url = "github:edolstra/nix-warez?dir=blender";
-    # blender.inputs.nixpkgs.follows = "nixpkgs";
-
     nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
@@ -28,9 +16,9 @@
     ...
   } @ inputs: let
     forAllSystems = nixpkgs.lib.genAttrs [
+      "x86_64-linux"
       # "aarch64-linux"
       # "i686-linux"
-      "x86_64-linux"
       # "aarch64-darwin"
       # "x86_64-darwin"
     ];
@@ -42,7 +30,6 @@
           config.allowUnfree = true;
         }
     );
-
   in rec {
     overlays = {
       default = import ./overlay {inherit inputs;};
@@ -96,11 +83,7 @@
         pkgs = legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs;
-          # gamingPkgs = inputs.nix-gaming.packages.x86_64-linux;
-          # myPkgs = inputs.nainai-overlay.packages.x86_64-linux;
           unstablePkgs = unstablePackages.x86_64-linux;
-          # codeium = inputs.codeium.packages.x86_64-linux;
-          # neovimPkgs = inputs.neovim-nightly.packages.x86_64-linux;
         };
         modules =
           (builtins.attrValues homeManagerModules)

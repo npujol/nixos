@@ -7,7 +7,6 @@
 
     userEmail = "naivy.luna@gmail.com";
     userName = "npujol";
-    # NOTE: Check this and add my rsa key
     signing.key = "/home/nainai/.ssh/id_ed25519.pub";
 
     ignores = [
@@ -60,7 +59,7 @@
 
     extraConfig = {
       protocol = {version = 2;};
-      
+
       rerere = {enabled = true;};
       status = {short = true;};
       diff = {
@@ -70,7 +69,7 @@
       push = {default = "current";};
       pull = {rebase = true;};
       rebase = {autoStash = true;};
-       gpg = {format = "ssh";};
+      gpg = {format = "ssh";};
       commit = {gpgsign = true;};
       tag = {gpgsign = true;};
       feature = {manyFiles = true;};
