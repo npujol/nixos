@@ -33,6 +33,3 @@ home-manager switch --flake . -b backup
 
 - Adding a new package in common file, [common.nix](./home/nainai/common.nix)
 - Adding a new package in nixos file, [nixos.nix](./home/nainai/nixos.nix)
-
-## Inspiration
-- [https://github.com/leiserfg/nix-config](https://github.com/leiserfg/nix-config)
