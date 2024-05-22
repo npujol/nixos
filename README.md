@@ -22,6 +22,10 @@ _How to update your system?_
 sudo nixos-rebuild boot --flake .
 ```
 
+This change automatically to the new version of the system.
+```bash
+sudo nixos-rebuild switch --flake .  
+```
 _How to update your home manager?_
 
 ###Step 4: Update your Home Manager configuration and create a backup. This changes doesn't need to reboot to apply the changes.
