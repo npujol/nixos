@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   virtualisation.docker.rootless = {
-    enable = false;
+    enable = true;
     setSocketVariable = true;
   };
 }
