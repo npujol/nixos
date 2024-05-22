@@ -92,6 +92,7 @@
     sshuttle
     autossh
     openssh
+    docker
     docker-compose
 
     # Media & Graphics
