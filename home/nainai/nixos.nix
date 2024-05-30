@@ -12,5 +12,6 @@
     audacity
     ddcutil
     flameshot
+    anki
   ];
 }
