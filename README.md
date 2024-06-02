@@ -33,6 +33,10 @@ _How to update your home manager?_
 home-manager switch --flake . -b backup
 ```
 
+- Update flake lock. All inputs will be updated.
+```bash
+nix flake update
+```
 ## Changing the configuration
 
 - Adding a new package in common file, [common.nix](./home/nainai/common.nix)
