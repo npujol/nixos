@@ -190,14 +190,12 @@
     defaultApplications = {
       "x-scheme-handler/tg" = "telegram.desktop";
       # TODO: Update the default applications
-      # "inode/directory" = "thunar.desktop";
-      # "inode/directory" = "pcmanfm.desktop";
-      # "text/x-python" = "code.desktop";
-      # "text/plain" = "code.desktop";
-      # "application/zip" = "xarchiver.desktop";
-      # "application/pdf" = "org.pwmt.zathura.desktop";
-      # "application/epub+zip" = "org.pwmt.zathura.desktop.desktop";
-      # # "image/*" = "com.github.weclaw1.ImageRoll.desktop";
+      "inode/directory" = "dolphin.desktop";
+      "text/x-python" = "code.desktop";
+      "text/plain" = "code.desktop";
+      "application/zip" = "xarchiver.desktop";
+      "application/pdf" = "okular.desktop";
+      "application/browser" = "brave.desktop";
     };
   };
 
