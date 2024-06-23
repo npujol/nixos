@@ -13,5 +13,6 @@
     ddcutil
     flameshot
     anki
+    obsidian
   ];
 }

@@ -199,30 +199,8 @@
     };
   };
 
-  #---------------------
-  # Clean up nix cache
-  #---------------------
-  systemd.user.services = {
-    shit_collector = {
-      Unit = {
-        Description = "Remove nix shit";
-      };
-      Service = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.nix}/bin/nix-collect-garbage --delete-older-than 10d";
-      };
-      Install.WantedBy = ["default.target"];
-    };
-  };
-  systemd.user.timers = {
-    shit_collector_chron = {
-      Unit.Description = "Remove nix shit";
-      Timer = {
-        Unit = "shit_collector";
-        OnBootSec = "15m";
-        OnUnitActiveSec = "1w";
-      };
-      Install.WantedBy = ["timers.target"];
-    };
-  };
+#---------------------
+# Clean up nix cache
+#---------------------
+  nix.gc.automatic = true;
 }
