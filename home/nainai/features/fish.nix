@@ -1,19 +1,24 @@
-{unstablePkgs, ...}: {
+
+{unstablePkgs, lib, ...}: {
   programs.fish = {
     enable = true;
     package = unstablePkgs.fish;
     interactiveShellInit = ''
     '';
     shellAliases = {
+      # Include here other aliases that you want to use only with fish
       "open" = "command xdg-open";
     };
   };
-  programs.zoxide = {
+
+  programs.fzf = {
     enable = true;
+    package = unstablePkgs.fzf;
   };
+
+  # https://starship.rs/guide/
   programs.starship = {
     enable = true;
-    enableTransience = true;
     settings = {
       add_newline = false;
       format = lib.concatStrings [
