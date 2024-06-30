@@ -7,12 +7,18 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs = {
     nixos-hardware,
     nixpkgs,
     home-manager,
+    plasma-manager,
     ...
   } @ inputs: let
     forAllSystems = nixpkgs.lib.genAttrs [
@@ -76,6 +82,18 @@
             ./hosts/nixos
           ];
       };
+      limbo = nixpkgs.lib.nixosSystem {
+        pkgs = legacyPackages.x86_64-linux;
+        specialArgs = {
+          inherit inputs;
+          unstablePkgs = unstablePackages.x86_64-linux;
+        };
+        modules =
+          (builtins.attrValues nixosModules)
+          ++ [
+            ./hosts/limbo
+          ];
+      };
     };
 
     homeConfigurations = {
@@ -88,10 +106,26 @@
         modules =
           (builtins.attrValues homeManagerModules)
           ++ [
+            inputs.plasma-manager.homeManagerModules.plasma-manager
             ./home/nainai/nixos.nix
           ];
+        };
+
+      "nainai@limbo" = home-manager.lib.homeManagerConfiguration {
+        pkgs = legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs;
+          unstablePkgs = unstablePackages.x86_64-linux;
+        };
+        modules =
+          (builtins.attrValues homeManagerModules)
+          ++ [
+            inputs.plasma-manager.homeManagerModules.plasma-manager
+            ./home/nainai/limbo.nix
+          ];
+       };
       };
-    };
+
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
   };
 }

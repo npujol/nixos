@@ -10,6 +10,9 @@
     ./features/cmds.nix
     ./features/mpv.nix
     ./features/git.nix
+    ./features/kitty.nix
+    ./features/fish.nix
+    ./features/kde.nix
   ];
 
   home = {
@@ -71,6 +74,7 @@
     rsync
     clinfo
     powertop
+    ncdu
 
     # Development Tools
     gcc
@@ -107,7 +111,8 @@
     xorg.xkill
     thefuck
 
-    # Virtualization & Emulation
+    # Virtualization & 
+    steam
     steam-run
     android-tools
 

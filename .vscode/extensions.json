@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+        "bbenoist.Nix",
+        "jnoortheen.nix-ide",
+        "GitHub.vscode-pull-request-github",
+        "mhutchie.git-graph",
+        "donjayamanne.githistory",
+        "waderyan.gitblame",
+        "DavidAnson.vscode-markdownlint",
+        "arrterian.nix-env-selector",
+    ],
+    "unwantedRecommendations": [
+        // Extensions that are explicitly not recommended can be added here
+    ]
+}
