@@ -7,12 +7,18 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs = {
     nixos-hardware,
     nixpkgs,
     home-manager,
+    plasma-manager,
     ...
   } @ inputs: let
     forAllSystems = nixpkgs.lib.genAttrs [
@@ -100,6 +106,7 @@
         modules =
           (builtins.attrValues homeManagerModules)
           ++ [
+            inputs.plasma-manager.homeManagerModules.plasma-manager
             ./home/nainai/nixos.nix
           ];
         };
@@ -113,6 +120,7 @@
         modules =
           (builtins.attrValues homeManagerModules)
           ++ [
+            inputs.plasma-manager.homeManagerModules.plasma-manager
             ./home/nainai/limbo.nix
           ];
        };

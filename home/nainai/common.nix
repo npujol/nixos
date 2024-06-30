@@ -12,6 +12,7 @@
     ./features/git.nix
     ./features/kitty.nix
     ./features/fish.nix
+    ./features/kde.nix
   ];
 
   home = {
