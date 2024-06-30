@@ -1,0 +1,5 @@
+{
+    "nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix",
+    "nix.serverPath": "",
+    "editor.defaultFormatter": "jnoortheen.nix-ide"
+}
