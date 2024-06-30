@@ -74,6 +74,7 @@
     rsync
     clinfo
     powertop
+    ncdu
 
     # Development Tools
     gcc
