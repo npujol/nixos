@@ -110,7 +110,8 @@
     xorg.xkill
     thefuck
 
-    # Virtualization & Emulation
+    # Virtualization & 
+    steam
     steam-run
     android-tools
 
