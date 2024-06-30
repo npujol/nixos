@@ -76,6 +76,18 @@
             ./hosts/nixos
           ];
       };
+      limbo = nixpkgs.lib.nixosSystem {
+        pkgs = legacyPackages.x86_64-linux;
+        specialArgs = {
+          inherit inputs;
+          unstablePkgs = unstablePackages.x86_64-linux;
+        };
+        modules =
+          (builtins.attrValues nixosModules)
+          ++ [
+            ./hosts/limbo
+          ];
+      };
     };
 
     homeConfigurations = {
@@ -90,8 +102,22 @@
           ++ [
             ./home/nainai/nixos.nix
           ];
+        };
+
+      "nainai@limbo" = home-manager.lib.homeManagerConfiguration {
+        pkgs = legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs;
+          unstablePkgs = unstablePackages.x86_64-linux;
+        };
+        modules =
+          (builtins.attrValues homeManagerModules)
+          ++ [
+            ./home/nainai/limbo.nix
+          ];
+       };
       };
-    };
+
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
   };
 }
