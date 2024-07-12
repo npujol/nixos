@@ -69,7 +69,6 @@
     gparted
     htop
     lf
-    fzf
     ripgrep
     rsync
     clinfo
@@ -107,7 +106,7 @@
     graphviz
 
     # Terminal & Shell
-    kitty
+    # kitty
     xorg.xkill
     thefuck
 
