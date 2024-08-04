@@ -68,6 +68,7 @@
     p7zip
     gparted
     htop
+    btop
     lf
     ripgrep
     rsync
