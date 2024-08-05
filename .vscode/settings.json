@@ -1,5 +1,26 @@
 {
-    "nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix",
-    "nix.serverPath": "",
-    "editor.defaultFormatter": "jnoortheen.nix-ide"
+    "nix.serverSettings": {
+        "nixd": {
+            "formatting": {
+                "command": [
+                    "nixpkgs-fmt"
+                ]
+            },
+            "options": {
+                // By default, this entriy will be read from `import <nixpkgs> { }`.
+                // You can write arbitary Nix expressions here, to produce valid "options" declaration result.
+                // Tip: for flake-based configuration, utilize `builtins.getFlake`
+                "nixos": {
+                    "expr": "(builtins.getFlake \"/absolute/path/to/flake\").nixosConfigurations.<name>.options"
+                },
+                "home-manager": {
+                    "expr": "(builtins.getFlake \"/absolute/path/to/flake\").homeConfigurations.<name>.options"
+                },
+                // Tip: use ${workspaceFolder} variable to define path
+                "nix-darwin": {
+                    "expr": "(builtins.getFlake \"${workspaceFolder}/path/to/flake\").darwinConfigurations.<name>.options"
+                }
+            }
+        }
+    }
 }
