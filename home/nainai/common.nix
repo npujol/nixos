@@ -127,6 +127,7 @@
     tdrop
     (unstablePkgs.tdesktop)
     alejandra
+    emanote
   ];
 
   programs = {
