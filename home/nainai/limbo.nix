@@ -15,6 +15,7 @@
     anki
     obsidian
     calibre
+    pencil
   ];
   services.syncthing.enable = true; # Enable the syncthing service
   services.syncthing.tray.enable = true; # Enable the syncthing tray
