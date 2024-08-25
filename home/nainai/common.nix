@@ -75,6 +75,8 @@
     clinfo
     powertop
     ncdu
+    freefilesync
+
 
     # Development Tools
     gcc
@@ -128,6 +130,7 @@
     (unstablePkgs.tdesktop)
     alejandra
     emanote
+    
   ];
 
   programs = {
