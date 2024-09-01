@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, myPkgs, ...}: {
   imports = [
     ./common.nix
   ];
@@ -16,6 +16,8 @@
     obsidian
     calibre
     pencil
+    wineWowPackages.staging
+    myPkgs.torzu
   ];
   services.syncthing.enable = true; # Enable the syncthing service
   services.syncthing.tray.enable = true; # Enable the syncthing tray
