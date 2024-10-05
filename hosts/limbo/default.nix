@@ -25,4 +25,11 @@
     xkb.layout = "us";
     xkb.variant = "altgr-intl";
   };
+    
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
+  };
 }
