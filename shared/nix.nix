@@ -2,7 +2,7 @@
   nix.gc.options = "--delete-older-than 14d";
   nix.settings = {
     auto-optimise-store = true;
-    experimental-features = ["nix-command" "flakes" "repl-flake"];
+    experimental-features = ["nix-command" "flakes"];
     substituters = [
       "https://cache.nixos.org"
       "https://leiserfg.cachix.org"
