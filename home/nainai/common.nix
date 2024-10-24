@@ -90,6 +90,9 @@
     git-lfs
     vscode
     (unstablePkgs.ruff)
+    minikube
+    kubernetes-helm
+    kubectl
 
     # Web Browsers
     brave
