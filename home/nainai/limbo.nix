@@ -16,7 +16,6 @@
     obsidian
     calibre
     pencil
-    wineWowPackages.staging
     myPkgs.torzu
   ];
   services.syncthing.enable = true; # Enable the syncthing service

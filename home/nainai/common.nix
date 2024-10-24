@@ -76,7 +76,7 @@
     powertop
     ncdu
     freefilesync
-
+    wineWowPackages.staging
 
     # Development Tools
     gcc
