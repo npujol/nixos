@@ -2,11 +2,13 @@
   programs.kitty = {
     enable = true;
     package = unstablePkgs.kitty;
-    theme = "Liquid Carbon Transparent";
+    themeFile = "LiquidCarbonTransparent";
+   
     font = {
       name = "Iosevka Term SS07";
       size = 14.0;
     };
+
     settings = {
       cursor = "none";
       font_features = "Iosevka-Term-SS07 +THND";

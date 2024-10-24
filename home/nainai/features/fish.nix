@@ -28,6 +28,12 @@
       git_branch.format = "[$symbol$branch(:$remote_branch)]($style)";
       python.format = "[\${symbol}\${version} ]($style)";
       python.symbol = " ";
+      golang.format = "[\${symbol}\${version} ]($style)";
+      golang.symbol = "🐹 ";
+      golang.detect_files = [
+        "go.mod"
+        "go.sum"
+      ];
       hostname.format = "@$hostname ";
       directory = {
         truncation_symbol = "…/";
@@ -35,6 +41,7 @@
 
       right_format = lib.concatStrings [
         "$python"
+        "$golang"
         "$hostname"
         "$aws"
         "$git_branch"
