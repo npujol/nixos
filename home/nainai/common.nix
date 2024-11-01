@@ -96,7 +96,8 @@
     k3s_1_31
     k3d
     neovim
-
+    rancher
+    
     # Web Browsers
     brave
 
