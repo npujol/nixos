@@ -94,6 +94,7 @@
     # kubernetes-helm
     # kubectl
     k3s_1_31
+    k3d
 
     # Web Browsers
     brave
