@@ -92,12 +92,13 @@
     (unstablePkgs.ruff)
     # minikube
     # kubernetes-helm
-    # kubectl
-    k3s_1_31
+    kubectl
+    # k3s_1_31
     k3d
     neovim
     rancher
-    
+    kubernetes-helm
+
     # Web Browsers
     brave
 
@@ -120,7 +121,7 @@
     xorg.xkill
     thefuck
 
-    # Virtualization & 
+    # Virtualization &
     steam
     steam-run
     android-tools
@@ -137,7 +138,6 @@
     (unstablePkgs.tdesktop)
     alejandra
     emanote
-    
   ];
 
   programs = {
@@ -215,8 +215,8 @@
     };
   };
 
-#---------------------
-# Clean up nix cache
-#---------------------
+  #---------------------
+  # Clean up nix cache
+  #---------------------
   nix.gc.automatic = true;
 }
