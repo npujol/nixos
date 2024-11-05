@@ -37,6 +37,9 @@
     nix-update
     cachix
     patool
+    libreoffice
+    inkscape
+    gimp
 
     # Python Packages
     python311Packages.ipython
