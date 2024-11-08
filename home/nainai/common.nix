@@ -37,9 +37,7 @@
     nix-update
     cachix
     patool
-    libreoffice
-    inkscape
-    gimp
+
 
     # Python Packages
     python311Packages.ipython
@@ -118,6 +116,7 @@
     inkscape
     ffmpeg-full
     graphviz
+    libreoffice
 
     # Terminal & Shell
     # kitty
@@ -141,6 +140,7 @@
     (unstablePkgs.tdesktop)
     alejandra
     emanote
+    keepassxc
   ];
 
   programs = {
