@@ -43,7 +43,8 @@
 
   programs.nix-ld = {
     enable = true;
-    libraries = (pkgs.steam-run.fhsenv.args.multiPkgs pkgs) ++ [pkgs.curl];
+    # NOTE: This dependencie was because of Don't Starve
+    # libraries = (pkgs.steam-run.fhsenv.args.multiPkgs pkgs) ++ [pkgs.curl];
   };
 
   environment.systemPackages = with pkgs; [
