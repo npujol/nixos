@@ -19,6 +19,10 @@
     package = unstablePkgs.fzf;
   };
 
+  programs.zoxide = {
+    enable = true;
+  };
+
   # https://starship.rs/guide/
   programs.starship = {
     enable = true;
