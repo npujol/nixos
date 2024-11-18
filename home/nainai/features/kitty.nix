@@ -13,7 +13,7 @@
       cursor = "none";
       font_features = "Iosevka-Term-SS07 +THND";
       tab_separator = "│";
-      enabled_layouts = "tall";
+      enabled_layouts = "tall,fat";
       enable_audio_bell = false;
 
       # Have to force it because some symbols are loaded from djavu otherwise
