@@ -45,7 +45,8 @@
 
     # Fonts
     (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
-    (unstablePkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+    unstablePkgs.nerd-fonts.symbols-only
+
     noto-fonts-emoji
     noto-fonts-cjk-sans
     noto-fonts
@@ -96,6 +97,7 @@
     rancher
     kubernetes-helm
     devenv
+    uv
 
     # Web Browsers
     brave
