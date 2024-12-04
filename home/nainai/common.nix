@@ -38,7 +38,6 @@
     cachix
     patool
 
-
     # Python Packages
     python311Packages.ipython
     python312
@@ -91,14 +90,12 @@
     git-lfs
     vscode
     (unstablePkgs.ruff)
-    # minikube
-    # kubernetes-helm
     kubectl
-    # k3s_1_31
     k3d
     neovim
     rancher
     kubernetes-helm
+    devenv
 
     # Web Browsers
     brave
@@ -141,6 +138,7 @@
     alejandra
     emanote
     keepassxc
+    calibre
   ];
 
   programs = {
