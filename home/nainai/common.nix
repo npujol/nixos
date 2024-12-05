@@ -183,6 +183,18 @@
 
   qt.enable = true;
 
+  services.trayscale = {
+    enable = true;
+  };
+
+  # Workaround to add a target in KDE
+  systemd.user.targets.tray = {
+    Unit = {
+      Description = "Home Manager System Tray";
+      Requires = ["graphical-session-pre.target"];
+    };
+  };
+
   home.sessionVariables = {
     BROWSER = "brave";
     TERMCMD = "kitty";
