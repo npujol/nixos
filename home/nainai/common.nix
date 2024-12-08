@@ -45,7 +45,7 @@
 
     # Fonts
     (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
-    unstablePkgs.nerd-fonts.symbols-only
+    (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
 
     noto-fonts-emoji
     noto-fonts-cjk-sans
