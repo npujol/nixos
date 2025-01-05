@@ -98,6 +98,7 @@
     kubernetes-helm
     devenv
     uv
+    lens
 
     # Web Browsers
     brave
