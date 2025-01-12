@@ -42,6 +42,8 @@
     python311Packages.ipython
     python312
     pipenv
+    python312Packages.gtts
+    xclip
 
     # Fonts
     (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
