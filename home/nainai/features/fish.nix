@@ -11,6 +11,8 @@
     shellAliases = {
       # Include here other aliases that you want to use only with fish
       "open" = "command xdg-open";
+      "switch-system" = "sudo nixos-rebuild switch --flake .";
+      "switch-home" = "home-manager switch --flake . -b backup";
     };
   };
 
