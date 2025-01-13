@@ -101,6 +101,7 @@
     devenv
     uv
     lens
+    kompose
 
     # Web Browsers
     brave
