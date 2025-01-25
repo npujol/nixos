@@ -159,7 +159,8 @@
     yt-dlp = {
       enable = true;
       settings = {
-        cookies-from-browser = "firefox";
+        # TODO: Review why the cookies are not working
+        # cookies-from-browser = "firefox";
         downloader = "aria2c";
       };
     };
