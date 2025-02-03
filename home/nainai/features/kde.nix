@@ -1,7 +1,6 @@
-{ pkgs, ... }:
-{ 
-    # Example: https://github.com/nix-community/plasma-manager/blob/trunk/examples/home.nix
-    programs.plasma = {
+{pkgs, ...}: {
+  # Example: https://github.com/nix-community/plasma-manager/blob/trunk/examples/home.nix
+  programs.plasma = {
     enable = true;
 
     #
@@ -14,9 +13,9 @@
       #   size = 32;
       # };
       iconTheme = "Breeze-Dark";
-      wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
+      wallpaper = "${./files/desktop.jpg}";
     };
-    
+
     hotkeys.commands."launch-kitty" = {
       name = "Launch Kitty";
       key = "F12";
