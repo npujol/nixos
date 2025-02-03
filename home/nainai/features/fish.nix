@@ -47,6 +47,7 @@
         "go.sum"
       ];
 
+      kubernetes.disabled = false;
       kubernetes.symbol = "⎈ ";
       kubernetes.format = " [$symbol$context( \\($namespace\\))]($style) ";
       kubernetes.style = "bright-blue";
