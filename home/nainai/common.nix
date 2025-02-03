@@ -94,6 +94,7 @@
     vscode
     (unstablePkgs.ruff)
     kubectl
+    kubectx
     k3d
     neovim
     rancher
