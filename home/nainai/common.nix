@@ -121,6 +121,7 @@
     ffmpeg-full
     graphviz
     libreoffice
+    zoom-us
 
     # Terminal & Shell
     # kitty
