@@ -233,7 +233,7 @@
       "text/plain" = "code.desktop";
       "application/zip" = "xarchiver.desktop";
       "application/pdf" = "okular.desktop";
-      "application/browser" = "brave.desktop";
+      "application/browser" = "firefox.desktop";
     };
   };
 
