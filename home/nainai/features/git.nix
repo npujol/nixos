@@ -1,5 +1,5 @@
 # Defines the git configurations
-{...}: {
+{lib, ...}: {
   programs.git = {
     enable = true;
     delta.enable = true;
@@ -8,6 +8,7 @@
     userEmail = "naivy.luna@gmail.com";
     userName = "npujol";
     signing.key = "/home/nainai/.ssh/id_ed25519.pub";
+    signing.format = "ssh";
 
     ignores = [
       ".direnv"
@@ -69,7 +70,6 @@
       push = {default = "current";};
       pull = {rebase = true;};
       rebase = {autoStash = true;};
-      gpg = {format = "ssh";};
       commit = {gpgsign = true;};
       tag = {gpgsign = true;};
       feature = {manyFiles = true;};
