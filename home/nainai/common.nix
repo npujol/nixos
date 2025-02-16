@@ -147,6 +147,7 @@
     emanote
     keepassxc
     calibre
+    glslviewer
   ];
 
   programs = {
