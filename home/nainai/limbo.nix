@@ -1,4 +1,8 @@
-{pkgs, myPkgs, ...}: {
+{
+  pkgs,
+  myPkgs,
+  ...
+}: {
   imports = [
     ./common.nix
   ];
@@ -16,9 +20,9 @@
     obsidian
     calibre
     pencil
-    myPkgs.glslviewer
     handbrake
     torzu
+    slack
   ];
   services.syncthing.enable = true; # Enable the syncthing service
   services.syncthing.tray.enable = true; # Enable the syncthing tray
