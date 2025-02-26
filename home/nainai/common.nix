@@ -150,6 +150,12 @@
     glslviewer
   ];
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-kde];
+    config.common.default = "*";
+  };
+
   programs = {
     home-manager.enable = true;
 
