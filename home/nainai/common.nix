@@ -135,7 +135,6 @@
 
     # Other Applications
     easyeffects
-    ollama
     (unstablePkgs.typst)
     nil
     doggo
@@ -148,6 +147,8 @@
     keepassxc
     calibre
     glslviewer
+    ollama-rocm
+    (unstablePkgs.llama-cpp.override {vulkanSupport = true;})
   ];
 
   xdg.portal = {
