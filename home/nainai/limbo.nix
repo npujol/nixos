@@ -23,6 +23,7 @@
     handbrake
     torzu
     slack
+    cheese
   ];
   services.syncthing.enable = true; # Enable the syncthing service
   services.syncthing.tray.enable = true; # Enable the syncthing tray
