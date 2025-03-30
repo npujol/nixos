@@ -103,6 +103,7 @@
     uv
     lens
     kompose
+    markdownlint-cli2
 
     # Web Browsers
     brave
@@ -218,6 +219,7 @@
     ALSOFT_DRIVERS = "pulse";
     # Disable qt decoration for telegram
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    NIXOS_OZONE_WL = 1;
   };
 
   #---------------------------------------------------------------------------
