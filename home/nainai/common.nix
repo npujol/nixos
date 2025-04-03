@@ -82,6 +82,7 @@
     unstablePkgs.wineWowPackages.staging
 
     # Development Tools
+    lua-language-server
     gcc
     rustup
     simple-http-server
