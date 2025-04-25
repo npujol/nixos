@@ -82,7 +82,8 @@
     unstablePkgs.wineWowPackages.staging
     aider-chat
     nix-du
-
+    markdownlint-cli
+    marksman
     # Development Tools
     lua-language-server
     gcc
