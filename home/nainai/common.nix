@@ -80,6 +80,8 @@
     ncdu
     freefilesync
     unstablePkgs.wineWowPackages.staging
+    aider-chat
+    nix-du
 
     # Development Tools
     lua-language-server
