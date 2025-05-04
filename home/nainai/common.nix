@@ -82,8 +82,18 @@
     unstablePkgs.wineWowPackages.staging
     aider-chat
     nix-du
+
+    # language-servers
     markdownlint-cli
     marksman
+    ansible-language-server
+    bash-language-server
+    docker-compose-language-service
+    golangci-lint-langserver
+    gopls
+    markdown-oxide
+    tinymist
+
     # Development Tools
     lua-language-server
     gcc
