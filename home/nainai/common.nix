@@ -47,7 +47,7 @@
 
     # Fonts
     (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
-    (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+    nerd-fonts.symbols-only
 
     noto-fonts-emoji
     noto-fonts-cjk-sans
@@ -163,12 +163,12 @@
     calibre
     glslviewer
     ollama-rocm
-    (unstablePkgs.llama-cpp.override {vulkanSupport = true;})
+    # (unstablePkgs.llama-cpp.override {vulkanSupport = true;})
   ];
 
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-kde];
+    extraPortals = [pkgs.kdePackages.xdg-desktop-portal-kde];
     config.common.default = "*";
   };
 

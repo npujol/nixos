@@ -21,7 +21,7 @@
     calibre
     pencil
     handbrake
-    torzu
+    myPkgs.torzu
     slack
     cheese
   ];
