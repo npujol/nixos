@@ -163,6 +163,8 @@
     calibre
     glslviewer
     ollama-rocm
+    blender
+    freecad
     # (unstablePkgs.llama-cpp.override {vulkanSupport = true;})
   ];
 
