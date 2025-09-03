@@ -165,6 +165,8 @@
     ollama-rocm
     blender
     freecad
+    godot
+    croc
     # (unstablePkgs.llama-cpp.override {vulkanSupport = true;})
   ];
 
