@@ -167,6 +167,7 @@
     freecad
     godot
     croc
+    krita
     # (unstablePkgs.llama-cpp.override {vulkanSupport = true;})
   ];
 
