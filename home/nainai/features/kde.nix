@@ -11,5 +11,11 @@
       iconTheme = "Breeze-Dark";
       wallpaper = "${./files/desktop.jpg}";
     };
+    panels = [
+      {
+        location = "right";
+        hiding = "autohide";
+      }
+    ];
   };
 }
