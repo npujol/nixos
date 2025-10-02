@@ -3,6 +3,7 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }: {
   imports = [
@@ -171,6 +172,8 @@
     tree-sitter
     nodejs_24
     hugo
+    inputs.plasma-manager.packages.${pkgs.system}.rc2nix
+    wl-clipboard
     # (unstablePkgs.llama-cpp.override {vulkanSupport = true;})
   ];
 
