@@ -168,6 +168,9 @@
     godot
     croc
     krita
+    tree-sitter
+    nodejs_24
+    hugo
     # (unstablePkgs.llama-cpp.override {vulkanSupport = true;})
   ];
 
@@ -231,9 +234,9 @@
   };
 
   home.sessionVariables = {
-    BROWSER = "brave";
+    BROWSER = "firefox";
     TERMCMD = "kitty";
-    EDITOR = "code";
+    EDITOR = "neovim";
     # Fix telegram input
     ALSOFT_DRIVERS = "pulse";
     # Disable qt decoration for telegram
@@ -263,6 +266,7 @@
       "application/zip" = "xarchiver.desktop";
       "application/pdf" = "okular.desktop";
       "application/browser" = "firefox.desktop";
+      "text/html" = "firefox.desktop";
     };
   };
 
