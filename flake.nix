@@ -104,6 +104,7 @@
         extraSpecialArgs = {
           inherit inputs;
           unstablePkgs = unstablePackages.x86_64-linux;
+          myPkgs = inputs.leiserfg-overlay.packages.x86_64-linux;
         };
         modules =
           (builtins.attrValues homeManagerModules)
