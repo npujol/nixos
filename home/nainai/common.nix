@@ -4,6 +4,7 @@
   pkgs,
   config,
   inputs,
+  myPkgs,
   ...
 }: {
   imports = [
@@ -174,6 +175,7 @@
     hugo
     inputs.plasma-manager.packages.${pkgs.system}.rc2nix
     wl-clipboard
+    myPkgs.wl_shimeji
     # (unstablePkgs.llama-cpp.override {vulkanSupport = true;})
   ];
 
