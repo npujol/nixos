@@ -128,6 +128,21 @@
             ./home/nainai/limbo.nix
           ];
       };
+
+      "k8os@k8os" = home-manager.lib.homeManagerConfiguration {
+        pkgs = legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs;
+          unstablePkgs = unstablePackages.x86_64-linux;
+          myPkgs = inputs.leiserfg-overlay.packages.x86_64-linux;
+        };
+        modules =
+          (builtins.attrValues homeManagerModules)
+          ++ [
+            inputs.plasma-manager.homeManagerModules.plasma-manager
+            ./home/k8os/k8os.nix
+          ];
+      };
     };
 
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
