@@ -96,6 +96,18 @@
             ./hosts/limbo
           ];
       };
+      k8os = nixpkgs.lib.nixosSystem {
+        pkgs = legacyPackages.x86_64-linux;
+        specialArgs = {
+          inherit inputs;
+          unstablePkgs = unstablePackages.x86_64-linux;
+        };
+        modules =
+          (builtins.attrValues nixosModules)
+          ++ [
+            ./hosts/k8os
+          ];
+      };
     };
 
     homeConfigurations = {
