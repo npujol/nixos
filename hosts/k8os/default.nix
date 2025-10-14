@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -11,7 +11,16 @@
 
   networking.hostName = "k8os";
 
+  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  # hardware.nvidia.open = true;
+  # services.xserver.videoDrivers = ["nvidia"];
+
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+      zenpower
+  ];
   programs.fish.enable = true;
+
+  # services.tuned.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
