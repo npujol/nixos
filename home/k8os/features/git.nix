@@ -7,7 +7,7 @@
 
     userEmail = "naivy.luna@gmail.com";
     userName = "npujol";
-    signing.key = "/home/nainai/.ssh/id_ed25519.pub";
+    signing.key = "/home/k8os/.ssh/id_ed25519.pub";
     signing.format = "ssh";
 
     ignores = [

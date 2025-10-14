@@ -103,6 +103,7 @@
     pkgs.clinfo
     pkgs.powertop
     pkgs.bc
+    pkgs.firefox
   ];
 
   #--------------------------------------------------------------------
@@ -111,6 +112,7 @@
   programs = {
     home-manager.enable = true;
     fzf.enable = true;
+    firefox.enable = true;
   };
 
   # User-level systemd services

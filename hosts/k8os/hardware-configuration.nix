@@ -1,9 +1,11 @@
 {...}: {
   imports = [];
 
-  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "thunderbolt"];
-  boot.kernelModules = ["kvm-amd" "i2c-dev"];
-  boot.initrd.kernelModules = ["amdgpu"];
+  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
+  boot.kernelModules = ["kvm-amd" "i2c-dev" "88x2bu"];
+  boot.extraModulePackages = [
+     config.boot.kernelPackages.rtl88x2bu
+  ];
 
   boot.kernel.sysctl."vm.max_map_count" = 544288;
 
@@ -12,13 +14,13 @@
   nixpkgs.hostPlatform.system = "x86_64-linux";
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/bafbfe48-b336-4f45-bb4e-1385e17b63f0";
+    device = "/dev/disk/by-uuid/1354e448-28a6-4309-a535-ec4bfb517896";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/0B75-C67A";
     fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
+    options = ["fmask=0077" "dmask=0077"];
   };
 }
