@@ -2,10 +2,8 @@
   imports = [];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
-  boot.kernelModules = ["kvm-amd" "i2c-dev" "88x2bu"];
-  boot.extraModulePackages = [
-     config.boot.kernelPackages.rtl88x2bu
-  ];
+  boot.kernelModules = ["kvm-amd" "i2c-dev"];
+  boot.extraModulePackages = [];
 
   boot.kernel.sysctl."vm.max_map_count" = 544288;
 

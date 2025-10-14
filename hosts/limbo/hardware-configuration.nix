@@ -21,10 +21,9 @@
     fsType = "vfat";
     options = ["fmask=0022" "dmask=0022"];
   };
-  
+
   fileSystems."/home" = {
-     device = "/dev/disk/by-uuid/c4d0a86d-6982-4c3a-b278-8a920a023c81";
+    device = "/dev/disk/by-uuid/c4d0a86d-6982-4c3a-b278-8a920a023c81";
     fsType = "ext4";
   };
-
 }
