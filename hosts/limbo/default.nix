@@ -5,6 +5,7 @@
     ../common/global
     ../common/users/nainai.nix
     ../common/features/docker.nix
+    ../common/features/talos-homelab.nix
   ];
 
   hardware.cpu.amd.updateMicrocode = true;
