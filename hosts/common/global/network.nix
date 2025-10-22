@@ -14,6 +14,7 @@
     };
 
     useDHCP = false;
-    firewall.enable = false;
+    firewall.enable = true;
   };
 }
+

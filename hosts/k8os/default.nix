@@ -5,6 +5,7 @@
     ../common/global
     ../common/users/k8os.nix
     ../common/features/docker.nix
+    ../common/features/talos-homelab.nix
   ];
 
   hardware.cpu.amd.updateMicrocode = true;
@@ -16,7 +17,7 @@
   # services.xserver.videoDrivers = ["nvidia"];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
-      zenpower
+    zenpower
   ];
   programs.fish.enable = true;
 
