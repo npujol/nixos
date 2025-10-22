@@ -7,15 +7,14 @@
     qemu.package = pkgs.qemu_kvm;
   };
 
-  # Enable KVM for AMD
-  boot.extraModprobeConfig = "options kvm_amd nested=1";
+  boot.extraModprobeConfig = "options kvm_intel nested=1";
 
   # Install tools
   environment.systemPackages = with pkgs; [
-    virt-manager
-    kubectl
-    kubernetes-helm
-    talosctl
+    # virt-manager
+    # kubectl
+    # kubernetes-helm
+    # talosctl
   ];
 
   # Allow libvirt networking

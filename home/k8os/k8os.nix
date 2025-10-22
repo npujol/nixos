@@ -10,6 +10,15 @@
   # Here are all the packages that should only be in the desktop configuration
   #--------------------------------------------------------------------------
   home.packages = with pkgs; [
-    # pgcli
+    virt-manager
+    kubectl
+    kubernetes-helm
+    talosctl
+    virtiofsd
+    bridge-utils
+    dnsmasq
+    curl
+    wget
+    jq
   ];
 }
