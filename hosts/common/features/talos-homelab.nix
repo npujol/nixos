@@ -13,6 +13,7 @@
 
   # Install tools
   environment.systemPackages = with pkgs; [
+    pkgs.virt-manager
   ];
 
   # Allow libvirt networking
@@ -20,4 +21,6 @@
     checkReversePath = false;
     trustedInterfaces = ["virbr0"];
   };
+
+  programs.virt-manager.enable = true;
 }

@@ -32,7 +32,7 @@
         # Check if VM exists
         if ! ${pkgs.libvirt}/bin/virsh list --all | grep -q "${name}"; then
           # Create VM
-          ${pkgs.libvirt}/bin/virt-install \
+          ${pkgs.virt-manager}/bin/virt-install \
             --name ${name} \
             --memory ${toString memory} \
             --vcpus ${toString vcpus} \
