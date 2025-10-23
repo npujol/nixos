@@ -22,5 +22,17 @@
     trustedInterfaces = ["virbr0"];
   };
 
+  networking = {
+    bridges = {
+      br0 = {
+        interfaces = [ "enp37s0" ];
+      };
+    };
+    # Apply network configuration to the bridge
+    interfaces.br0 = {
+      useDHCP = true;
+    };
+  };
+
   programs.virt-manager.enable = true;
 }

@@ -38,7 +38,7 @@
             --vcpus ${toString vcpus} \
             --disk path=${diskPath},bus=virtio \
             --network bridge=br0,mac=${mac},model=virtio \
-            --cdrom ~/Downloads/talos-v1.8.1.iso \
+            --location /var/lib/libvirt/images/talos-v1.8.1.iso \
             --boot uefi \
             --graphics none \
             --console pty,target_type=serial \
