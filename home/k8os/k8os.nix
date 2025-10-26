@@ -5,7 +5,6 @@
 }: {
   imports = [
     ./common.nix
-    # ./features/talos-vms.nix
   ];
   #--------------------------------------------------------------------------
   # Here are all the packages that should only be in the desktop configuration
@@ -22,8 +21,6 @@
     curl
     wget
     jq
-    immich
+    alejandra
   ];
-  services.immich.enable = true;
-  services.immich.port = 2283;
 }
