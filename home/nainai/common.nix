@@ -34,151 +34,101 @@
   home.packages = with pkgs;
   with builtins;
   with lib; [
-    # Package Management & Utilities
-    util-linux
-    nix-update
-    cachix
-    patool
-    opencommit
-
-    # Python Packages
-    python311Packages.ipython
-    python312
-    pipenv
-    # python312Packages.gtts
-    xclip
-
-    # Fonts
-    (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
-    nerd-fonts.symbols-only
-
-    noto-fonts-color-emoji
-    noto-fonts-cjk-sans
-    noto-fonts
-
-    # System Utilities
-    pciutils
-    unzip
-    dmidecode
-    bc
-    jq
-    usbutils
-    wget
-    nmap
-    lm_sensors
-    lsof
-    file
-    unrar
-    aria2
-    zpaq
-    p7zip
-    gparted
-    htop
-    btop
-    lf
-    ripgrep
-    rsync
-    clinfo
-    powertop
-    ncdu
-    freefilesync
-    unstablePkgs.wineWowPackages.staging
     aider-chat
-    nix-du
-
-    # language-servers
-    markdownlint-cli
-    marksman
-    bash-language-server
-    docker-compose-language-service
-    golangci-lint-langserver
-    gopls
-    markdown-oxide
-    tinymist
-
-    # Development Tools
-    lua-language-server
-    gcc
-    rustup
-    simple-http-server
-    delta
-    gh
-    git
-    git-standup
-    git-absorb
-    git-lfs
-    vscode
-    (unstablePkgs.ruff)
-    kubectl
-    kubectx
-    # k3d
-    neovim
-    rancher
-    kubernetes-helm
-    devenv
-    uv
-    # lens
-    kompose
-    markdownlint-cli2
-
-    # Web Browsers
-
-    # brave
-    # Networking Tools
-    sshuttle
+    alejandra
+    anki
+    aria2
+    audacity
     autossh
-    openssh
+    bash-language-server
+    bc
+    btop
+    cachix
+    calibre
+    cheese
+    clinfo
+    croc
+    ddcutil
+    delta
+    devenv
+    dmidecode
     docker
     docker-compose
-    ollama
-
-    # Media & Graphics
-    # TODO reenable?
-    # darktable
-    # gimp
-    # inkscape
-    # ffmpeg-full
-    # graphviz
-
-    # calibre
-    # glslviewer
-    # ollama-rocm
-    # blender
-    # freecad
-    # godot
-    # libreoffice
-    # zoom-us
-
-    # Terminal & Shell
-    # kitty
-
-    # Virtualization &
-    # steam
-    # steam-run
-    # android-tools
-
-    # Other Applications
-    # easyeffects
-
-    (unstablePkgs.typst)
-    nil
+    docker-compose-language-service
     doggo
-    anki
-    xh
-    tdrop
-    (unstablePkgs.telegram-desktop)
-    alejandra
-    # emanote
-    keepassxc
-    croc
-    # krita
-    tree-sitter
-    nodejs_24
+    file
+    flameshot
+    freefilesync
+    gcc
+    gh
+    git
+    git-absorb
+    git-lfs
+    git-standup
+    gopls
+    golangci-lint-langserver
+    gparted
+    htop
     hugo
     inputs.plasma-manager.packages.${pkgs.system}.rc2nix
-    wl-clipboard
+    jq
+    kubectl
+    kubectx
+    kubernetes-helm
+    lf
+    lm_sensors
+    lsof
+    lua-language-server
+    markdown-oxide
+    markdownlint-cli
+    markdownlint-cli2
     myPkgs.wl_shimeji
-    # (unstablePkgs.llama-cpp.override {vulkanSupport = true;})
+    ncdu
+    neovim
+    nerd-fonts.symbols-only
+    nil
+    nmap
+    nodejs_24
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-color-emoji
+    obsidian
+    ollama
+    opencommit
+    openssh
+    p7zip
+    patool
+    pciutils
+    pgcli
+    pipenv
+    powertop
+    pre-commit
+    python311Packages.ipython
+    python312
+    rancher
+    ripgrep
+    rsync
+    rustup
+    simple-http-server
+    sshuttle
+    tdrop
+    tinymist
+    tree-sitter
+    unrar
+    unzip
+    uv
+    util-linux
+    vscode
+    wget
+    wl-clipboard
+    xclip
+    xh
+    zpaq
+    (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
+    (unstablePkgs.ruff)
+    (unstablePkgs.telegram-desktop)
+    (unstablePkgs.typst)
+    (unstablePkgs.wineWowPackages.staging)
   ];
 
   xdg.portal = {
@@ -189,30 +139,20 @@
 
   programs = {
     home-manager.enable = true;
-
     fzf.enable = true;
-
-    firefox = {
-      enable = true;
+    firefox.enable = true;
+    bat.enable = true;
+    direnv.enable = true;
+    direnv.nix-direnv.enable = true;
+    git = {
+      signing.key = "/home/nainai/.ssh/id_ed25519.pub";
     };
-
     yt-dlp = {
       enable = true;
       settings = {
-        # TODO: Review why the cookies are not working
-        # cookies-from-browser = "firefox";
+        cookies-from-browser = "firefox";
         downloader = "aria2c";
       };
-    };
-
-    bat = {
-      enable = true;
-    };
-    direnv.enable = true;
-    direnv.nix-direnv.enable = true;
-
-    git = {
-      signing.key = "/home/nainai/.ssh/id_ed25519.pub";
     };
   };
 
@@ -237,6 +177,8 @@
     enable = true;
   };
 
+  services.syncthing.enable = true; # Enable the syncthing service
+  services.syncthing.tray.enable = true; # Enable the syncthing tray
   # Workaround to add a target in KDE
   systemd.user.targets.tray = {
     Unit = {
@@ -260,7 +202,7 @@
   # In this section we configure the user services, such as: mpris-proxy, etc.
   #---------------------------------------------------------------------------
   services = {
-    # mpris-proxy.enable = true;
+    ollama.enable = true;
   };
 
   # Force Rewrite
@@ -286,9 +228,4 @@
     url = "https://ftp.nluug.nl/pub/vim/runtime/spell/de.utf-8.spl";
     sha256 = "sha256:1ld3hgv1kpdrl4fjc1wwxgk4v74k8lmbkpi1x7dnr19rldz11ivk";
   };
-
-  #---------------------
-  # Clean up nix cache
-  #---------------------
-  # nix.gc.automatic = true;
 }
