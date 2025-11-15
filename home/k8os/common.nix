@@ -64,7 +64,6 @@
 
     # --- Development & Version Control ---
     pkgs.git
-    pkgs.gh # GitHub CLI
     pkgs.delta # Git diff viewer
     pkgs.git-standup
     pkgs.git-absorb
@@ -85,6 +84,7 @@
     pkgs.kubectx
     pkgs.kubernetes-helm
     pkgs.kompose
+    pkgs.talosctl
 
     # --- Networking ---
     pkgs.nmap
@@ -93,10 +93,18 @@
     pkgs.autossh
     pkgs.openssh
     pkgs.simple-http-server
+    pkgs.dnsmasq
+    pkgs. bridge-utils
 
     # --- Nix Ecosystem ---
     pkgs.nix-update
     pkgs.cachix
+    pkgs.alejandra
+
+    # --- Virtualization ---
+    pkgs.virt-manager
+    pkgs.talosctl
+    pkgs.virtiofsd
 
     # --- Misc Hardware/System ---
     pkgs.dmidecode
@@ -128,6 +136,6 @@
   #--------------------------------------------------------------------
   home.sessionVariables = {
     EDITOR = "neovim";
-    TERMCMD = "kitty"; # Specifies kitty as the default terminal for other apps
+    TERMCMD = "kitty";
   };
 }
