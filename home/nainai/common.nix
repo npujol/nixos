@@ -39,19 +39,20 @@
     nix-update
     cachix
     patool
+    opencommit
 
     # Python Packages
     python311Packages.ipython
     python312
     pipenv
-    python312Packages.gtts
+    # python312Packages.gtts
     xclip
 
     # Fonts
     (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
     nerd-fonts.symbols-only
 
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     noto-fonts-cjk-sans
     noto-fonts
 
@@ -110,64 +111,67 @@
     (unstablePkgs.ruff)
     kubectl
     kubectx
-    k3d
+    # k3d
     neovim
     rancher
     kubernetes-helm
     devenv
     uv
-    lens
+    # lens
     kompose
     markdownlint-cli2
 
     # Web Browsers
-    brave
 
+    # brave
     # Networking Tools
     sshuttle
     autossh
     openssh
     docker
     docker-compose
+    ollama
 
     # Media & Graphics
-    darktable
-    gimp
-    inkscape
-    ffmpeg-full
-    graphviz
-    libreoffice
-    zoom-us
+    # TODO reenable?
+    # darktable
+    # gimp
+    # inkscape
+    # ffmpeg-full
+    # graphviz
+
+    # calibre
+    # glslviewer
+    # ollama-rocm
+    # blender
+    # freecad
+    # godot
+    # libreoffice
+    # zoom-us
 
     # Terminal & Shell
     # kitty
-    xorg.xkill
 
     # Virtualization &
-    steam
-    steam-run
-    android-tools
+    # steam
+    # steam-run
+    # android-tools
 
     # Other Applications
-    easyeffects
+    # easyeffects
+
     (unstablePkgs.typst)
     nil
     doggo
     anki
     xh
     tdrop
-    (unstablePkgs.tdesktop)
+    (unstablePkgs.telegram-desktop)
     alejandra
     # emanote
     keepassxc
-    calibre
-    glslviewer
-    ollama-rocm
-    blender
-    freecad
-    godot
     croc
-    krita
+    # krita
     tree-sitter
     nodejs_24
     hugo
@@ -211,6 +215,7 @@
   fonts.fontconfig.enable = true;
 
   gtk = {
+    gtk2.enable = false;
     enable = true;
     iconTheme = {
       package = pkgs.papirus-icon-theme;
@@ -281,5 +286,5 @@
   #---------------------
   # Clean up nix cache
   #---------------------
-  nix.gc.automatic = true;
+  # nix.gc.automatic = true;
 }
