@@ -57,3 +57,10 @@ nix flake update
 ```bash
 nix-shell
 ```
+
+# TODO
+
+- [ ] move to common repeated user configs
+- [ ] clean packages and split it between the different hosts
+- [ ] run ollama service, use ollama-roc in limbo host
+- [ ] rename nixos host to fnixy
