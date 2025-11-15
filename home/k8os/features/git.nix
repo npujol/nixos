@@ -1,12 +1,12 @@
 # Defines the git configurations
 {lib, ...}: {
+  programs.delta.enableGitIntegration = true;
   programs.git = {
     enable = true;
-    delta.enable = true;
     lfs.enable = true;
 
-    userEmail = "naivy.luna@gmail.com";
-    userName = "npujol";
+    settings.user.email = "naivy.luna@gmail.com";
+    settings.user.name = "npujol";
     signing.key = "/home/k8os/.ssh/id_ed25519.pub";
     signing.format = "ssh";
 
@@ -15,11 +15,7 @@
       ".envrc"
     ];
 
-    aliases = {
-      # st = "status -sb";
-    };
-
-    extraConfig = {
+    settings = {
       protocol = {version = 2;};
 
       rerere = {enabled = true;};
