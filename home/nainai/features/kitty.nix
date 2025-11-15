@@ -8,7 +8,12 @@
       name = "Iosevka Term SS07";
       size = 14.0;
     };
-
+    quickAccessTerminalConfig = {
+      # start_as_hidden = false;
+      # hide_on_focus_loss = false;
+      background_opacity = 0.95;
+      lines = 45;
+    };
     settings = {
       cursor = "none";
       font_features = "Iosevka-Term-SS07 +THND";
