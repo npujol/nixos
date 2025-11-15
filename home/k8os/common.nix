@@ -1,11 +1,11 @@
 {pkgs, ...}: {
   imports = [
     ../../shared/nix.nix
-    ./features/cmds.nix
-    ./features/git.nix
-    ./features/fish.nix
-    ./features/kitty.nix
-    ./features/kde.nix
+    ../common/features/cmds.nix
+    ../common/features/git.nix
+    ../common/features/fish.nix
+    ../common/features/kitty.nix
+    ../common/features/kde.nix
   ];
 
   #--------------------------------------------------------------------
@@ -113,12 +113,14 @@
     home-manager.enable = true;
     fzf.enable = true;
     firefox.enable = true;
+    git = {
+      signing.key = "/home/k8os/.ssh/id_ed25519.pub";
+    };
   };
 
   # User-level systemd services
   services = {
     trayscale.enable = true;
-    # mpris-proxy.enable = true;
   };
 
   #--------------------------------------------------------------------

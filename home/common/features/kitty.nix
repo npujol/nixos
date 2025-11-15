@@ -4,10 +4,8 @@
     package = unstablePkgs.kitty;
     themeFile = "Novel";
     quickAccessTerminalConfig = {
-      start_as_hidden = false;
-      hide_on_focus_loss = false;
       background_opacity = 0.95;
-      lines = 25;
+      lines = 60;
     };
 
     settings = {

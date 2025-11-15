@@ -7,7 +7,6 @@
 
     settings.user.email = "naivy.luna@gmail.com";
     settings.user.name = "npujol";
-    signing.key = "/home/k8os/.ssh/id_ed25519.pub";
     signing.format = "ssh";
 
     ignores = [

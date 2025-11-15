@@ -9,12 +9,12 @@
 }: {
   imports = [
     ../../shared/nix.nix
-    ./features/cmds.nix
-    ./features/mpv.nix
-    ./features/git.nix
-    ./features/kitty.nix
-    ./features/fish.nix
-    ./features/kde.nix
+    ../common/features/cmds.nix
+    ../common/features/mpv.nix
+    ../common/features/git.nix
+    ../common/features/kitty.nix
+    ../common/features/fish.nix
+    ../common/features/kde.nix
   ];
 
   home = {
@@ -210,6 +210,10 @@
     };
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
+
+    git = {
+      signing.key = "/home/nainai/.ssh/id_ed25519.pub";
+    };
   };
 
   fonts.fontconfig.enable = true;
