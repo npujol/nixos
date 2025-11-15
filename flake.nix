@@ -48,7 +48,7 @@
     nixosModules = import ./modules/nixos;
     # Reusable home-manager modules you might want to export
     # These are usually stuff you would upstream into home-manager
-    homeManagerModules = import ./modules/home-manager;
+    homeModules = import ./modules/home-manager;
 
     # Devshell for bootstrapping
     # Accessible through 'nix develop' or 'nix-shell' (legacy)
@@ -119,9 +119,9 @@
           myPkgs = inputs.leiserfg-overlay.packages.x86_64-linux;
         };
         modules =
-          (builtins.attrValues homeManagerModules)
+          (builtins.attrValues homeModules)
           ++ [
-            inputs.plasma-manager.homeManagerModules.plasma-manager
+            inputs.plasma-manager.homeModules.plasma-manager
             ./home/nainai/nixos.nix
           ];
       };
@@ -134,9 +134,9 @@
           myPkgs = inputs.leiserfg-overlay.packages.x86_64-linux;
         };
         modules =
-          (builtins.attrValues homeManagerModules)
+          (builtins.attrValues homeModules)
           ++ [
-            inputs.plasma-manager.homeManagerModules.plasma-manager
+            inputs.plasma-manager.homeModules.plasma-manager
             ./home/nainai/limbo.nix
           ];
       };
@@ -149,9 +149,9 @@
           myPkgs = inputs.leiserfg-overlay.packages.x86_64-linux;
         };
         modules =
-          (builtins.attrValues homeManagerModules)
+          (builtins.attrValues homeModules)
           ++ [
-            inputs.plasma-manager.homeManagerModules.plasma-manager
+            inputs.plasma-manager.homeModules.plasma-manager
             ./home/k8os/k8os.nix
           ];
       };

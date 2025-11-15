@@ -88,7 +88,6 @@
     # language-servers
     markdownlint-cli
     marksman
-    ansible-language-server
     bash-language-server
     docker-compose-language-service
     golangci-lint-langserver
@@ -143,7 +142,6 @@
     # Terminal & Shell
     # kitty
     xorg.xkill
-    thefuck
 
     # Virtualization &
     steam
@@ -160,7 +158,7 @@
     tdrop
     (unstablePkgs.tdesktop)
     alejandra
-    emanote
+    # emanote
     keepassxc
     calibre
     glslviewer
