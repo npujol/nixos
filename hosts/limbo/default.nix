@@ -22,6 +22,8 @@
     xkb.variant = "altgr-intl";
   };
 
+  programs.nh.flake = "/home/nainai/projects/nixos";
+
   services.sunshine = {
     enable = true;
     autoStart = true;
