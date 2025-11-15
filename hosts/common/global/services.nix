@@ -9,9 +9,6 @@
       rulesProvider = pkgs.ananicy-rules-cachyos;
     };
     openssh.enable = true;
-    udev.packages = [
-      pkgs.android-udev-rules
-    ];
     dbus.implementation = "broker";
     power-profiles-daemon.enable = true;
   };
