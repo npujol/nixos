@@ -50,32 +50,43 @@
   home.packages = with pkgs;
   with builtins;
   with lib; [
-    aider-chat
-    alejandra
-    anki
+    ##### System Utilities / CLI Tools #####
     aria2
-    audacity
     autossh
-    bash-language-server
     bc
     btop
     cachix
-    calibre
-    cheese
     clinfo
-    croc
     ddcutil
-    delta
-    devenv
     dmidecode
+    doggo
+    file
+    gcc
+    htop
+    lm_sensors
+    lsof
+    ncdu
+    nmap
+    patool
+    pciutils
+    powertop
+    ripgrep
+    rsync
+    simple-http-server
+    tdrop
+    unrar
+    unzip
+    util-linux
+    wget
+    xh
+    zpaq
+
+    ##### Development Tools #####
+    bash-language-server
+    delta
     docker
     docker-compose
     docker-compose-language-service
-    doggo
-    file
-    flameshot
-    freefilesync
-    gcc
     gh
     git
     git-absorb
@@ -83,70 +94,73 @@
     git-standup
     gopls
     golangci-lint-langserver
-    gparted
-    htop
-    hugo
-    inputs.plasma-manager.packages.${pkgs.stdenv.hostPlatform.system}.rc2nix
     jq
-    kubectl
-    kubectx
-    kubernetes-helm
-    lf
-    lm_sensors
-    lsof
     lua-language-server
-    markdown-oxide
-    markdownlint-cli
-    markdownlint-cli2
-    myPkgs.wl_shimeji
-    ncdu
-    neovim
-    nerd-fonts.symbols-only
     nil
-    nmap
     nodejs_24
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-color-emoji
-    obsidian
-    ollama
     opencommit
-    openssh
-    p7zip
-    patool
-    pciutils
-    pgcli
     pipenv
-    powertop
     pre-commit
     python311Packages.ipython
     python312
-    rancher
-    ripgrep
-    rsync
     rustup
-    simple-http-server
-    sshuttle
-    tdrop
-    tinymist
     tree-sitter
-    unrar
-    unzip
     uv
-    util-linux
+
+    ##### DevOps / Cloud / Kubernetes #####
+    croc
+    devenv
+    kubectl
+    kubectx
+    kubernetes-helm
+    ollama
+    openssh
+    rancher
+    sshuttle
+
+    ##### Editor & Writing / Markdown #####
+    markdown-oxide
+    markdownlint-cli
+    markdownlint-cli2
+    neovim
+    obsidian
     vscode
-    wget
+
+    ##### Fonts #####
+    nerd-fonts.symbols-only
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-color-emoji
+    (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
+
+    ##### Multimedia / GUI Tools #####
+    audacity
+    cheese
+    flameshot
+    freefilesync
+    gparted
+    p7zip
+    tinymist
+
+    ##### Apps / Productivity #####
+    aider-chat
+    alejandra
+    anki
+    calibre
+    hugo
+    myPkgs.wl_shimeji
     wl-clipboard
     xclip
-    xh
-    zpaq
-    (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
+
+    ##### Plasma Manager #####
+    inputs.plasma-manager.packages.${pkgs.stdenv.hostPlatform.system}.rc2nix
+
+    ##### Unstable Packages #####
     (unstablePkgs.ruff)
     (unstablePkgs.telegram-desktop)
     (unstablePkgs.typst)
     (unstablePkgs.wineWowPackages.staging)
   ];
-
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration
   #--------------------------------------------------------------------
