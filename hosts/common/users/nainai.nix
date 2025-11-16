@@ -9,7 +9,11 @@ in {
   users.users.nainai = {
     isNormalUser = true;
     description = "nainai";
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
     shell = pkgs.fish;
   };
 }
