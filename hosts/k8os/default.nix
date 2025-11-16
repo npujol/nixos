@@ -17,6 +17,7 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [
     zenpower
   ];
+  programs.nh.flake = "/home/k8os/nixos";
 
   users.users.immich.extraGroups = [
     "video"
