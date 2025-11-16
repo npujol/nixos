@@ -16,14 +16,25 @@
     ../common/features/fish.nix
     ../common/features/kde.nix
     ../common/features/syncthing.nix
+    ../common/features/gtk.nix
+    ../common/features/ytdlp.nix
+    ../common/features/session-variables.nix
+    ../common/features/default-apps.nix
   ];
 
+  #--------------------------------------------------------------------
+  #-- Base Home Manager Configuration
+  #--------------------------------------------------------------------
   home = {
     username = lib.mkDefault "nainai";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "22.05";
     enableNixpkgsReleaseCheck = false;
   };
+
+  #--------------------------------------------------------------------
+  #-- Nix Configuration
+  #--------------------------------------------------------------------
   nix = {
     package = pkgs.nix;
     settings = {
@@ -32,6 +43,10 @@
     };
   };
 
+  #--------------------------------------------------------------------
+  #-- Packages
+  # Grouped by category for better readability.
+  #--------------------------------------------------------------------
   home.packages = with pkgs;
   with builtins;
   with lib; [
@@ -132,6 +147,9 @@
     (unstablePkgs.wineWowPackages.staging)
   ];
 
+  #--------------------------------------------------------------------
+  #-- Programs & Services Configuration
+  #--------------------------------------------------------------------
   programs = {
     home-manager.enable = true;
     fzf.enable = true;
@@ -142,67 +160,16 @@
     git = {
       signing.key = "/home/nainai/.ssh/id_ed25519.pub";
     };
-    yt-dlp = {
-      enable = true;
-      settings = {
-        cookies-from-browser = "firefox";
-        downloader = "aria2c";
-      };
-    };
   };
 
   fonts.fontconfig.enable = true;
-
-  gtk = {
-    gtk2.enable = false;
-    enable = true;
-    iconTheme = {
-      package = pkgs.papirus-icon-theme;
-      name = "Papirus-Dark";
-    };
-    font = {
-      package = pkgs.inter;
-      name = "Inter";
-    };
-  };
-
   qt.enable = true;
-
-  home.sessionVariables = {
-    BROWSER = "firefox";
-    TERMCMD = "kitty";
-    EDITOR = "neovim";
-    # Fix telegram input
-    ALSOFT_DRIVERS = "pulse";
-    # Disable qt decoration for telegram
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-    NIXOS_OZONE_WL = 1;
-  };
 
   #---------------------------------------------------------------------------
   # In this section we configure the user services, such as: mpris-proxy, etc.
   #---------------------------------------------------------------------------
   services = {
     ollama.enable = true;
-  };
-
-  # Force Rewrite
-  manual.manpages.enable = false; # Doc framework is broken, so let's stop updating this
-  xdg.configFile."mimeapps.list".force = true;
-
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "x-scheme-handler/tg" = "telegram.desktop";
-      # TODO: Update the default applications
-      "inode/directory" = "dolphin.desktop";
-      "text/x-python" = "code.desktop";
-      "text/plain" = "code.desktop";
-      "application/zip" = "xarchiver.desktop";
-      "application/pdf" = "okular.desktop";
-      "application/browser" = "firefox.desktop";
-      "text/html" = "firefox.desktop";
-    };
   };
 
   home.file."${config.xdg.configHome}/nvim/spell/de.utf-8.spl".source = builtins.fetchurl {

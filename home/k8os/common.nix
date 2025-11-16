@@ -7,6 +7,7 @@
     ../common/features/kitty.nix
     ../common/features/kde.nix
     ../common/features/syncthing.nix
+    ../common/features/session-variables.nix
   ];
 
   #--------------------------------------------------------------------
@@ -121,13 +122,5 @@
     git = {
       signing.key = "/home/k8os/.ssh/id_ed25519.pub";
     };
-  };
-
-  #--------------------------------------------------------------------
-  #-- Environment Variables
-  #--------------------------------------------------------------------
-  home.sessionVariables = {
-    EDITOR = "neovim";
-    TERMCMD = "kitty";
   };
 }
