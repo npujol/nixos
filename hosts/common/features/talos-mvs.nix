@@ -1,4 +1,3 @@
-
 {
   config,
   pkgs,
@@ -8,7 +7,7 @@
   talosVersion = "v1.8.1";
   talosIsoUrl = "https://github.com/siderolabs/talos/releases/download/${talosVersion}/talos-${talosVersion}-amd64.iso";
   talosIsoPath = "/var/lib/libvirt/images/talos-${talosVersion}.iso";
-  
+
   createTalosVM = {
     name,
     memory,
@@ -31,7 +30,7 @@
         # Create talos directory if it doesn't exist
         echo "Starting script"
         mkdir -p /var/lib/libvirt/images/talos
-        echo "Talos ISO Path ${talosIsoPath}"
+        echo "Talos ISO Path: ${talosIsoPath}"
         # Download ISO if it doesn't exist
         if [ ! -f ${talosIsoPath} ]; then
           echo "Downloading Talos ISO..."
@@ -51,8 +50,8 @@
             --memory ${toString memory} \
             --vcpus ${toString vcpus} \
             --disk path=${diskPath},bus=virtio \
-            --network network=default,model=virtio \
-            --location ${talosIsoPath} \
+            --network bridge=br0,model=virtio \
+            --cdrom ${talosIsoPath} \
             --boot uefi \
             --graphics none \
             --console pty,target_type=serial \
@@ -70,27 +69,26 @@
       diskSize = "20G";
       mac = "52:54:00:00:01:01";
     }
-    # {
-    #   name = "talos-worker-1";
-    #   memory = 4096;
-    #   vcpus = 2;
-    #   diskSize = "60G";
-    #   mac = "52:54:00:00:01:02";
-    # }
-    # {
-    #   name = "talos-worker-2";
-    #   memory = 4096;
-    #   vcpus = 2;
-    #   diskSize = "60G";
-    #   mac = "52:54:00:00:01:03";
-    # }
+    {
+      name = "talos-worker-1";
+      memory = 4096;
+      vcpus = 2;
+      diskSize = "60G";
+      mac = "52:54:00:00:01:02";
+    }
+    {
+      name = "talos-worker-2";
+      memory = 4096;
+      vcpus = 2;
+      diskSize = "60G";
+      mac = "52:54:00:00:01:03";
+    }
   ];
 in {
   systemd.services = builtins.listToAttrs (map createTalosVM vms);
-  
+
   # Make sure curl is available
   environment.systemPackages = with pkgs; [
     curl
   ];
 }
-
