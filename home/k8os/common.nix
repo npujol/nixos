@@ -6,6 +6,7 @@
     ../common/features/fish.nix
     ../common/features/kitty.nix
     ../common/features/kde.nix
+    ../common/features/syncthing.nix
   ];
 
   #--------------------------------------------------------------------
@@ -26,10 +27,6 @@
     settings = {
       experimental-features = ["nix-command" "flakes"];
       warn-dirty = false;
-    };
-    # Clean up old generations automatically
-    gc = {
-      automatic = true;
     };
   };
 
@@ -124,11 +121,6 @@
     git = {
       signing.key = "/home/k8os/.ssh/id_ed25519.pub";
     };
-  };
-
-  # User-level systemd services
-  services = {
-    trayscale.enable = true;
   };
 
   #--------------------------------------------------------------------

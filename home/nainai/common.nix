@@ -15,6 +15,7 @@
     ../common/features/kitty.nix
     ../common/features/fish.nix
     ../common/features/kde.nix
+    ../common/features/syncthing.nix
   ];
 
   home = {
@@ -131,12 +132,6 @@
     (unstablePkgs.wineWowPackages.staging)
   ];
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [pkgs.kdePackages.xdg-desktop-portal-kde];
-    config.common.default = "*";
-  };
-
   programs = {
     home-manager.enable = true;
     fzf.enable = true;
@@ -172,20 +167,6 @@
   };
 
   qt.enable = true;
-
-  services.trayscale = {
-    enable = true;
-  };
-
-  services.syncthing.enable = true; # Enable the syncthing service
-  services.syncthing.tray.enable = true; # Enable the syncthing tray
-  # Workaround to add a target in KDE
-  systemd.user.targets.tray = {
-    Unit = {
-      Description = "Home Manager System Tray";
-      Requires = ["graphical-session-pre.target"];
-    };
-  };
 
   home.sessionVariables = {
     BROWSER = "firefox";
