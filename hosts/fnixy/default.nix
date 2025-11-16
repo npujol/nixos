@@ -9,13 +9,13 @@
 
   hardware.cpu.amd.updateMicrocode = true;
 
-  networking.hostName = "nixos";
+  networking.hostName = "fnixy";
 
   programs.fish.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
+  programs.nh.flake = "/home/nainai/projects/nix-config";
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma6.enable = true;

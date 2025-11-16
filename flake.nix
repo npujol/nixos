@@ -71,7 +71,7 @@
     );
 
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
+      fnixy = nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = {
           inherit inputs;
@@ -81,7 +81,7 @@
           (builtins.attrValues nixosModules)
           ++ [
             nixos-hardware.nixosModules.framework-13-7040-amd
-            ./hosts/nixos
+            ./hosts/fnixy
           ];
       };
       limbo = nixpkgs.lib.nixosSystem {
@@ -111,7 +111,7 @@
     };
 
     homeConfigurations = {
-      "nainai@nixos" = home-manager.lib.homeManagerConfiguration {
+      "nainai@fnixy" = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs;
@@ -122,7 +122,7 @@
           (builtins.attrValues homeModules)
           ++ [
             inputs.plasma-manager.homeModules.plasma-manager
-            ./home/nainai/nixos.nix
+            ./home/nainai/fnixy.nix
           ];
       };
 
