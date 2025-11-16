@@ -13,6 +13,13 @@
         hiding = "autohide";
       }
     ];
+    hotkeys.commands = {
+      "kitty-toggle" = {
+        command = "kitten quick-access-terminal";
+        key = "F12";
+        comment = "kitty kitty-toggle";
+      };
+    };
   };
 
   xdg.portal = {
