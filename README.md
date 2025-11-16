@@ -62,5 +62,6 @@ nix-shell
 
 - [ ] move to common repeated user configs
 - [ ] clean packages and split it between the different hosts
-- [ ] run ollama service, use ollama-roc in limbo host
-- [ ] rename nixos host to fnixy
+- [x] run ollama service, use ollama-roc in limbo host
+- [x] rename nixos host to fnixy
+- [x] programs.nh.flake = "/home/nainai/projects/nixos"; in host default
