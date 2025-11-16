@@ -10,6 +10,5 @@
     };
     openssh.enable = true;
     dbus.implementation = "broker";
-    power-profiles-daemon.enable = true;
   };
 }

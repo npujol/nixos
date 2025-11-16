@@ -19,7 +19,6 @@
     ./services.nix
     ./security.nix
   ];
-  # ++ [lib.mkIf (lib.versionOlder config.boot.kernelPackages.kernel.version "6.5.7") ../common/features/8bitdo.nix];
   environment = {
     loginShellInit = ''
       # Activate home-manager environment, if not already
@@ -32,20 +31,16 @@
 
   system.stateVersion = "23.11";
 
-  # Allows users to allow others on their binds
   programs.fuse.userAllowOther = true;
-
   programs.dconf.enable = true;
-  hardware.enableRedistributableFirmware = true;
-
   programs.fish.enable = true;
   programs.adb.enable = true;
 
-  programs.nix-ld = {
-    enable = true;
-    # NOTE: This dependencie was because of Don't Starve
-    # libraries = (pkgs.steam-run.fhsenv.args.multiPkgs pkgs) ++ [pkgs.curl];
-  };
+  hardware.enableRedistributableFirmware = true;
+  hardware.cpu.amd.updateMicrocode = true;
+
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim

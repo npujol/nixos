@@ -9,30 +9,15 @@
     ../common/features/talos-mvs.nix
   ];
 
-  hardware.cpu.amd.updateMicrocode = true;
-
   networking.hostName = "k8os";
-
-  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  # hardware.nvidia.open = true;
-  # services.xserver.videoDrivers = ["nvidia"];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
     zenpower
   ];
-  programs.fish.enable = true;
 
-  # services.tuned.enable = true;
+  services.tuned.enable = true;
+  services.power-profiles-daemon.enable = false;
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    xkb.layout = "us";
-    xkb.variant = "altgr-intl";
-  };
   services.immich.enable = true;
   services.immich.port = 2283;
   users.users.immich.extraGroups = ["video" "render"];
