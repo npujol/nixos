@@ -57,6 +57,7 @@
             --console pty,target_type=serial \
             --noautoconsole \
             --os-variant linux2022
+            --install no_install=yes
         fi
       '';
     };
