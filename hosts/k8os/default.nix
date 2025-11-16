@@ -1,6 +1,5 @@
 {config, ...}: {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../common/global
     ../common/users/k8os.nix
@@ -15,14 +14,19 @@
     zenpower
   ];
 
+  users.users.immich.extraGroups = [
+    "video"
+    "render"
+  ];
+
+  networking.firewall.allowedTCPPorts = [80];
+
   services.tuned.enable = true;
   services.power-profiles-daemon.enable = false;
 
   services.immich.enable = true;
   services.immich.port = 2283;
-  users.users.immich.extraGroups = ["video" "render"];
 
-  networking.firewall.allowedTCPPorts = [80];
   services.nginx.enable = true;
   services.nginx.virtualHosts."k8os" = {
     default = true;
