@@ -70,7 +70,7 @@
     gparted
     htop
     hugo
-    inputs.plasma-manager.packages.${pkgs.system}.rc2nix
+    inputs.plasma-manager.packages.${pkgs.stdenv.hostPlatform.system}.rc2nix
     jq
     kubectl
     kubectx
