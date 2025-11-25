@@ -15,6 +15,6 @@
 
     useDHCP = false;
     firewall.enable = true;
+    firewall.checkReversePath = "loose";
   };
 }
-
