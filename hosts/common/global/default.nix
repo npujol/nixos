@@ -25,8 +25,7 @@
       [ -d "$HOME/.nix-profile" ] || /nix/var/nix/profiles/per-user/$USER/home-manager/activate &> /dev/null
     '';
 
-    # Add terminfo files
-    enableAllTerminfo = true;
+    enableAllTerminfo = false;
   };
 
   system.stateVersion = "23.11";
