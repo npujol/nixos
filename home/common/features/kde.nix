@@ -20,6 +20,13 @@
         comment = "kitty kitty-toggle";
       };
     };
+    input.keyboard.layouts = [
+      {
+        displayName = "usi";
+        layout = "us";
+        variant = "altgr-intl";
+      }
+    ];
   };
 
   xdg.portal = {
