@@ -5,7 +5,7 @@
     themeFile = "Novel";
     quickAccessTerminalConfig = {
       background_opacity = 0.95;
-      lines = 60;
+      lines = 40;
     };
 
     settings = {
