@@ -11,5 +11,7 @@
   #--------------------------------------------------------------------------
   home.packages = with pkgs; [
     cheese
+    myPkgs.eden-emu
+    pkgs.krita
   ];
 }
