@@ -13,13 +13,13 @@
         hiding = "autohide";
       }
     ];
-    hotkeys.commands = {
-      "kitty-toggle" = {
-        command = "kitten quick-access-terminal";
-        key = "F12";
-        comment = "kitty kitty-toggle";
-      };
-    };
+    # hotkeys.commands = {
+    #   "kitty-toggle" = {
+    #     command = "kitten quick-access-terminal";
+    #     key = "F12";
+    #     name = "kitty-toggle";
+    #   };
+    # };
     input.keyboard.layouts = [
       {
         displayName = "usi";
@@ -27,6 +27,20 @@
         variant = "altgr-intl";
       }
     ];
+    shortcuts = {
+      "services/kitty-toggle.desktop" = {
+        _launch = "F12";
+      };
+    };
+  };
+
+  xdg.desktopEntries = {
+    kitty-toggle = {
+      name = "Kitty toggle";
+      genericName = "kitty toggle";
+      exec = "kitten quick-access-terminal";
+      terminal = false;
+    };
   };
 
   xdg.portal = {
