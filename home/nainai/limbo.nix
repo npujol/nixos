@@ -13,5 +13,6 @@
     cheese
     myPkgs.eden-emu
     pkgs.krita
+    pkgs.pdftk
   ];
 }
