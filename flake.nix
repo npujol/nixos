@@ -14,6 +14,11 @@
       inputs.home-manager.follows = "home-manager";
     };
     leiserfg-overlay.url = "github:leiserfg/leiserfg-overlay";
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+
+      inputs.nixpkgs.follows = "nixpkgs"; # I don't wanna use the cache
+    };
   };
 
   outputs = {

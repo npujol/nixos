@@ -160,6 +160,7 @@
     (unstablePkgs.telegram-desktop)
     (unstablePkgs.typst)
     (unstablePkgs.wineWowPackages.staging)
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
   ];
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration
