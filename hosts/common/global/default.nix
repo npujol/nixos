@@ -33,7 +33,7 @@
   programs.fuse.userAllowOther = true;
   programs.dconf.enable = true;
   programs.fish.enable = true;
-  programs.adb.enable = true;
+  # programs.adb.enable = true;
 
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
