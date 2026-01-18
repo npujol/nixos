@@ -151,6 +151,7 @@
     myPkgs.wl_shimeji
     wl-clipboard
     xclip
+    android-tools
 
     ##### Plasma Manager #####
     inputs.plasma-manager.packages.${pkgs.stdenv.hostPlatform.system}.rc2nix
