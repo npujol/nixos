@@ -24,6 +24,7 @@
       enable = false;
       trustedInterfaces = ["tailscale0"];
     };
+    networkmanager.wifi.powersave = false;
   };
 
   services.opensnitch = {
