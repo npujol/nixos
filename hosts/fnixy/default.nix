@@ -9,5 +9,6 @@
   ];
 
   networking.hostName = "fnixy";
+  networking.firewall.enable = true;
   programs.nh.flake = "/home/nainai/projects/nix-config";
 }

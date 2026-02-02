@@ -17,15 +17,15 @@
   ];
 
   # Allow libvirt networking
-  networking.firewall = {
-    checkReversePath = false;
-    trustedInterfaces = ["virbr0"];
-  };
+  # networking.firewall = {
+  #   checkReversePath = false;
+  #   trustedInterfaces = ["virbr0"];
+  # };
 
   networking = {
     bridges = {
       br0 = {
-        interfaces = [ "enp37s0" ];
+        interfaces = ["enp37s0"];
       };
     };
     # Apply network configuration to the bridge
