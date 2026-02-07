@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    ./features/borg.nix
     ./features/immich.nix
     ./hardware-configuration.nix
     ../common/global
@@ -62,5 +63,6 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
   services.xserver.videoDrivers = ["nvidia"];
+  # hardware.graphics.enable = true;
   boot.blacklistedKernelModules = ["nouveau"];
 }
