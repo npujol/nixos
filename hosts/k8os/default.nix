@@ -6,6 +6,7 @@
   imports = [
     ./features/borg.nix
     ./features/immich.nix
+    ./features/calibre.nix
     ./hardware-configuration.nix
     ../common/global
     ../common/users/k8os.nix
