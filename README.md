@@ -60,8 +60,5 @@ nix-shell
 
 # TODO
 
-- [ ] move to common repeated user configs
-- [ ] clean packages and split it between the different hosts
-- [x] run ollama service, use ollama-roc in limbo host
-- [x] rename nixos host to fnixy
-- [x] programs.nh.flake = "/home/nainai/projects/nixos"; in host default
+- [ ] <https://github.com/paperless-ngx/paperless-ngx>
+- [ ] <https://github.com/usememos/memos>
