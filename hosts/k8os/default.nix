@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    ./features/immich.nix
     ./hardware-configuration.nix
     ../common/global
     ../common/users/k8os.nix
@@ -19,11 +20,6 @@
   ];
   programs.nh.flake = "/home/k8os/nixos";
 
-  users.users.immich.extraGroups = [
-    "video"
-    "render"
-  ];
-
   networking.firewall.enable = false;
   # networking.firewall.allowedTCPPorts = [80];
 
@@ -33,37 +29,16 @@
   services.tuned.enable = true;
   services.power-profiles-daemon.enable = false;
 
-  services.immich.enable = true;
-  services.immich.port = 2283;
-
-  services.nginx.enable = true;
-  services.nginx.virtualHosts."k8os" = {
-    default = true;
-    locations."/" = {
-      proxyPass = "http://[::1]:${toString config.services.immich.port}";
-      proxyWebsockets = true;
-      recommendedProxySettings = true;
-      extraConfig = ''
-        client_max_body_size 50000M;
-        proxy_read_timeout   600s;
-        proxy_send_timeout   600s;
-        send_timeout         600s;
-      '';
-    };
-  };
-
-
-hardware.graphics = {
+  hardware.graphics = {
     enable = true;
   };
-hardware.nvidia = {
-
+  hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
+    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
     # of just the bare essentials.
     powerManagement.enable = false;
 
@@ -73,20 +48,19 @@ hardware.nvidia = {
 
     # Use the NVidia open source kernel module (not to be confused with the
     # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of 
-    # supported GPUs is at: 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+    # Support is limited to the Turing and later architectures. Full list of
+    # supported GPUs is at:
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
     # Only available from driver 515.43.04+
     open = false;
 
     # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
   services.xserver.videoDrivers = ["nvidia"];
-  hardware.opengl.enable = true;
   boot.blacklistedKernelModules = ["nouveau"];
 }
