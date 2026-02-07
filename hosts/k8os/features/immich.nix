@@ -11,6 +11,10 @@
   services.immich.port = 2283;
 
   services.nginx.enable = true;
+  # `null` will give access to all devices.
+  # You may want to restrict this by using something like `[ "/dev/dri/renderD128" ]`
+  services.immich.accelerationDevices = null;
+
   services.nginx.virtualHosts."k8os" = {
     default = true;
     locations."/" = {
