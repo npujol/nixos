@@ -7,6 +7,7 @@
     ./features/borg.nix
     ./features/immich.nix
     ./features/calibre.nix
+    ./features/memos.nix
     ./hardware-configuration.nix
     ../common/global
     ../common/users/k8os.nix
