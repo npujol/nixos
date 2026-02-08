@@ -8,6 +8,7 @@
     ./features/immich.nix
     ./features/calibre.nix
     ./features/memos.nix
+    ./features/paperless.nix
     ./hardware-configuration.nix
     ../common/global
     ../common/users/k8os.nix
