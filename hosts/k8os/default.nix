@@ -9,6 +9,7 @@
     ./features/calibre.nix
     ./features/memos.nix
     ./features/paperless.nix
+    ./features/headscale.nix
     ./hardware-configuration.nix
     ../common/global
     ../common/users/k8os.nix
