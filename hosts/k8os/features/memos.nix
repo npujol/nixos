@@ -2,8 +2,7 @@
   # Enable the Memos service
   services.memos = {
     enable = true;
-    port = 5230;
-    host = "127.0.0.1"; # Or 127.0.0.1 if behind a reverse proxy
+    group = "media";
     dataDir = "/var/lib/memos";
   };
 
