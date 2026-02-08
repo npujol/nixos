@@ -2,21 +2,30 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  bk = {
+    name,
+    paths,
+  }: {
+    user = "root";
+    repository = "sftp://odroid@nas//storage2/backups/${name}";
+    initialize = true; # initializes the repo, don't set if you want manual control
+    passwordFile = "${pkgs.writeText "restic-password" "supersecretpassword"}";
+    paths = paths;
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+    };
+  };
+in {
   services.restic.backups = {
-    immich = {
-      user = "root";
-      repository = "sftp://odroid@nas//storage2/backups/immich";
-      initialize = true; # initializes the repo, don't set if you want manual control
-      passwordFile = "${pkgs.writeText "restic-password" "supersecretpassword"}";
-      # paths = [config.services.immich.mediaLocation];
-      paths = [
-        "/var/lib/immich"
-      ];
-      timerConfig = {
-        OnCalendar = "daily";
-        Persistent = true;
-      };
+    immich = bk {
+      name = "immich";
+      paths = ["/var/lib/immich"];
+    };
+    memos = bk {
+      name = "memos";
+      paths = ["/var/lib/memos"];
     };
   };
 }
