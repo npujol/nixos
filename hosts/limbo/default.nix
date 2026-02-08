@@ -8,7 +8,7 @@
   ];
 
   networking.hostName = "limbo";
-  networking.firewall.enable = true;
+  networking.firewall.enable = false;
 
   programs.nh.flake = "/home/nainai/projects/nixos";
 
