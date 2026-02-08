@@ -62,3 +62,4 @@ nix-shell
 
 - [ ] <https://github.com/paperless-ngx/paperless-ngx>
 - [ ] <https://github.com/usememos/memos>
+- [ ] move headscale to server
