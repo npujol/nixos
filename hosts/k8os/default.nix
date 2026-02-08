@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    ./features/borg.nix
+    ./features/restic.nix
     ./features/immich.nix
     ./features/calibre.nix
     ./features/memos.nix
