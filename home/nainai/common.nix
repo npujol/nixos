@@ -162,6 +162,7 @@
     (unstablePkgs.typst)
     (unstablePkgs.wineWowPackages.staging)
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
+    steam-run
   ];
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration
