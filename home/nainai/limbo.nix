@@ -14,5 +14,6 @@
     myPkgs.eden-emu
     pkgs.krita
     pkgs.pdftk
+    pkgs.sqlitebrowser
   ];
 }
