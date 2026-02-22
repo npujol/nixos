@@ -160,7 +160,7 @@
     (unstablePkgs.ruff)
     (unstablePkgs.telegram-desktop)
     (unstablePkgs.typst)
-    (unstablePkgs.wineWowPackages.staging)
+    (unstablePkgs.wineWow64Packages.staging)
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
     steam-run
   ];
