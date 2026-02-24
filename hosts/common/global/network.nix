@@ -4,7 +4,7 @@
   services.tailscale = {
     openFirewall = true;
     enable = true;
-    useRoutingFeatures = "client";
+    useRoutingFeatures = "both";
   };
 
   services.resolved.enable = true;

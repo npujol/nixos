@@ -15,7 +15,7 @@
   # You may want to restrict this by using something like `[ "/dev/dri/renderD128" ]`
   services.immich.accelerationDevices = null;
 
-  services.nginx.virtualHosts."k8os" = {
+  services.nginx.virtualHosts."immich.nul.com" = {
     default = true;
     locations."/" = {
       proxyPass = "http://[::1]:${toString config.services.immich.port}";

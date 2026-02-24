@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   imports = [
@@ -66,6 +67,7 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+
   services.xserver.videoDrivers = ["nvidia"];
   # hardware.graphics.enable = true;
   boot.blacklistedKernelModules = ["nouveau"];
