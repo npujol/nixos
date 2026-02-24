@@ -11,6 +11,7 @@
     ./features/memos.nix
     ./features/paperless.nix
     ./features/headscale.nix
+    ./features/languagetool.nix
     ./hardware-configuration.nix
     ../common/global
     ../common/users/k8os.nix
