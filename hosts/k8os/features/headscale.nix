@@ -42,6 +42,11 @@
             type = "A";
             value = "100.64.0.12";
           }
+          {
+            name = "ltfrontend.nul.com";
+            type = "A";
+            value = "100.64.0.12";
+          }
         ];
       };
 

@@ -10,9 +10,9 @@
       ports = ["8085:80"];
 
       environment = {
-        LANGUAGE_TOOL = "http://127.0.0.1:8089";
+        LANGUAGE_TOOL = "http://languagetool.nul.com";
         LANGUAGE_TOOL_PICKY = "true";
-        LIBRETRANSLATE = "http://127.0.0.1:8088";
+        LIBRETRANSLATE = "http://libretranslate.nul.com";
         THEME = "dark";
 
         # Optional: Limit translation languages (ISO 639 codes)
@@ -44,7 +44,7 @@
     # "--add-host=host.containers.internal:host-gateway"  # For Podman
   ];
 
-  services.nginx.virtualHosts."languagetool.nul.com" = {
+  services.nginx.virtualHosts."ltfrontend.nul.com" = {
     locations."/" = {
       extraConfig = "
         proxy_pass           http://127.0.0.1:8085;
