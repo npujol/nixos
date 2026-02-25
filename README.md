@@ -61,5 +61,3 @@ nix-shell
 # TODO
 
 - [ ] move headscale to server
-- [ ] add libretranslate
-- [ ] test https://github.com/kWeglinski/OmniPoly
