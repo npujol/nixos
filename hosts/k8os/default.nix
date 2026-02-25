@@ -13,12 +13,13 @@
     ./features/headscale.nix
     ./features/languagetool.nix
     ./features/libretranslate.nix
+    ./features/omnipoly.nix
     ./hardware-configuration.nix
     ../common/global
     ../common/users/k8os.nix
     ../common/features/docker.nix
-    ../common/features/talos-homelab.nix
-    ../common/features/talos-mvs.nix
+    # ../common/features/talos-homelab.nix
+    # ../common/features/talos-mvs.nix
   ];
 
   networking.hostName = "k8os";
