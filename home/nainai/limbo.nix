@@ -15,5 +15,6 @@
     pkgs.krita
     pkgs.pdftk
     pkgs.sqlitebrowser
+    pkgs.gimp
   ];
 }
