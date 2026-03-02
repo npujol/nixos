@@ -61,3 +61,4 @@ nix-shell
 # TODO
 
 - [ ] move headscale to server
+- [ ] configure sops

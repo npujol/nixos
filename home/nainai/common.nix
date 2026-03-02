@@ -20,6 +20,7 @@
     ../common/features/ytdlp.nix
     ../common/features/session-variables.nix
     ../common/features/default-apps.nix
+    ../common/features/neovim.nix
   ];
 
   #--------------------------------------------------------------------
@@ -31,6 +32,11 @@
     stateVersion = lib.mkDefault "22.05";
     enableNixpkgsReleaseCheck = false;
   };
+
+  #--------------------------------------------------------------------
+  #-- Neovim Configuration
+  #--------------------------------------------------------------------
+  my.neovim.enable = true;
 
   #--------------------------------------------------------------------
   #-- Nix Configuration
@@ -122,7 +128,6 @@
     markdown-oxide
     markdownlint-cli
     markdownlint-cli2
-    neovim
     obsidian
     vscode
 
@@ -187,10 +192,5 @@
   #---------------------------------------------------------------------------
   services = {
     ollama.enable = true;
-  };
-
-  home.file."${config.xdg.configHome}/nvim/spell/de.utf-8.spl".source = builtins.fetchurl {
-    url = "https://ftp.nluug.nl/pub/vim/runtime/spell/de.utf-8.spl";
-    sha256 = "sha256:1ld3hgv1kpdrl4fjc1wwxgk4v74k8lmbkpi1x7dnr19rldz11ivk";
   };
 }
