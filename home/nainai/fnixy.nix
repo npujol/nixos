@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./common.nix
+    ./pi.nix
   ];
   #--------------------------------------------------------------------------
   # Here are all the packages that should only be in the laptop configuration
