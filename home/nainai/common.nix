@@ -107,7 +107,7 @@
     opencommit
     pipenv
     pre-commit
-    python311Packages.ipython
+
     python312
     rustup
     tree-sitter
