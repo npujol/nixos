@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 
 export default function (pi: ExtensionAPI) {
-  pi.registerShortcut("ctrl+f", {
+  pi.registerShortcut("ctrl+shift+f", {
     description: "Fuzzy-find files via rg+fzf (multi), preview with bat, append selection to prompt",
     handler: async (ctx) => {
       if (!ctx.hasUI) return;
