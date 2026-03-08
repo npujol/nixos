@@ -1,5 +1,9 @@
-{config, pkgs, lib, inputs, ...}:
-let
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: let
   extensionsDir = ./pi-extensions;
   extensionFiles = builtins.readDir extensionsDir;
 
@@ -17,9 +21,9 @@ let
   # Create home.file entries for each local extension
   extensionEntries = lib.mapAttrs' (
     name: type:
-    lib.nameValuePair ".pi/agent/extensions/${name}" {
-      source = extensionsDir + "/${name}";
-    }
+      lib.nameValuePair ".pi/agent/extensions/${name}" {
+        source = extensionsDir + "/${name}";
+      }
   ) (lib.filterAttrs (name: type: type == "regular") extensionFiles);
 
   # Create home.file entries for builtin extensions
@@ -30,7 +34,8 @@ let
         source = "${builtinExtensionsDir}/${extName}";
         recursive = true;
       };
-    }) builtinExtensionNames
+    })
+    builtinExtensionNames
   );
 
   # Skills entries
@@ -47,10 +52,8 @@ let
     builtinExtensionEntries
     skillsEntries
   ];
-
-in
-{
-  home.packages = [ piPackage ];
+in {
+  home.packages = [piPackage];
 
   home.file = allFileEntries;
 }
