@@ -17,5 +17,6 @@
     pkgs.pdftk
     pkgs.sqlitebrowser
     pkgs.gimp
+    pkgs.sops
   ];
 }
