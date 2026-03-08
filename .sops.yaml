@@ -1,0 +1,9 @@
+# SOPS configuration for nixos
+# This file defines which keys can decrypt which secrets
+
+keys:
+  - &user_key age1zcumcq2za4g67ertjn3td9a8aj846ajgwrkwxy4pdssjc93xcdmsgzhdpk
+
+creation_rules:
+  - age:
+      - *user_key
