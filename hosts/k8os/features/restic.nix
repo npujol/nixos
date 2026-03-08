@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{config, ...}: let
   bk = {
     name,
     paths,
@@ -10,7 +6,7 @@
     user = "root";
     repository = "sftp://odroid@nas//storage2/backups/${name}";
     initialize = true; # initializes the repo, don't set if you want manual control
-    passwordFile = "${pkgs.writeText "restic-password" "supersecretpassword"}";
+    passwordFile = config.sops.secrets."restic-password".path;
     paths = paths;
     timerConfig = {
       OnCalendar = "daily";
@@ -18,6 +14,11 @@
     };
   };
 in {
+  sops.secrets."restic-password" = {
+    sopsFile = ../../../secrets/secrets.yaml;
+    format = "yaml";
+  };
+
   services.restic.backups = {
     immich = bk {
       name = "immich";
