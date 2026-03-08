@@ -18,6 +18,7 @@
     ../common/global
     ../common/users/k8os.nix
     ../common/features/docker.nix
+    ../common/features/sops.nix
     # ../common/features/talos-homelab.nix
     # ../common/features/talos-mvs.nix
   ];
