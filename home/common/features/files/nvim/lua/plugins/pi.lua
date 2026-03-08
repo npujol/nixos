@@ -51,7 +51,8 @@ local function is_panel_alive()
   end
 
   -- Check if our panel ID is still in the output
-  local is_alive = string.find(result.stdout, "id:" .. pi_panel_id) ~= nil or string.find(result.stdout, pi_panel_id) ~= nil
+  local is_alive = string.find(result.stdout, "id:" .. pi_panel_id) ~= nil or
+      string.find(result.stdout, pi_panel_id) ~= nil
 
   if not is_alive then
     -- Panel is closed, reset the ID so it will be recreated
@@ -59,6 +60,30 @@ local function is_panel_alive()
   end
 
   return is_alive
+end
+
+-- Function to find the pi binary
+local function find_pi_binary()
+  -- Check if pi is in PATH
+  local pi_path = vim.fn.executable("pi")
+  if pi_path ~= 0 then
+    return "pi"
+  end
+
+  -- Try common NixOS paths
+  local nix_paths = {
+    "/run/current-system/sw/bin/pi",
+    "/nix/var/nix/profiles/default/bin/pi",
+    "/nix/profile/bin/pi",
+  }
+
+  for _, path in ipairs(nix_paths) do
+    if vim.fn.executable(path) ~= 0 then
+      return path
+    end
+  end
+
+  return nil
 end
 
 -- Function to create or reuse a panel with pi
@@ -69,10 +94,17 @@ local function ensure_panel_exists()
 
   local root_dir = get_project_root()
 
+  -- Find the pi binary
+  local pi_binary = find_pi_binary()
+  if not pi_binary then
+    vim.notify("pi binary not found. Please install pi or add it to your PATH.", vim.log.levels.ERROR)
+    return false
+  end
+
   -- Launch a new window with pi in the current Kitty instance
   local result = vim
-    .system({ "kitten", "@", "launch", "--type=window", "--cwd=" .. root_dir, "/run/current-system/sw/bin/pi" })
-    :wait()
+      .system({ "kitten", "@", "launch", "--type=window", "--cwd=" .. root_dir, pi_binary })
+      :wait()
 
   if result.code ~= 0 then
     vim.notify("Failed to create Kitty panel: " .. (result.stderr or "unknown error"), vim.log.levels.ERROR)
@@ -99,8 +131,8 @@ local function pi_send(text)
 
   -- Send text to the panel via stdin
   local result = vim
-    .system({ "kitten", "@", "send-text", "--match", "id:" .. pi_panel_id, "--stdin" }, { stdin = text })
-    :wait()
+      .system({ "kitten", "@", "send-text", "--match", "id:" .. pi_panel_id, "--stdin" }, { stdin = text })
+      :wait()
 
   if result.code ~= 0 then
     vim.notify("Failed to send text to Kitty panel", vim.log.levels.ERROR)
