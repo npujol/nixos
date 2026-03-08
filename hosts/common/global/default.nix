@@ -19,6 +19,7 @@
     ./services.nix
     ./security.nix
   ];
+
   environment = {
     loginShellInit = ''
       # Activate home-manager environment, if not already
@@ -43,5 +44,6 @@
 
   environment.systemPackages = with pkgs; [
     vim
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
   ];
 }
