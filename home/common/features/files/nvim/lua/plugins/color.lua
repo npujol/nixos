@@ -26,13 +26,20 @@ return {
     lazy = false,
     priority = 1000,
   },
+  
+  {
+    "uloco/bluloco.nvim",
+    lazy = false,
+    priority = 1000,
+    dependencies = { "rktjmp/lush.nvim" },
+  },
 
   {
     "LazyVim/LazyVim",
     opts = {
-      -- colorscheme = "bluloco-light",
+      colorscheme = "bluloco-dark",
       -- colorscheme = "gruvbox",
-      colorscheme = "nai"
+      -- colorscheme = "nai"
     },
   },
 
