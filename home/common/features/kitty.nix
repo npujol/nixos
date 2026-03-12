@@ -2,7 +2,7 @@
   programs.kitty = {
     enable = true;
     package = unstablePkgs.kitty;
-    themeFile = "Novel";
+    themeFile = "Darkside";
     quickAccessTerminalConfig = {
       background_opacity = 0.95;
       edge = "center";
