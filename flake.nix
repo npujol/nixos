@@ -23,6 +23,11 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    headscale-admin = {
+      url = "tarball+https://github.com/GoodiesHQ/headscale-admin/releases/download/v0.25.6/admin.tar.gz";
+      flake = false;
+    };
   };
 
   outputs = {

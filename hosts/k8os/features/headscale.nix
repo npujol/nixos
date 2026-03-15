@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   services.headscale = {
@@ -51,6 +52,17 @@
       };
 
       databases.sqlite.path = "/var/lib/headscale/db.sqlite";
+    };
+  };
+
+  services.static-web-server = {
+    enable = true;
+    root = inputs.headscale-admin;
+    listen = "[::]:5000";
+    configuration = {
+      general = {
+        directory-listing = true;
+      };
     };
   };
 }
