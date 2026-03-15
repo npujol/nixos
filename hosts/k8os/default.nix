@@ -75,4 +75,19 @@
   services.xserver.videoDrivers = ["nvidia"];
   # hardware.graphics.enable = true;
   boot.blacklistedKernelModules = ["nouveau"];
+
+  services.traefik = {
+    enable = true;
+    staticConfigOptions = {
+      api = {};
+      entryPoints = {
+        web = {
+          address = ":80";
+        };
+        websecure = {
+          address = ":443";
+        };
+      };
+    };
+  };
 }

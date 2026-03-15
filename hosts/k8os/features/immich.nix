@@ -10,23 +10,35 @@
   services.immich.enable = true;
   services.immich.port = 2283;
 
-  services.nginx.enable = true;
+  # Traefik dynamic configuration
+  services.traefik.dynamicConfigOptions = {
+    http = {
+      routers = {
+        immich = {
+          rule = "Host(`immich.nul.com`)";
+          service = "immich";
+          entryPoints = ["web"];
+          middlewares = ["immich-compress"];
+        };
+      };
+      services = {
+        immich = {
+          loadBalancer = {
+            servers = [
+              {url = "http://[::1]:${toString config.services.immich.port}";}
+            ];
+          };
+        };
+      };
+      middlewares = {
+        immich-compress = {
+          compress = {};
+        };
+      };
+    };
+  };
+
   # `null` will give access to all devices.
   # You may want to restrict this by using something like `[ "/dev/dri/renderD128" ]`
   services.immich.accelerationDevices = null;
-
-  services.nginx.virtualHosts."immich.nul.com" = {
-    default = true;
-    locations."/" = {
-      proxyPass = "http://[::1]:${toString config.services.immich.port}";
-      proxyWebsockets = true;
-      recommendedProxySettings = true;
-      extraConfig = ''
-        client_max_body_size 50000M;
-        proxy_read_timeout   600s;
-        proxy_send_timeout   600s;
-        send_timeout         600s;
-      '';
-    };
-  };
 }
