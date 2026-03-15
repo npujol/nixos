@@ -24,10 +24,10 @@
     age = {
       # Use SSH host key for age encryption
       # This will be converted to an age key automatically
-      keyFile = "/etc/ssh/ssh_host_ed25519_key";
+      # keyFile = "/etc/ssh/ssh_host_ed25519_key";
 
       # Alternatively, you can specify a dedicated age key file
-      # keyFile = "/var/lib/sops-nix/key.txt";
+      keyFile = "/var/lib/sops-nix/key.txt";
     };
   };
 }

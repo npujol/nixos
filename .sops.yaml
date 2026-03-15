@@ -2,7 +2,7 @@
 # This file defines which keys can decrypt which secrets
 
 keys:
-  - &user_key age1zcumcq2za4g67ertjn3td9a8aj846ajgwrkwxy4pdssjc93xcdmsgzhdpk
+  - &user_key age1y5um29n9hafps3u85lmlafqsdwsrjxt4gfks72s025q080nl2e0sp4mft6
 
 creation_rules:
   - age:

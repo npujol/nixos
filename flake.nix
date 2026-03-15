@@ -19,6 +19,10 @@
 
       inputs.nixpkgs.follows = "nixpkgs"; # I don't wanna use the cache
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -111,6 +115,7 @@
           (builtins.attrValues nixosModules)
           ++ [
             ./hosts/k8os
+            inputs.sops-nix.nixosModules.sops
           ];
       };
     };
