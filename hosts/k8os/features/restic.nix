@@ -33,5 +33,10 @@ in {
       name = "memos";
       paths = ["/var/lib/memos"];
     };
+
+    vaultwarden = bk {
+      name = "vaultwarden";
+      paths = ["/var/lib/vaultwarden"];
+    };
   };
 }
