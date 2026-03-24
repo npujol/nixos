@@ -1,7 +1,7 @@
 {lib, ...}: {
-  services.trayscale = {
-    enable = true;
-  };
+  # services.trayscale = {
+  #   enable = true;
+  # };
 
   services.syncthing.enable = true; # Enable the syncthing service
   services.syncthing.tray.enable = true; # Enable the syncthing tray
