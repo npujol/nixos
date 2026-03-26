@@ -2,20 +2,25 @@
   # Enable the Memos service
   services.vaultwarden = {
     enable = true;
+    config = {
+      ROCKET_PORT = 8222;
+      ROCKET_ADDRESS = "0.0.0.0";
+      DISABLE_ADMIN_TOKEN = true; # See the routing rule
+    };
   };
 
-  # Traefik dynamic configuration
   services.traefik.dynamicConfigOptions = {
     http = {
       routers = {
-        memos = {
-          rule = "Host(`vaultwarden.nul.com`)";
+        vaultwarden = {
+          rule = "Host(`bw.nul.mywire.org`) && !PathPrefix(`/admin`)";
           service = "vaultwarden";
-          entryPoints = ["web"];
+          entryPoints = ["websecure"];
+          # middlewares = ["compress-vw"];
         };
       };
       services = {
-        memos = {
+        vaultwarden = {
           loadBalancer = {
             servers = [
               {url = "http://127.0.0.1:8222";}
@@ -23,6 +28,7 @@
           };
         };
       };
+      middlewares.compress-vw.compress = true;
     };
   };
 }

@@ -32,7 +32,7 @@
       };
       middlewares = {
         immich-compress = {
-          compress = {};
+          compress = true;
         };
       };
     };

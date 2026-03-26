@@ -9,6 +9,7 @@
     ./features/immich.nix
     ./features/calibre.nix
     ./features/memos.nix
+    ./features/vaultwarden.nix
     ./features/paperless.nix
     ./features/headscale.nix
     ./features/languagetool.nix
@@ -79,14 +80,29 @@
   services.traefik = {
     enable = true;
     staticConfigOptions = {
-      api = {};
+      api = {
+        # insecure = true;
+        # dashboard = true;
+      };
       entryPoints = {
         web = {
           address = ":80";
         };
         websecure = {
           address = ":443";
+          http.tls.certResolver = "letsencrypt";
         };
+      };
+
+      log = {
+        level = "DEBUG";
+        filePath = "${config.services.traefik.dataDir}/traefik.log";
+        format = "json";
+      };
+      certificatesResolvers.letsencrypt.acme = {
+        email = "leiserfg@gmail.com";
+        storage = "${config.services.traefik.dataDir}/acme.json";
+        httpChallenge.entryPoint = "web";
       };
     };
   };

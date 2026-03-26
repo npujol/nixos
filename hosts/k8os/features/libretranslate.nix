@@ -1,6 +1,6 @@
 {...}: {
   services.libretranslate = {
-    enable = true;
+    # enable = true;
     port = 8088;
   };
 

@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   users.groups.media = {}; # Add this line
 
   users.users.calibre-web = {
@@ -10,6 +10,15 @@
   services.calibre-web = {
     enable = true;
     group = "media";
+    package = pkgs.calibre-web.overridePythonAttrs {
+      pythonRelaxDeps = [
+        "wand"
+        "regex"
+        "flask-babel"
+        "pypdf"
+        "lxml"
+      ];
+    };
     options = {
       calibreLibrary = "/var/lib/calibre-library";
       enableBookUploading = true;
@@ -26,7 +35,8 @@
     http = {
       routers = {
         calibre = {
-          rule = "Host(`calibre.nul.com`)";
+          # &&
+          rule = "Host(`calibre.nul.com`) && ClientIP(`100.64.0.0/24`)";
           service = "calibre";
           entryPoints = ["web"];
         };

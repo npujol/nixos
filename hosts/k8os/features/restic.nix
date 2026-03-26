@@ -36,7 +36,7 @@ in {
 
     vaultwarden = bk {
       name = "vaultwarden";
-      paths = ["/var/lib/vaultwarden"];
+      paths = ["/var/lib/bitwarden_rs"];
     };
   };
 }
