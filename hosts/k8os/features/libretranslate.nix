@@ -9,9 +9,9 @@
     http = {
       routers = {
         libretranslate = {
-          rule = "Host(`libretranslate.nul.com`)";
+          rule = "Host(`libretranslate.locus.mywire.org`) && ClientIP(`100.64.0.0/24`)";
           service = "libretranslate";
-          entryPoints = ["web"];
+          entryPoints = ["websecure"];
         };
       };
       services = {

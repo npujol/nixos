@@ -49,9 +49,9 @@
     http = {
       routers = {
         omnipoly = {
-          rule = "Host(`ltfrontend.nul.com`)";
+          rule = "Host(`ltfrontend.locus.mywire.org`) && ClientIP(`100.64.0.0/24`)";
           service = "omnipoly";
-          entryPoints = ["web"];
+          entryPoints = ["websecure"];
         };
       };
       services = {

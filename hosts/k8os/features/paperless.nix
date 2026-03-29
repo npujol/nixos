@@ -12,7 +12,7 @@
         optimize = 1;
         pdfa_image_compression = "lossless";
       };
-      PAPERLESS_URL = "https://paperless.nul.com";
+      PAPERLESS_URL = "https://paperless.locus.mywire.org";
     };
   };
 
@@ -21,9 +21,9 @@
     http = {
       routers = {
         paperless = {
-          rule = "Host(`paperless.nul.com`)";
+          rule = "Host(`paperless.locus.mywire.org`) && ClientIP(`100.64.0.0/24`)";
           service = "paperless";
-          entryPoints = ["web"];
+          entryPoints = ["websecure"];
         };
       };
       services = {

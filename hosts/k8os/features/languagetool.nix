@@ -9,9 +9,9 @@
     http = {
       routers = {
         languagetool = {
-          rule = "Host(`languagetool.nul.com`)";
+          rule = "Host(`languagetool.locus.mywire.org`) && ClientIP(`100.64.0.0/24`)";
           service = "languagetool";
-          entryPoints = ["web"];
+          entryPoints = ["websecure"];
         };
       };
       services = {

@@ -15,9 +15,9 @@
     http = {
       routers = {
         immich = {
-          rule = "Host(`immich.nul.com`)";
+          rule = "Host(`immich.locus.mywire.org`) && ClientIP(`100.64.0.0/24`)";
           service = "immich";
-          entryPoints = ["web"];
+          entryPoints = ["websecure"];
           middlewares = ["immich-compress"];
         };
       };

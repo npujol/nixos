@@ -36,9 +36,9 @@
       routers = {
         calibre = {
           # &&
-          rule = "Host(`calibre.nul.com`) && ClientIP(`100.64.0.0/24`)";
+          rule = "Host(`calibre.locus.mywire.org`) && ClientIP(`100.64.0.0/24`)";
           service = "calibre";
-          entryPoints = ["web"];
+          entryPoints = ["websecure"];
         };
       };
       services = {

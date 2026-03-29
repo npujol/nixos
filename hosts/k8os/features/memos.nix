@@ -11,9 +11,9 @@
     http = {
       routers = {
         memos = {
-          rule = "Host(`memos.nul.com`)";
+          rule = "Host(`memos.locus.mywire.org`) && ClientIP(`100.64.0.0/24`)";
           service = "memos";
-          entryPoints = ["web"];
+          entryPoints = ["websecure"];
         };
       };
       services = {

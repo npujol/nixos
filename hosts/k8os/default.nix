@@ -81,13 +81,18 @@
     enable = true;
     staticConfigOptions = {
       api = {
-        # insecure = true;
-        # dashboard = true;
+        insecure = true;
+        dashboard = true;
       };
       entryPoints = {
         web = {
           address = ":80";
+          http.redirections.entrypoint = {
+            to = "websecure";
+            scheme = "https";
+          };
         };
+
         websecure = {
           address = ":443";
           http.tls.certResolver = "letsencrypt";

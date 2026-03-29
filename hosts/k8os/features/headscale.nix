@@ -2,60 +2,38 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }: {
   services.headscale = {
     enable = true;
-
+    port = 8081;
     # Nested settings for Headscale's internal configuration
     settings = {
       server_url = "https://hs.nul.mywire.org";
       dns = {
         magic_dns = true;
-        base_domain = "nul.com";
+        base_domain = "locus.mywire.org";
         nameservers.global = [
           "1.1.1.1"
           "1.0.0.1"
           "2606:4700:4700::1111"
           "2606:4700:4700::1001"
         ];
-        extra_records = [
-          {
-            name = "calibre.nul.com";
+        extra_records =
+          lib.map (n: {
+            name = "${n}.locus.mywire.org";
             type = "A";
             value = "100.64.0.12";
-          }
-          {
-            name = "immich.nul.com";
-            type = "A";
-            value = "100.64.0.12";
-          }
-          {
-            name = "memos.nul.com";
-            type = "A";
-            value = "100.64.0.12";
-          }
-          {
-            name = "paperless.nul.com";
-            type = "A";
-            value = "100.64.0.12";
-          }
-          {
-            name = "languagetool.nul.com";
-            type = "A";
-            value = "100.64.0.12";
-          }
-          {
-            name = "libretranslate.nul.com";
-            type = "A";
-            value = "100.64.0.12";
-          }
-          {
-            name = "ltfrontend.nul.com";
-            type = "A";
-            value = "100.64.0.12";
-          }
-        ];
+          }) [
+            "calibre"
+            "immich"
+            "memos"
+            "paperless"
+            "languagetool"
+            "libretranslate"
+            "ltfrontend"
+          ];
       };
 
       databases.sqlite.path = "/var/lib/headscale/db.sqlite";
@@ -95,7 +73,7 @@
         hs = {
           loadBalancer = {
             servers = [
-              {url = "http://127.0.0.1:8080";}
+              {url = "http://127.0.0.1:${toString config.services.headscale.port}";}
             ];
           };
         };
