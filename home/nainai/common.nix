@@ -148,7 +148,6 @@
     tinymist
 
     ##### Apps / Productivity #####
-    aider-chat
     alejandra
     anki
     calibre
