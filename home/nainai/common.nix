@@ -14,7 +14,7 @@
     ../common/features/git.nix
     ../common/features/kitty.nix
     ../common/features/fish.nix
-    ../common/features/kde.nix
+    # ../common/features/kde.nix
     ../common/features/syncthing.nix
     ../common/features/gtk.nix
     ../common/features/ytdlp.nix
