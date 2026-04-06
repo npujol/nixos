@@ -21,6 +21,7 @@
     ../common/features/session-variables.nix
     ../common/features/default-apps.nix
     ../common/features/neovim.nix
+    ../common/features/hyprland.nix
   ];
 
   #--------------------------------------------------------------------
@@ -119,8 +120,7 @@
     kubectl
     kubectx
     kubernetes-helm
-    ollama
-    openssh
+    unstablePkgs.ollama
     rancher
     sshuttle
 
@@ -146,6 +146,7 @@
     gparted
     p7zip
     tinymist
+    zen-browser
 
     ##### Apps / Productivity #####
     alejandra
@@ -192,7 +193,7 @@
   services = {
     ollama = {
       enable = true;
-      package = pkgs.ollama-vulkan;
+      package = unstablePkgs.ollama-vulkan;
     };
   };
 }

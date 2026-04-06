@@ -40,7 +40,9 @@
   hardware.cpu.amd.updateMicrocode = true;
 
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
+  programs.hyprland.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim

@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -27,6 +27,19 @@
     headscale-admin = {
       url = "tarball+https://github.com/GoodiesHQ/headscale-admin/releases/download/v0.25.6/admin.tar.gz";
       flake = false;
+    };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zen-browser-flake = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -78,6 +91,9 @@
             (builtins.attrValues overlays)
             ++ [
               # inputs.blender.overlays.default
+              (final: prev: {
+                zen-browser = inputs.zen-browser-flake.packages.${system}.default;
+              })
             ];
           config.allowUnfree = true;
           config.permittedInsecurePackages = [];
@@ -136,7 +152,7 @@
         modules =
           (builtins.attrValues homeModules)
           ++ [
-            inputs.plasma-manager.homeModules.plasma-manager
+            inputs.noctalia.homeModules.default
             ./home/nainai/fnixy.nix
           ];
       };
@@ -151,7 +167,7 @@
         modules =
           (builtins.attrValues homeModules)
           ++ [
-            inputs.plasma-manager.homeModules.plasma-manager
+            inputs.noctalia.homeModules.default
             ./home/nainai/limbo.nix
           ];
       };
@@ -166,7 +182,7 @@
         modules =
           (builtins.attrValues homeModules)
           ++ [
-            inputs.plasma-manager.homeModules.plasma-manager
+            inputs.noctalia.homeModules.default
             ./home/k8os/k8os.nix
           ];
       };
