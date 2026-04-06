@@ -55,8 +55,8 @@
           "$mod SHIFT, J, movewindow, d"
 
           # Screenshot
-          ",Print, exec, ${lib.getExe pkgs.grimblast} save output - | ${lib.getExe pkgs.swappy} -f -"
-          "SHIFT,Print, exec, ${lib.getExe pkgs.grimblast} save area - | ${lib.getExe pkgs.swappy} -f -"
+          ",Print, exec, noctalia-shell ipc call plugin:screen-toolkit annotate"
+          "SHIFT,Print, exec, noctalia-shell ipc call plugin:screen-toolkit record"
 
           # Special workspace
           "$mod, S, togglespecialworkspace, magic"
