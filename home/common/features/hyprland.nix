@@ -2,7 +2,6 @@
 {
   pkgs,
   lib,
-  inputs,
   ...
 }: {
   imports = [
@@ -77,17 +76,6 @@
           ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
           ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 
-          # Move to workspace
-          "$mod SHIFT, 1, movetoworkspace, 1"
-          "$mod SHIFT, 2, movetoworkspace, 2"
-          "$mod SHIFT, 3, movetoworkspace, 3"
-          "$mod SHIFT, 4, movetoworkspace, 4"
-          "$mod SHIFT, 5, movetoworkspace, 5"
-          "$mod SHIFT, 6, movetoworkspace, 6"
-          "$mod SHIFT, 7, movetoworkspace, 7"
-          "$mod SHIFT, 8, movetoworkspace, 8"
-          "$mod SHIFT, 9, movetoworkspace, 9"
-
           # Resize
           "$mod CTRL, H, resizeactive, -40 0"
           "$mod CTRL, J, resizeactive, 0 40"
@@ -98,7 +86,7 @@
           lib.lists.imap1 (ws: code: [
             "$mod, ${code}, workspace, ${toString ws}"
             "$mod SHIFT, ${code}, movetoworkspace, ${toString ws}"
-          ]) (lib.strings.stringToCharacters "QWERTYUIO")
+          ]) (lib.strings.stringToCharacters "123456789")
         ));
 
       binde = [
@@ -122,9 +110,9 @@
       };
 
       general = {
-        gaps_in = 5;
-        gaps_out = 10;
-        border_size = 0;
+        gaps_in = 4;
+        gaps_out = 3;
+        border_size = 2;
         layout = "dwindle";
         resize_on_border = true;
         allow_tearing = false;
@@ -132,7 +120,7 @@
       };
 
       decoration = {
-        rounding = 16;
+        rounding = 4;
         active_opacity = 1.0;
         inactive_opacity = 0.95;
         shadow.enabled = true;
@@ -243,52 +231,26 @@
       ];
 
       windowrule = [
-        "match:class ^(firefox)$, opacity 1.0 override"
-        "match:class ^(google-chrome)$, opacity 1.0 override"
-        "match:class ^(chromium)$, opacity 1.0 override"
-        "match:class ^(brave)$, opacity 1.0 override"
-        "match:class ^(zen-browser)$, opacity 1.0 override"
-        "match:class ^(neovide)$, opacity 0.95 override"
         "match:class ^(kitty)$, opacity 0.96 override"
-        "match:class ^(Alacritty)$, opacity 0.96 override"
       ];
 
       exec-once = [
-        "waybar"
         "hypridle"
-        "hyprctl setcursor macOS-White 24"
       ];
 
       env = lib.attrsets.mapAttrsToList (name: val: "${name},${toString val}") {
         XDG_CURRENT_DESKTOP = "Hyprland";
         XDG_SESSION_TYPE = "wayland";
         XDG_SESSION_DESKTOP = "Hyprland";
-        XCURSOR_THEME = "macOS-White";
-        XCURSOR_SIZE = "24";
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       };
     };
   };
 
   home.packages = with pkgs; [
-    grim
-    slurp
-    swappy
-    # hyprland
-    # hypridle
-    # hyprlock
-
     # Screenshot tools
-    # grim
-    # slurp
     wl-clipboard
     brightnessctl
-
-    # Status bar
-    waybar
-
-    # System tray
-    libappindicator-gtk3
 
     # Wallpaper
     swaybg
@@ -362,190 +324,4 @@
   };
 
   services.hyprpolkitagent.enable = true;
-
-  # Waybar config
-  programs.waybar = {
-    enable = false;
-    systemd.enable = true;
-    settings = {
-      mainbar = {
-        margin-left = 2;
-        margin-right = 2;
-        layer = "top";
-        modules-left = ["hyprland/workspaces"];
-        modules-center = ["hyprland/window"];
-        modules-right = [
-          "wireplumber"
-          "battery"
-          "tray"
-          "power-profiles-daemon"
-          "clock"
-          "custom/notification"
-        ];
-
-        "hyprland/workspaces" = {
-          format = "{name} {icon}";
-          format-icons = {
-            "1" = "";
-            "2" = "";
-            "3" = "";
-            "4" = "";
-            "urgent" = "";
-            "focused" = "";
-            "default" = "";
-          };
-        };
-
-        "hyprland/window" = {
-          "rewrite" = {
-            "(.*) — Mozilla Firefox" = "🌎 $1";
-            "(.*) - fish" = "  [$1]";
-          };
-        };
-
-        "power-profiles-daemon" = {
-          "format" = "{icon}";
-          "tooltip-format" = "Power profile= {profile}\nDriver= {driver}";
-          "tooltip" = true;
-          "format-icons" = {
-            "default" = "";
-            "performance" = "";
-            "balanced" = "";
-            "power-saver" = "";
-          };
-        };
-
-        wireplumber = {
-          "format" = "󰕿 {volume}%";
-          "format-muted" = "󰝤 ";
-          on-click = "pavucontrol";
-          on-click-right = "qpwgraph";
-          on-click-middle = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-        };
-
-        battery = {
-          "states" = {
-            "warning" = 30;
-            "critical" = 15;
-          };
-          "format" = "{icon} {capacity}%";
-          "format-icons" = ["" "" "" "" ""];
-        };
-
-        clock = {
-          "format" = "{:%H:%M}";
-          "format-alt" = "{:%A, %B %d, %Y (%R)}";
-          "tooltip-format" = "<tt><small>{calendar}</small></tt>";
-          "calendar" = {
-            "mode" = "month";
-            "mode-mon-col" = 3;
-            "weeks-pos" = "right";
-            "on-scroll" = 1;
-            "format" = {
-              "months" = "<span color='#ffead3'><b>{}</b></span>";
-              "days" = "<span color='#ecc6d9'><b>{}</b></span>";
-              "weeks" = "<span color='#99ffdd'><b>W{}</b></span>";
-              "weekdays" = "<span color='#ffcc66'><b>{}</b></span>";
-              "today" = "<span color='#ff6699'><b><u>{}</u></b></span>";
-            };
-          };
-          "actions" = {
-            "on-scroll-up" = "shift_up";
-            "on-scroll-down" = "shift_down";
-          };
-        };
-
-        tray = {
-          spacing = 2;
-        };
-
-        "custom/notification" = {
-          "tooltip" = false;
-          "format" = "{icon}";
-          "format-icons" = {
-            "notification" = "<span foreground='red'><sup></sup></span>";
-            "none" = "";
-            "dnd-notification" = "<span foreground='red'><sup></sup></span>";
-            "dnd-none" = "";
-            "inhibited-notification" = "<span foreground='red'><sup></sup></span>";
-            "inhibited-none" = "";
-            "dnd-inhibited-notification" = "<span foreground='red'><sup></sup></span>";
-            "dnd-inhibited-none" = "";
-          };
-          "return-type" = "json";
-          "exec-if" = "which swaync-client";
-          "exec" = "swaync-client -swb";
-          "on-click" = "swaync-client -t -sw";
-          "on-click-right" = "swaync-client -d -sw";
-          "escape" = true;
-        };
-      };
-    };
-    style = ''
-      * {
-          font-size: 13px;
-          border: none;
-          border-radius: 0;
-      }
-      window#waybar {
-          background-color: rgba(43, 48, 59, 0.5);
-          border-bottom: 3px solid rgba(100, 114, 125, 0.5);
-          color: #ffffff;
-          transition-property: background-color;
-          transition-duration: .5s;
-      }
-
-      window#waybar.hidden {
-          opacity: 0.2;
-      }
-
-      #workspaces button {
-        padding: 0 2px;
-        background: transparent;
-        color: white;
-        border-bottom: 3px solid transparent;
-      }
-
-      #workspaces button.active,
-      #workspaces button.focused {
-          border-bottom: 2px solid lightblue;
-      }
-
-      #workspaces button.urgent {
-          border-bottom: 2px solid red;
-      }
-
-      #workspaces button:hover {
-          background: rgba(0, 0, 0, 0.2);
-      }
-
-      #clock,
-      #battery,
-      #cpu,
-      #memory,
-      #disk,
-      #temperature,
-      #backlight,
-      #network,
-      #pulseaudio,
-      #wireplumber,
-      #custom-media,
-      #tray,
-      #mode,
-      #idle_inhibitor,
-      #scratchpad,
-      #mpd {
-          padding: 0 0 0 .5rem;
-          color: #ffffff;
-          font-family: 'monospace';
-      }
-      #tray > widget {
-        padding-left: 2px;
-      }
-      #tray > .needs-attention {
-          -gtk-icon-effect: highlight;
-          background-color: #eb4d4b;
-      }
-    '';
-  };
 }
