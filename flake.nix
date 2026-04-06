@@ -28,10 +28,6 @@
       url = "tarball+https://github.com/GoodiesHQ/headscale-admin/releases/download/v0.25.6/admin.tar.gz";
       flake = false;
     };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     zen-browser-flake = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -152,7 +148,7 @@
         modules =
           (builtins.attrValues homeModules)
           ++ [
-            inputs.noctalia.homeModules.default
+            inputs.plasma-manager.homeModules.plasma-manager
             ./home/nainai/fnixy.nix
           ];
       };
@@ -167,7 +163,7 @@
         modules =
           (builtins.attrValues homeModules)
           ++ [
-            inputs.noctalia.homeModules.default
+            inputs.plasma-manager.homeModules.plasma-manager
             ./home/nainai/limbo.nix
           ];
       };
@@ -182,7 +178,7 @@
         modules =
           (builtins.attrValues homeModules)
           ++ [
-            inputs.noctalia.homeModules.default
+            inputs.plasma-manager.homeModules.plasma-manager
             ./home/k8os/k8os.nix
           ];
       };
