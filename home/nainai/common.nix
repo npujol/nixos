@@ -22,6 +22,7 @@
     ../common/features/default-apps.nix
     ../common/features/neovim.nix
     ../common/features/hyprland.nix
+    ../common/features/noctalia.nix
   ];
 
   #--------------------------------------------------------------------
