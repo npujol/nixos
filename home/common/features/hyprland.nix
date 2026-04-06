@@ -32,7 +32,7 @@
           # Apps
           "$mod, Return, exec, kitty"
           "$mod, E, exec, thunar"
-          "$mod, D, exec, wofi --show drun"
+          "$mod, D, exec, noctalia-shell ipc call launcher toggle"
           "$mod, B, exec, zen"
 
           # Window actions
@@ -69,7 +69,7 @@
           "$mod SHIFT, Tab, bringactivetotop"
 
           # App launcher
-          "$mod, space, exec, wofi --show drun"
+          "$mod, space, exec, noctalia-shell ipc call launcher toggle"
 
           # Volume
           ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
@@ -284,9 +284,6 @@
     wl-clipboard
     brightnessctl
 
-    # App launcher
-    wofi
-
     # Status bar
     waybar
 
@@ -366,22 +363,9 @@
 
   services.hyprpolkitagent.enable = true;
 
-  # Wofi config
-  programs.wofi = {
-    enable = true;
-    settings = {
-      show = "drun";
-      prompt = "Search...";
-      allow_images = true;
-      image_size = "32px";
-      width = 600;
-      height = 400;
-    };
-  };
-
   # Waybar config
   programs.waybar = {
-    enable = true;
+    enable = false;
     systemd.enable = true;
     settings = {
       mainbar = {
