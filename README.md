@@ -57,8 +57,3 @@ nix flake update
 ```bash
 nix-shell
 ```
-
-# TODO
-
-- [ ] move headscale to server
-- [ ] configure sops
