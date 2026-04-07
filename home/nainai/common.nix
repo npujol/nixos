@@ -121,7 +121,6 @@
     kubectl
     kubectx
     kubernetes-helm
-    unstablePkgs.ollama
     rancher
     sshuttle
 
