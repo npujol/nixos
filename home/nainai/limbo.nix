@@ -13,10 +13,11 @@
   home.packages = with pkgs; [
     cheese
     myPkgs.eden-emu
-    pkgs.krita
-    pkgs.pdftk
-    pkgs.sqlitebrowser
-    pkgs.gimp
-    pkgs.sops
+    krita
+    pdftk
+    sqlitebrowser
+    gimp
+    sops
+    llama-cpp-vulkan
   ];
 }
