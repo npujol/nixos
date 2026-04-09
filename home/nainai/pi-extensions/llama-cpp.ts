@@ -114,7 +114,7 @@ async function detectModels(baseUrl: string, apiKey?: string): Promise<any[]> {
 
 		// Convert llama.cpp model info to pi model config
 		return data.data.map((model) => {
-			const contextWindow = model.meta?.context_length || DEFAULT_CONTEXT_WINDOW;
+			const contextWindow = model.meta?.n_ctx_train || model.meta?.context_length || DEFAULT_CONTEXT_WINDOW;
 			const maxTokens = model.meta?.max_tokens || Math.min(DEFAULT_MAX_TOKENS, Math.floor(contextWindow / 2));
 
 			// Detect if model supports vision based on capabilities or model name
