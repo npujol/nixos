@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   # Example: https://github.com/nix-community/plasma-manager/blob/trunk/examples/home.nix
   programs.plasma = {
-    enable = true;
+    enable = false;
     workspace = {
       lookAndFeel = "org.kde.breezedark.desktop";
       iconTheme = "Breeze-Dark";

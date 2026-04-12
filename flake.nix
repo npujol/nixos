@@ -33,10 +33,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
@@ -148,7 +144,7 @@
         modules =
           (builtins.attrValues homeModules)
           ++ [
-            inputs.plasma-manager.homeModules.plasma-manager
+            # inputs.plasma-manager.homeModules.plasma-manager
             ./home/nainai/fnixy.nix
           ];
       };
@@ -163,7 +159,7 @@
         modules =
           (builtins.attrValues homeModules)
           ++ [
-            inputs.plasma-manager.homeModules.plasma-manager
+            # inputs.plasma-manager.homeModules.plasma-manager
             ./home/nainai/limbo.nix
           ];
       };
@@ -178,7 +174,7 @@
         modules =
           (builtins.attrValues homeModules)
           ++ [
-            inputs.plasma-manager.homeModules.plasma-manager
+            # inputs.plasma-manager.homeModules.plasma-manager
             ./home/k8os/k8os.nix
           ];
       };

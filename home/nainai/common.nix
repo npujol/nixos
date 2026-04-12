@@ -158,9 +158,6 @@
     xclip
     android-tools
 
-    ##### Plasma Manager #####
-    inputs.plasma-manager.packages.${pkgs.stdenv.hostPlatform.system}.rc2nix
-
     ##### Unstable Packages #####
     (unstablePkgs.ruff)
     (unstablePkgs.telegram-desktop)

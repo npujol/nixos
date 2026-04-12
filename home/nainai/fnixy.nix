@@ -9,7 +9,6 @@
   home.packages = with pkgs; [
     gimp
     nix-tree
-    megasync
     zoom-us
     sops
     thunderbird
