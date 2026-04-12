@@ -1,5 +1,5 @@
 # Defines the git configurations
-{lib, ...}: {
+{...}: {
   programs.delta.enableGitIntegration = true;
   programs.git = {
     enable = true;
