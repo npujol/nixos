@@ -3,15 +3,12 @@
     ./common.nix
     ./pi.nix
   ];
-  #--------------------------------------------------------------------------
-  # Here are all the packages that should only be in the laptop configuration
-  #--------------------------------------------------------------------------
   home.packages = with pkgs; [
     gimp
     nix-tree
-    zoom-us
     sops
     thunderbird
+    zoom-us
   ];
   # Force Rewrite
   manual.manpages.enable = false; # Doc framework is broken, so let's stop updating this
