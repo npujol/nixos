@@ -11,13 +11,15 @@
   services.kanshi.systemdTarget = "hyprland-session.target";
 
   home.pointerCursor = {
-    name = "Bibata Modern";
+    name = "Bibata-Modern-Ice";
     package = pkgs.bibata-cursors;
+    size = 16;
+    gtk.enable = true;
+    x11.enable = true;
   };
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = null;
     systemd = {
       enable = true;
       variables = ["--all"];
