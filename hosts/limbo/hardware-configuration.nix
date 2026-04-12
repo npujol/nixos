@@ -1,8 +1,19 @@
 {...}: {
   imports = [];
 
-  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "thunderbolt"];
-  boot.kernelModules = ["kvm-amd" "i2c-dev"];
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "xhci_pci"
+    "ahci"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+    "thunderbolt"
+  ];
+  boot.kernelModules = [
+    "kvm-amd"
+    "i2c-dev"
+  ];
   boot.initrd.kernelModules = ["amdgpu"];
 
   boot.kernel.sysctl."vm.max_map_count" = 544288;
