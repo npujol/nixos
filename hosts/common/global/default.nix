@@ -1,10 +1,7 @@
 # This file (and the global directory) holds config that i use on all hosts
 {
   pkgs,
-  lib,
   inputs,
-  outputs,
-  config,
   ...
 }: {
   imports = [
@@ -34,7 +31,6 @@
   programs.fuse.userAllowOther = true;
   programs.dconf.enable = true;
   programs.fish.enable = true;
-  # programs.adb.enable = true;
 
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;

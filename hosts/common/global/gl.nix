@@ -1,15 +1,7 @@
-{
-  pkgs,
-  unstablePkgs,
-  lib,
-  inputs,
-  ...
-}: {
+{unstablePkgs, ...}: {
   hardware.graphics = {
     enable = true;
     extraPackages = [unstablePkgs.vulkan-validation-layers];
     enable32Bit = true;
-    # package = unstablePkgs.mesa.drivers;
-    # package32 = unstablePkgs.pkgsi686Linux.mesa.drivers;
   };
 }
