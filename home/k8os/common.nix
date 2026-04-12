@@ -26,80 +26,62 @@
   };
 
   home.packages = [
-    # --- Core System & CLI Utilities ---
-    pkgs.util-linux
-    pkgs.btop # Resource monitor
-    pkgs.ncdu # Disk usage analyzer
-    pkgs.nix-du # Nix store disk usage
-    pkgs.lf # Terminal file manager
-    pkgs.ripgrep # Fast search tool
-    pkgs.jq # JSON processor
-    pkgs.pciutils
-    pkgs.usbutils
-    pkgs.lm_sensors
-    pkgs.lsof
-    pkgs.file
-    pkgs.rsync
-    pkgs.tmux # Terminal multiplexer
-
-    # --- Archiving & Compression ---
-    pkgs.unzip
-    pkgs.unrar
-    pkgs.p7zip
-    pkgs.patool
-    pkgs.zpaq
+    pkgs.alejandra
+    pkgs.autossh
     pkgs.aria2
-
-    # --- Development & Version Control ---
-    pkgs.git
-    pkgs.delta # Git diff viewer
-    pkgs.git-standup
-    pkgs.git-absorb
-    pkgs.git-lfs
-    pkgs.gcc
-    pkgs.neovim
+    pkgs.bc
+    pkgs.bridge-utils
+    pkgs.btop # Resource monitor
+    pkgs.cachix
+    pkgs.clinfo
     pkgs.devenv
-
-    # --- Python ---
-    pkgs.python312
-    pkgs.python312Packages.ipython
-    pkgs.uv # Python package manager
-
-    # --- Containers & Kubernetes ---
+    pkgs.delta # Git diff viewer
+    pkgs.dmidecode
+    pkgs.dnsmasq
     pkgs.docker
     pkgs.docker-compose
+    pkgs.file
+    pkgs.firefox
+    pkgs.gcc
+    pkgs.git
+    pkgs.git-absorb
+    pkgs.git-lfs
+    pkgs.git-standup
+    pkgs.jq # JSON processor
     pkgs.kubectl
     pkgs.kubectx
     pkgs.kubernetes-helm
     pkgs.kompose
-    pkgs.talosctl
-
-    # --- Networking ---
-    pkgs.nmap
-    pkgs.wget
-    pkgs.sshuttle
-    pkgs.autossh
-    pkgs.openssh
-    pkgs.simple-http-server
-    pkgs.dnsmasq
-    pkgs. bridge-utils
-
-    # --- Nix Ecosystem ---
+    pkgs.lf # Terminal file manager
+    pkgs.lm_sensors
+    pkgs.lsof
+    pkgs.ncdu # Disk usage analyzer
+    pkgs.neovim
+    pkgs.nix-du # Nix store disk usage
     pkgs.nix-update
-    pkgs.cachix
-    pkgs.alejandra
-
-    # --- Virtualization ---
-    pkgs.virt-manager
-    pkgs.talosctl
-    pkgs.virtiofsd
-
-    # --- Misc Hardware/System ---
-    pkgs.dmidecode
-    pkgs.clinfo
+    pkgs.nmap
+    pkgs.openssh
+    pkgs.p7zip
+    pkgs.patool
+    pkgs.pciutils
     pkgs.powertop
-    pkgs.bc
-    pkgs.firefox
+    pkgs.python312
+    pkgs.python312Packages.ipython
+    pkgs.ripgrep # Fast search tool
+    pkgs.rsync
+    pkgs.simple-http-server
+    pkgs.sshuttle
+    pkgs.talosctl
+    pkgs.tmux # Terminal multiplexer
+    pkgs.unrar
+    pkgs.unzip
+    pkgs.usbutils
+    pkgs.util-linux
+    pkgs.uv # Python package manager
+    pkgs.virtiofsd
+    pkgs.virt-manager
+    pkgs.wget
+    pkgs.zpaq
   ];
 
   programs = {
