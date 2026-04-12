@@ -7,18 +7,14 @@
   extensionsDir = ./pi-extensions;
   extensionFiles = builtins.readDir extensionsDir;
 
-  # Reference to the pi package
   piPackage = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi;
 
-  # Directory containing builtin extensions
   builtinExtensionsDir = "${piPackage}/lib/node_modules/@mariozechner/pi-coding-agent/examples/extensions";
 
-  # List of builtin extension names to include
   builtinExtensionNames = [
     "custom-provider-qwen-cli"
   ];
 
-  # Create home.file entries for each local extension
   extensionEntries = lib.mapAttrs' (
     name: type:
       lib.nameValuePair ".pi/agent/extensions/${name}" {
@@ -26,7 +22,6 @@
       }
   ) (lib.filterAttrs (name: type: type == "regular") extensionFiles);
 
-  # Create home.file entries for builtin extensions
   builtinExtensionEntries = lib.listToAttrs (
     map (extName: {
       name = ".pi/agent/extensions/${extName}";
@@ -38,7 +33,6 @@
     builtinExtensionNames
   );
 
-  # Skills entries
   skillsEntries = {
     ".pi/skills/brave-search" = {
       source = ./skills/brave-search;
@@ -46,7 +40,6 @@
     };
   };
 
-  # Combine all entries
   allFileEntries = lib.mkMerge [
     extensionEntries
     builtinExtensionEntries
