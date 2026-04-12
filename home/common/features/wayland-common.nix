@@ -1,12 +1,8 @@
-# Common wayland packages
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     wev
     wl-clipboard
     wdisplays
   ];
 }
+
