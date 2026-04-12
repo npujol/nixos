@@ -1,13 +1,10 @@
 {
   config,
   lib,
-  pkgs,
   ...
-}:
-let
+}: let
   cfg = config.skills;
-in
-{
+in {
   options.skills = {
     raw_paths = lib.mkOption {
       type = with lib.types; listOf path;
@@ -16,30 +13,31 @@ in
     };
 
     entries = lib.mkOption {
-      type = with lib.types; attrsOf (submodule ({
-        name,
-        config,
-        options,
-        ...
-      }: {
-        resources = lib.mkOption {
-          type = with lib.types; attrsOf package;
-          default = {};
-          description = "Resources (executables) available to this skill";
-        };
+      type = with lib.types;
+        attrsOf (submodule ({
+          name,
+          config,
+          options,
+          ...
+        }: {
+          resources = lib.mkOption {
+            type = with lib.types; attrsOf package;
+            default = {};
+            description = "Resources (executables) available to this skill";
+          };
 
-        description = lib.mkOption {
-          type = lib.types.str;
-          default = "";
-          description = "Description of what this skill does";
-        };
+          description = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Description of what this skill does";
+          };
 
-        instructions = lib.mkOption {
-          type = lib.types.str;
-          default = "";
-          description = "Instructions for using this skill";
-        };
-      }));
+          instructions = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Instructions for using this skill";
+          };
+        }));
       default = {};
       description = "Skill definitions with their resources and instructions";
     };
@@ -47,18 +45,20 @@ in
 
   config = let
     # File entries for structured skills
-    skillFileEntries = lib.mapAttrs' (
-      name: skill:
-      lib.nameValuePair ".pi/skills/${name}" {
-        text = ''
-          # Skill: ${name}
-          ${skill.description}
+    skillFileEntries =
+      lib.mapAttrs' (
+        name: skill:
+          lib.nameValuePair ".pi/skills/${name}" {
+            text = ''
+              # Skill: ${name}
+              ${skill.description}
 
-          ## Instructions
-          ${skill.instructions { ${name} = "\${aliases.${name}}"; }}
-        '';
-      }
-    ) cfg.entries;
+              ## Instructions
+              ${skill.instructions {${name} = "\${aliases.${name}}";}}
+            '';
+          }
+      )
+      cfg.entries;
 
     # File entries for raw skill directories
     rawSkillEntries = lib.listToAttrs (
@@ -68,14 +68,16 @@ in
           source = rawPath;
           recursive = true;
         };
-      }) cfg.raw_paths
+      })
+      cfg.raw_paths
     );
-  in lib.mkIf (cfg.entries != {} || cfg.raw_paths != []) {
-    home.packages = lib.concatLists (lib.mapAttrsToList (name: skill: lib.attrValues skill.resources) cfg.entries);
+  in
+    lib.mkIf (cfg.entries != {} || cfg.raw_paths != []) {
+      home.packages = lib.concatLists (lib.mapAttrsToList (name: skill: lib.attrValues skill.resources) cfg.entries);
 
-    home.file = lib.mkMerge [
-      skillFileEntries
-      rawSkillEntries
-    ];
-  };
+      home.file = lib.mkMerge [
+        skillFileEntries
+        rawSkillEntries
+      ];
+    };
 }
