@@ -1,12 +1,11 @@
 {pkgs, ...}: {
-  users.groups.media = {}; # Add this line
+  users.groups.media = {};
 
   users.users.calibre-web = {
     isSystemUser = true;
     group = "media";
   };
 
-  # Calibre-Web
   services.calibre-web = {
     enable = true;
     group = "media";

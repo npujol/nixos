@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   inputs,
   lib,
   ...
@@ -8,7 +7,6 @@
   services.headscale = {
     enable = true;
     port = 8081;
-    # Nested settings for Headscale's internal configuration
     settings = {
       server_url = "https://hs.nul.mywire.org";
       dns = {
@@ -41,7 +39,6 @@
   };
 
   services.static-web-server = {
-    # enable = true;
     root = inputs.headscale-admin;
     listen = "::1:5000";
     configuration = {

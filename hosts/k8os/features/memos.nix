@@ -1,12 +1,10 @@
 {...}: {
-  # Enable the Memos service
   services.memos = {
     enable = true;
     group = "media";
     dataDir = "/var/lib/memos";
   };
 
-  # Traefik dynamic configuration
   services.traefik.dynamicConfigOptions = {
     http = {
       routers = {

@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   virtualisation.oci-containers.containers = {
     omnipoly = {
       image = "kweg/omnipoly:latest";
@@ -37,14 +33,10 @@
     };
   };
 
-  # Optional: If your services run on the same host (localhost), you need special networking
-  # This extra configuration makes localhost inside the container point to your host
   virtualisation.oci-containers.containers.omnipoly.extraOptions = [
     "--add-host=host.docker.internal:host-gateway" # For Docker
-    # "--add-host=host.containers.internal:host-gateway"  # For Podman
   ];
 
-  # Traefik dynamic configuration
   services.traefik.dynamicConfigOptions = {
     http = {
       routers = {

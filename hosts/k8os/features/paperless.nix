@@ -16,7 +16,6 @@
     };
   };
 
-  # Traefik dynamic configuration
   services.traefik.dynamicConfigOptions = {
     http = {
       routers = {

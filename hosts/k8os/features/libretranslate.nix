@@ -1,10 +1,10 @@
 {...}: {
   services.libretranslate = {
+    # TODO: Check why is failing
     # enable = true;
     port = 8088;
   };
 
-  # Traefik dynamic configuration
   services.traefik.dynamicConfigOptions = {
     http = {
       routers = {
