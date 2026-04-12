@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  # Define Talos version for easy updates
+{pkgs, ...}: let
   talosVersion = "v1.8.1";
   talosIsoUrl = "https://github.com/siderolabs/talos/releases/download/${talosVersion}/talos-${talosVersion}-amd64.iso";
   talosIsoPath = "/var/lib/libvirt/images/talos-${talosVersion}.iso";
@@ -31,16 +26,19 @@
         echo "Starting script"
         mkdir -p /var/lib/libvirt/images/talos
         echo "Talos ISO Path: ${talosIsoPath}"
+
         # Download ISO if it doesn't exist
         if [ ! -f ${talosIsoPath} ]; then
           echo "Downloading Talos ISO..."
           ${pkgs.curl}/bin/curl -L ${talosIsoUrl} -o ${talosIsoPath}
         fi
         ls /var/lib/libvirt/images/
+
         # Create disk if it doesn't exist
         if [ ! -f ${diskPath} ]; then
           ${pkgs.qemu}/bin/qemu-img create -f qcow2 ${diskPath} ${diskSize}
         fi
+
         # Check if VM exists
         if ! ${pkgs.libvirt}/bin/virsh list --all | grep -q "${name}"; then
           # Create VM
@@ -88,8 +86,10 @@
 in {
   systemd.services = builtins.listToAttrs (map createTalosVM vms);
 
-  # Make sure curl is available
   environment.systemPackages = with pkgs; [
     curl
+    libvirt
+    qemu
+    virt-manager
   ];
 }
