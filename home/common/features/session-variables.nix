@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   home.sessionVariables = {
     BROWSER = "firefox";
     TERMCMD = "kitty";
