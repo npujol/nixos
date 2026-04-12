@@ -3,22 +3,24 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    leiserfg-overlay.url = "github:leiserfg/leiserfg-overlay";
+
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    leiserfg-overlay.url = "github:leiserfg/leiserfg-overlay";
+
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
 
       inputs.nixpkgs.follows = "nixpkgs"; # I don't wanna use the cache
     };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,6 +30,7 @@
       url = "tarball+https://github.com/GoodiesHQ/headscale-admin/releases/download/v0.25.6/admin.tar.gz";
       flake = false;
     };
+
     zen-browser-flake = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,10 +47,6 @@
   } @ inputs: let
     forAllSystems = nixpkgs.lib.genAttrs [
       "x86_64-linux"
-      # "aarch64-linux"
-      # "i686-linux"
-      # "aarch64-darwin"
-      # "x86_64-darwin"
     ];
 
     unstablePackages = forAllSystems (
@@ -62,15 +61,9 @@
       default = import ./overlay {inherit inputs;};
     };
 
-    # Reusable nixos modules you might want to export
-    # These are usually stuff you would upstream into nixpkgs
     nixosModules = import ./modules/nixos;
-    # Reusable home-manager modules you might want to export
-    # These are usually stuff you would upstream into home-manager
     homeModules = import ./modules/home-manager;
 
-    # Devshell for bootstrapping
-    # Accessible through 'nix develop' or 'nix-shell' (legacy)
     devShells = forAllSystems (system: {
       default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix {};
     });
@@ -82,7 +75,6 @@
           overlays =
             (builtins.attrValues overlays)
             ++ [
-              # inputs.blender.overlays.default
               (final: prev: {
                 zen-browser = inputs.zen-browser-flake.packages.${system}.default;
               })
@@ -106,6 +98,7 @@
             ./hosts/fnixy
           ];
       };
+
       limbo = nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = {
@@ -118,6 +111,7 @@
             ./hosts/limbo
           ];
       };
+
       k8os = nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.x86_64-linux;
         specialArgs = {
@@ -144,7 +138,6 @@
         modules =
           (builtins.attrValues homeModules)
           ++ [
-            # inputs.plasma-manager.homeModules.plasma-manager
             ./home/nainai/fnixy.nix
           ];
       };
@@ -159,7 +152,6 @@
         modules =
           (builtins.attrValues homeModules)
           ++ [
-            # inputs.plasma-manager.homeModules.plasma-manager
             ./home/nainai/limbo.nix
           ];
       };
@@ -174,7 +166,6 @@
         modules =
           (builtins.attrValues homeModules)
           ++ [
-            # inputs.plasma-manager.homeModules.plasma-manager
             ./home/k8os/k8os.nix
           ];
       };
