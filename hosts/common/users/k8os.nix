@@ -1,10 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: let
-  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-in {
+{pkgs, ...}: {
   users.mutableUsers = true; # Allow changing the password via `passwd`
   users.users.k8os = {
     isNormalUser = true;
