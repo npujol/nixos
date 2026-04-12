@@ -14,7 +14,6 @@
     ../common/features/git.nix
     ../common/features/kitty.nix
     ../common/features/fish.nix
-    # ../common/features/kde.nix
     ../common/features/syncthing.nix
     ../common/features/gtk.nix
     ../common/features/ytdlp.nix
@@ -25,9 +24,6 @@
     ../common/features/noctalia.nix
   ];
 
-  #--------------------------------------------------------------------
-  #-- Base Home Manager Configuration
-  #--------------------------------------------------------------------
   home = {
     username = lib.mkDefault "nainai";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
@@ -35,14 +31,8 @@
     enableNixpkgsReleaseCheck = false;
   };
 
-  #--------------------------------------------------------------------
-  #-- Neovim Configuration
-  #--------------------------------------------------------------------
   my.neovim.enable = true;
 
-  #--------------------------------------------------------------------
-  #-- Nix Configuration
-  #--------------------------------------------------------------------
   nix = {
     package = pkgs.nix;
     settings = {
@@ -51,50 +41,35 @@
     };
   };
 
-  #--------------------------------------------------------------------
-  #-- Packages
-  # Grouped by category for better readability.
-  #--------------------------------------------------------------------
   home.packages = with pkgs;
   with builtins;
   with lib; [
-    ##### System Utilities / CLI Tools #####
+    alejandra
+    android-tools
+    anki
     aria2
+    audacity
     autossh
+    bash-language-server
     bc
     btop
     cachix
+    calibre
+    cheese
     clinfo
+    croc
     ddcutil
+    devenv
+    delta
     dmidecode
     doggo
-    file
-    gcc
-    htop
-    lm_sensors
-    lsof
-    ncdu
-    nmap
-    patool
-    pciutils
-    powertop
-    ripgrep
-    rsync
-    simple-http-server
-    tdrop
-    unrar
-    unzip
-    util-linux
-    wget
-    xh
-    zpaq
-
-    ##### Development Tools #####
-    bash-language-server
-    delta
     docker
     docker-compose
     docker-compose-language-service
+    file
+    flameshot
+    freefilesync
+    gcc
     gh
     git
     git-absorb
@@ -102,69 +77,66 @@
     git-standup
     gopls
     golangci-lint-langserver
+    gparted
+    hugo
+    htop
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
     jq
-    lua-language-server
-    nil
-    nodejs_24
-    opencommit
-    pipenv
-    pre-commit
-
-    python312
-    rustup
-    tree-sitter
-    uv
-
-    ##### DevOps / Cloud / Kubernetes #####
-    croc
-    devenv
     kubectl
     kubectx
     kubernetes-helm
-    rancher
-    sshuttle
-
-    ##### Editor & Writing / Markdown #####
-    markdown-oxide
+    lm_sensors
+    lsof
+    lua-language-server
     markdownlint-cli
     markdownlint-cli2
-    obsidian
-    vscode
-
-    ##### Fonts #####
+    markdown-oxide
+    myPkgs.wl_shimeji
+    ncdu
     nerd-fonts.symbols-only
+    nil
+    nmap
+    nodejs_24
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
-    (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
-
-    ##### Multimedia / GUI Tools #####
-    audacity
-    cheese
-    flameshot
-    freefilesync
-    gparted
+    obsidian
+    opencommit
     p7zip
+    patool
+    pciutils
+    pipenv
+    powertop
+    pre-commit
+    python312
+    rancher
+    ripgrep
+    rsync
+    rustup
+    simple-http-server
+    sshuttle
+    steam-run
+    tdrop
     tinymist
-    zen-browser
-
-    ##### Apps / Productivity #####
-    alejandra
-    anki
-    calibre
-    hugo
-    myPkgs.wl_shimeji
+    tree-sitter
+    unrar
+    unzip
+    util-linux
+    uv
+    vscode
+    wget
     wl-clipboard
     xclip
-    android-tools
+    xh
+    zen-browser
+    zpaq
 
-    ##### Unstable Packages #####
+    (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
     (unstablePkgs.ruff)
     (unstablePkgs.telegram-desktop)
     (unstablePkgs.typst)
     (unstablePkgs.wineWow64Packages.staging)
-    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
-    steam-run
+
   ];
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration
