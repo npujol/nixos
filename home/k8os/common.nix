@@ -10,9 +10,6 @@
     ../common/features/session-variables.nix
   ];
 
-  #--------------------------------------------------------------------
-  #-- Base Home Manager Configuration
-  #--------------------------------------------------------------------
   home = {
     username = "k8os";
     homeDirectory = "/home/k8os";
@@ -20,9 +17,6 @@
     enableNixpkgsReleaseCheck = false;
   };
 
-  #--------------------------------------------------------------------
-  #-- Nix Configuration
-  #--------------------------------------------------------------------
   nix = {
     package = pkgs.nix;
     settings = {
@@ -31,10 +25,6 @@
     };
   };
 
-  #--------------------------------------------------------------------
-  #-- Packages
-  # Grouped by category for better readability.
-  #--------------------------------------------------------------------
   home.packages = [
     # --- Core System & CLI Utilities ---
     pkgs.util-linux
@@ -112,9 +102,6 @@
     pkgs.firefox
   ];
 
-  #--------------------------------------------------------------------
-  #-- Programs & Services Configuration
-  #--------------------------------------------------------------------
   programs = {
     home-manager.enable = true;
     fzf.enable = true;
