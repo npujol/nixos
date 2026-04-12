@@ -1,4 +1,3 @@
-# Add custom scripts to packages
 {pkgs, ...}: {
   home.packages = with pkgs; [
     (writeShellScriptBin "adb_purge" ''
