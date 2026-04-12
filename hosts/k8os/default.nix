@@ -72,9 +72,13 @@
   services.xserver.videoDrivers = ["nvidia"];
   boot.blacklistedKernelModules = ["nouveau"];
 
+  # Set the working dir so traefik can load plugins until we have traefik plugins in nix
+  # systemd.services.traefik.serviceConfig.WorkingDirectory = "/var/lib/traefik"
   services.traefik = {
     enable = true;
     staticConfigOptions = {
+      experimental.fastProxy = {};
+
       api = {
         insecure = true;
         dashboard = true;

@@ -39,8 +39,9 @@
   };
 
   services.static-web-server = {
-    root = inputs.headscale-admin;
-    listen = "::1:5000";
+    enable = true;
+    root = inputs.headscale-admin.outPath;
+    listen = "127.0.0.1:5000";
     configuration = {
       general = {
         directory-listing = true;
