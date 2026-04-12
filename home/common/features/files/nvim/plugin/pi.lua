@@ -1,4 +1,5 @@
-# https://github.com/leiserfg/nix-config/commit/beedf38b35623349fe5f6225f37131436c88b2eb
+-- https://github.com/leiserfg/nix-config/commit/beedf38b35623349fe5f6225f37131436c88b2eb
+
 -- Script-local variable to store the panel ID
 local pi_panel_id = nil
 
@@ -41,11 +42,15 @@ end
 -- Function to check if panel is still alive
 local function is_panel_alive()
   if not pi_panel_id then
+    vim.print("Panel ID don't  exist")
     return false
   end
 
   local result = vim.system({ "kitten", "@", "ls" }):wait()
+  vim.print(result)
+
   if result.code ~= 0 then
+    vim.print("Not alive panel")
     pi_panel_id = nil
     return false
   end
