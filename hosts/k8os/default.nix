@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: {
   imports = [
@@ -20,8 +19,6 @@
     ../common/users/k8os.nix
     ../common/features/docker.nix
     ../common/features/sops.nix
-    # ../common/features/talos-homelab.nix
-    # ../common/features/talos-mvs.nix
   ];
 
   networking.hostName = "k8os";
@@ -32,7 +29,6 @@
   programs.nh.flake = "/home/k8os/nixos";
 
   networking.firewall.enable = false;
-  # networking.firewall.allowedTCPPorts = [80];
 
   services.displayManager.sddm.enable = lib.mkForce false;
   services.desktopManager.plasma6.enable = lib.mkForce false;
@@ -74,7 +70,6 @@
   };
 
   services.xserver.videoDrivers = ["nvidia"];
-  # hardware.graphics.enable = true;
   boot.blacklistedKernelModules = ["nouveau"];
 
   services.traefik = {
