@@ -18,5 +18,7 @@
     sqlitebrowser
     thunar
     yazi
+
+    openrgb
   ];
 }
