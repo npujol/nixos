@@ -16,5 +16,7 @@
     pdftk
     sops
     sqlitebrowser
+    thunar
+    yazi
   ];
 }
