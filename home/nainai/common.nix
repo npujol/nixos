@@ -136,7 +136,6 @@
     (unstablePkgs.telegram-desktop)
     (unstablePkgs.typst)
     (unstablePkgs.wineWow64Packages.staging)
-
   ];
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration
@@ -165,4 +164,5 @@
       package = unstablePkgs.ollama-vulkan;
     };
   };
+  services.tailscale-systray.enable = true;
 }
