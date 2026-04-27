@@ -5,7 +5,7 @@
     ../common/features/git.nix
     ../common/features/fish.nix
     ../common/features/kitty.nix
-    ../common/features/kde.nix
+    # ../common/features/kde.nix
     ../common/features/syncthing.nix
     ../common/features/session-variables.nix
   ];
@@ -82,6 +82,7 @@
     pkgs.virt-manager
     pkgs.wget
     pkgs.zpaq
+    pkgs.llama-cpp-vulkan
   ];
 
   programs = {

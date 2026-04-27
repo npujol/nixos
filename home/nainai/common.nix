@@ -44,6 +44,7 @@
   home.packages = with pkgs;
   with builtins;
   with lib; [
+    llama-cpp-vulkan
     alejandra
     android-tools
     anki
