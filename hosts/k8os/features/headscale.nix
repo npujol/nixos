@@ -26,6 +26,7 @@
           }) [
             "calibre"
             "immich"
+            "album"
             "memos"
             "paperless"
             "languagetool"

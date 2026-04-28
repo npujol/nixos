@@ -9,6 +9,9 @@
   # You may want to restrict this by using something like `[ "/dev/dri/renderD128" ]`
   services.immich.accelerationDevices = null;
 
+  services.immich-public-proxy.enable = true;
+  services.immich-public-proxy.immichUrl = "http://localhost:${toString config.services.immich.port}";
+
   services.traefik.dynamicConfigOptions = {
     http = {
       routers = {
@@ -18,12 +21,25 @@
           entryPoints = ["websecure"];
           middlewares = ["immich-compress"];
         };
+        album = {
+          rule = "Host(`album.locus.mywire.org`)"; # This one is public, so no tailscale filter
+          service = "album";
+          entryPoints = ["websecure"];
+          middlewares = ["immich-compress"];
+        };
       };
       services = {
         immich = {
           loadBalancer = {
             servers = [
               {url = "http://[::1]:${toString config.services.immich.port}";}
+            ];
+          };
+        };
+        album = {
+          loadBalancer = {
+            servers = [
+              {url = "http://[::1]:${toString config.services.immich-public-proxy.port}";}
             ];
           };
         };
