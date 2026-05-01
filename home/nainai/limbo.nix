@@ -1,7 +1,6 @@
 {
   pkgs,
   myPkgs,
-  unstablePkgs,
   ...
 }: {
   imports = [
@@ -13,7 +12,7 @@
     myPkgs.eden-emu
     gimp
     krita
-    unstablePkgs.llama-cpp-vulkan
+    # unstablePkgs.llama-cpp-vulkan
     pdftk
     sops
     sqlitebrowser

@@ -161,7 +161,7 @@
   #---------------------------------------------------------------------------
   services = {
     ollama = {
-      enable = true;
+      enable = false;
       package = unstablePkgs.ollama-vulkan;
     };
   };
