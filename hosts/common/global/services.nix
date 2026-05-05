@@ -9,5 +9,6 @@
     };
     openssh.enable = true;
     dbus.implementation = "broker";
+    upower.enable = true;
   };
 }
