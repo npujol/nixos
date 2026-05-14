@@ -189,6 +189,7 @@
 
       input = {
         kb_layout = "us";
+        kb_variant = "altgr-intl";
         repeat_delay = 200;
         repeat_rate = 60;
         follow_mouse = 1;
