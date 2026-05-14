@@ -24,7 +24,7 @@
       enable = true;
       variables = ["--all"];
     };
-
+    configType = "hyprlang";
     settings = {
       "$mod" = "SUPER";
 

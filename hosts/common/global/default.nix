@@ -2,6 +2,8 @@
 {
   pkgs,
   inputs,
+  lib,
+  config,
   ...
 }: {
   imports = [
@@ -16,7 +18,6 @@
     ./services.nix
     ./security.nix
   ];
-
   environment = {
     loginShellInit = ''
       # Activate home-manager environment, if not already
@@ -35,11 +36,28 @@
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
 
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
-  services.desktopManager.plasma6.enable = false;
-  programs.hyprland.enable = true;
+  # services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.wayland.enable = true;
+  # services.desktopManager.plasma6.enable = false;
+  # programs.hyprland.enable = true;
 
+  services.greetd = {
+    enable = true;
+    settings = let
+      command = "start-hyprland";
+      user = "nainai";
+    in {
+      default_session = {
+        command = "${lib.getExe pkgs.tuigreet} --time --cmd ${command} --user-menu --remember";
+        user = "greeter";
+      };
+
+      initial_session = {
+        command = command;
+        user = user;
+      };
+    };
+  };
   environment.systemPackages = with pkgs; [
     vim
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
