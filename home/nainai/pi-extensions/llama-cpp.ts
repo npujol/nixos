@@ -51,7 +51,7 @@ import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 
 const DEFAULT_BASE_URL = "http://localhost:8080/v1";
 const DEFAULT_CONTEXT_WINDOW = 8192;
-const DEFAULT_MAX_TOKENS = 4096;
+const DEFAULT_MAX_TOKENS = 128000;
 
 // =============================================================================
 // Types
