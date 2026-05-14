@@ -137,6 +137,7 @@
     (unstablePkgs.telegram-desktop)
     (unstablePkgs.typst)
     (unstablePkgs.wineWow64Packages.staging)
+    nvtopPackages.amd
   ];
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration
