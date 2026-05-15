@@ -19,6 +19,7 @@
     thunar
     yazi
 
+    pwvucontrol
     openrgb
   ];
 }
