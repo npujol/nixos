@@ -129,10 +129,10 @@
       colorSchemes.predefinedScheme = "Monochrome";
       wallpaper.enabled = false;
       general = {
-        avatarImage = "/home/leiserfg/.face";
+        # avatarImage = "/home/nainai/.face";
         radiusRatio = 0.2;
       };
-      wallpaper.defaultWallpaper = "/home/leiserfg/wall.png";
+      wallpaper.defaultWallpaper = "/home/nainai/wall.jpeg";
       location = {
         monthBeforeDay = false;
         name = "Berlin, Germany";
