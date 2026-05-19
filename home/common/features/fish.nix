@@ -12,6 +12,13 @@
       # Include here other aliases that you want to use only with fish
       "switch-system" = "sudo nixos-rebuild switch --flake .";
       "switch-home" = "home-manager switch --flake . -b backup";
+      "llama" = "llama-server \\
+  -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q3_K_M \\
+  -ngl 15 \\
+  -c 196608 \\
+  --cache-type-k q4_0 \\
+  --cache-type-v q4_0 \\
+  -t 10";
     };
   };
 
