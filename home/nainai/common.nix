@@ -44,7 +44,7 @@
   home.packages = with pkgs;
   with builtins;
   with lib; [
-    llama-cpp-vulkan
+    myPkgs.llama-cpp-vulkan
     alejandra
     android-tools
     anki
@@ -167,4 +167,9 @@
     };
   };
   services.tailscale-systray.enable = true;
+  xdg.configFile."wireplumber/wireplumber.conf.d/10-bluetooth.conf".text = ''
+    wireplumber.settings = {
+       bluetooth.autoswitch-to-headset-profile = false
+    }
+  '';
 }
