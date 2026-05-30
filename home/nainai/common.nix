@@ -131,7 +131,7 @@
     xh
     zen-browser
     zpaq
-
+    ollama
     (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
     (unstablePkgs.ruff)
     (unstablePkgs.telegram-desktop)
@@ -161,10 +161,10 @@
   # In this section we configure the user services, such as: mpris-proxy, etc.
   #---------------------------------------------------------------------------
   services = {
-    ollama = {
-      enable = false;
-      package = unstablePkgs.ollama-vulkan;
-    };
+    # ollama = {
+    #   enable = false;
+    #   package = unstablePkgs.ollama-vulkan;
+    # };
   };
   services.tailscale-systray.enable = true;
   xdg.configFile."wireplumber/wireplumber.conf.d/10-bluetooth.conf".text = ''

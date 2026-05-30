@@ -9,7 +9,7 @@
 
   piPackage = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi;
 
-  builtinExtensionsDir = "${piPackage}/lib/node_modules/@mariozechner/pi-coding-agent/examples/extensions";
+  builtinExtensionsDir = "${piPackage}/lib/node_modules/@earendil-works/pi-coding-agent/examples/extensions";
 
   builtinExtensionNames = [
     "custom-provider-qwen-cli"
