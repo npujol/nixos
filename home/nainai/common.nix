@@ -44,7 +44,7 @@
   home.packages = with pkgs;
   with builtins;
   with lib; [
-    myPkgs.llama-cpp-vulkan
+    llama-cpp-vulkan
     alejandra
     android-tools
     anki
@@ -92,7 +92,6 @@
     markdownlint-cli
     markdownlint-cli2
     markdown-oxide
-    myPkgs.wl_shimeji
     ncdu
     nerd-fonts.symbols-only
     nil
