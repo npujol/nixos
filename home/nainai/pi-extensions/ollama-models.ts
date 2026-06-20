@@ -122,12 +122,9 @@ async function detectModels(baseUrl: string, apiKey?: string): Promise<any[]> {
             console.warn("Ollama: Could not fetch cloud models:", cloudError instanceof Error ? cloudError.message : cloudError);
         }
 
-        // Only use cloud models that are actually available locally
-        // (i.e., have the remote_host field set)
-        const availableCloudModels = cloudModels.filter(model => model.remote_host);
-        
-        // Combine local models with available cloud models
-        const allModels = [...localData.models, ...availableCloudModels];
+        // Combine local models with all cloud models from registry
+        // Cloud models will be marked appropriately in the UI
+        const allModels = [...localData.models, ...cloudModels];
         const uniqueModels = Array.from(new Map(allModels.map(model => [model.name, model]))).map(([_, model]) => model);
 
         // Convert Ollama model info to pi model config
@@ -162,7 +159,7 @@ async function detectModels(baseUrl: string, apiKey?: string): Promise<any[]> {
 
                 // Determine if this is a cloud model
                 // Cloud models either have remote_host set OR come from cloud registry with size 0
-                const isCloudModel = !!model.remote_host || (model.size === 0 && !localData.models.some(localModel => localModel.name === model.name));
+                const isCloudModel = !!model.remote_host || (model.size === 0);
                 const modelType = isCloudModel ? "cloud" : "local";
                 // For cloud models, ensure they have the :cloud suffix
                 let modelId = model.name;
@@ -289,23 +286,24 @@ export default async function (pi: ExtensionAPI) {
             ctx.ui.notify("Fetching Ollama models...", "info");
             
             try {
-                const models = await detectModels(baseUrl, apiKey);
+                const allModels = await detectModels(baseUrl, apiKey);
                 
-                if (models.length === 0) {
+                if (allModels.length === 0) {
                     ctx.ui.notify("No Ollama models found", "warning");
                     return;
                 }
                 
-                let message = `Found ${models.length} Ollama model(s):\n\n`;
+                // Separate models that are actually available locally vs all cloud models
+                const localModels = allModels.filter(m => m.metadata?.type === "local");
+                const availableCloudModels = allModels.filter(m => m.metadata?.type === "cloud" && m.metadata?.remote_host);
+                const allCloudModels = allModels.filter(m => m.metadata?.type === "cloud");
                 
-                // Group by type
-                const localModels = models.filter(m => m.metadata?.type === "local");
-                const cloudModels = models.filter(m => m.metadata?.type === "cloud");
+                let message = `Found ${allModels.length} Ollama model(s):\n\n`;
                 
                 if (localModels.length > 0) {
-                    message += "📦 Local Models:\n";
+                    message += "📦 Local Models (${localModels.length}):\n";
                     localModels.forEach(model => {
-                        const displayName = model.name; // Use the cleaned display name
+                        const displayName = model.name;
                         const family = model.metadata?.family || "unknown";
                         const context = (model.contextWindow / 1024).toFixed(1) + "K";
                         message += `  • ${displayName} (${family}, ${context} context)`;
@@ -316,16 +314,28 @@ export default async function (pi: ExtensionAPI) {
                     message += "\n";
                 }
                 
-                if (cloudModels.length > 0) {
-                    message += "☁️ Cloud Models:\n";
-                    cloudModels.forEach(model => {
-                        const displayName = model.name; // Use the cleaned display name
+                if (availableCloudModels.length > 0) {
+                    message += `☁️ Available Cloud Models (${availableCloudModels.length}):\n`;
+                    availableCloudModels.forEach(model => {
+                        const displayName = model.name;
                         const family = model.metadata?.family || "unknown";
                         const context = (model.contextWindow / 1024).toFixed(1) + "K";
                         message += `  • ${displayName} (${family}, ${context} context)`;
                         if (model.reasoning) message += " 🧠";
                         if (model.input.includes("image")) message += " 🖼️";
                         message += "\n";
+                    });
+                    message += "\n";
+                }
+                
+                if (allCloudModels.length > availableCloudModels.length) {
+                    message += `🌐 All Cloud Models from Registry (${allCloudModels.length}):\n`;
+                    message += "  (Use 'ollama pull model:cloud' to download)\n";
+                    allCloudModels.forEach(model => {
+                        const displayName = model.name;
+                        const isAvailable = !!model.metadata?.remote_host;
+                        const status = isAvailable ? "✅" : "🔄";
+                        message += `  ${status} ${displayName}\n`;
                     });
                 }
                 
@@ -362,6 +372,11 @@ export default async function (pi: ExtensionAPI) {
     // Separate local and cloud models
     const localModels = models.filter(model => model.metadata?.type !== "cloud");
     const cloudModels = models.filter(model => model.metadata?.type === "cloud");
+    
+    console.log(`Local models: ${localModels.length}, Cloud models: ${cloudModels.length}`);
+    cloudModels.forEach(model => {
+        console.log(`Cloud model: ${model.id} (${model.name})`);
+    });
 
     // Register local models with the main ollama provider
     if (localModels.length > 0) {
