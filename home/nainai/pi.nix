@@ -38,6 +38,14 @@
       source = ./skills/brave-search;
       recursive = true;
     };
+    ".pi/skills/commit" = {
+      source = ./skills/commit;
+      recursive = true;
+    };
+    ".pi/skills/mermaid" = {
+      source = ./skills/mermaid;
+      recursive = true;
+    };
   };
 
   allFileEntries = lib.mkMerge [
