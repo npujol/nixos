@@ -41,7 +41,7 @@
           "$mod, F, fullscreen"
           "$mod, V, togglefloating"
           "$mod, P, pseudo"
-          "$mod, T, togglesplit"
+          # "$mod, T, togglesplit"
           "$mod, W, fullscreen, 1"
 
           # Move focus
@@ -105,8 +105,7 @@
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         force_default_wallpaper = 0;
-        vfr = true;
-        vrr = 1;
+        # vfr = true; vrr = 1;
         mouse_move_enables_dpms = true;
         key_press_enables_dpms = true;
       };
@@ -175,7 +174,7 @@
       };
 
       dwindle = {
-        pseudotile = "yes";
+        # pseudotile = "yes";
         preserve_split = "yes";
         smart_split = false;
         smart_resizing = true;

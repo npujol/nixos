@@ -16,5 +16,6 @@
     sqlitebrowser
     yazi
     openrgb
+    steam
   ];
 }
