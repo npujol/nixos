@@ -1,0 +1,232 @@
+name: Sync pi config from work repo
+
+on:
+  schedule:
+    # Daily at 06:00 UTC
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Force a PR even if no changes detected"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    name: Sync pi config from work
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout private repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clone work repo
+        run: |
+          git clone --depth=50 https://git.mobilistics.de/n.pujol-mendez/nix-config.git work-repo
+          cd work-repo
+          WORK_SHA=$(git rev-parse HEAD)
+          WORK_SHORT=$(git rev-parse --short HEAD)
+          echo "WORK_SHA=$WORK_SHA" >> "$GITHUB_ENV"
+          echo "WORK_SHORT=$WORK_SHORT" >> "$GITHUB_ENV"
+          echo "Latest work commit: $WORK_SHA ($WORK_SHORT)"
+          git log --oneline -5
+
+      - name: Read previous sync state
+        id: prev-state
+        run: |
+          if [ -f .pi-sync-state.json ]; then
+            PREV=$(jq -r '.lastSyncedWorkSha // empty' .pi-sync-state.json)
+            echo "prev_sha=$PREV" >> "$GITHUB_OUTPUT"
+            echo "Previous sync SHA: $PREV"
+          else
+            echo "prev_sha=" >> "$GITHUB_OUTPUT"
+            echo "No previous sync state"
+          fi
+
+      - name: Configure git
+        run: |
+          git config user.name "pi-sync-bot"
+          git config user.email "pi-sync-bot@users.noreply.github.com"
+
+      - name: Create sync branch
+        run: |
+          BRANCH="chore/sync-pi-from-work-${{ env.WORK_SHORT }}"
+          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
+          git checkout -b "$BRANCH"
+          echo "Created branch: $BRANCH"
+
+      - name: Sync pi.nix
+        env:
+          PREV_SHA: ${{ steps.prev-state.outputs.prev_sha }}
+        run: |
+          mkdir -p home/nainai/.pi-sync
+
+          # Clean any prior .from-work artifacts so removed files in work don't
+          # leave stale references in the PR.
+          rm -f home/nainai/.pi-sync/pi.nix.from-work
+          rm -rf home/nainai/.pi-sync/pi-extensions home/nainai/.pi-sync/skills
+
+          # Always stage work's pi.nix as .from-work for easy review in the PR.
+          # but only if it differs from anything already staged (to avoid
+          # noise commits on no-op runs).
+          FROM_WORK=home/nainai/.pi-sync/pi.nix.from-work
+          if [ ! -f "$FROM_WORK" ] || ! cmp -s work-repo/home/pi.nix "$FROM_WORK"; then
+            cp work-repo/home/pi.nix "$FROM_WORK"
+            echo "Updated $FROM_WORK"
+          else
+            echo "$FROM_WORK already up to date; not modifying."
+          fi
+
+          # If the user has accepted work's version before (i.e. home/nainai/pi.nix
+          # matches the previously imported version), update it. Otherwise leave
+          # it for the user to merge manually and just provide the .from-work file.
+          if [ -n "$PREV_SHA" ]; then
+            # Try to fetch the previous SHA from the work repo to compare.
+            git -C work-repo fetch --depth=1 origin "$PREV_SHA" 2>/dev/null || true
+            if git -C work-repo cat-file -e "$PREV_SHA" 2>/dev/null; then
+              git -C work-repo show "$PREV_SHA:home/pi.nix" > /tmp/prev-pi.nix
+              if [ -s /tmp/prev-pi.nix ] && cmp -s /tmp/prev-pi.nix home/nainai/pi.nix; then
+                echo "home/nainai/pi.nix matches previous work import; updating to new work version."
+                cp work-repo/home/pi.nix home/nainai/pi.nix
+              else
+                echo "home/nainai/pi.nix differs from previous work import; leaving for manual merge."
+                echo "Work version staged at $FROM_WORK."
+              fi
+            else
+              echo "Previous SHA $PREV_SHA not in shallow clone; leaving home/nainai/pi.nix untouched."
+            fi
+          else
+            # First run: leave the existing pi.nix alone, just stage the .from-work
+            # file so the user can see what work has and merge at their leisure.
+            echo "First run; leaving existing home/nainai/pi.nix in place. Work version staged as .from-work."
+          fi
+
+      - name: Sync pi-extensions
+        run: |
+          # For each file in work's pi-extensions, if private is missing it, copy.
+          # If private has it but with different content, copy work's version to
+          # home/nainai/.pi-sync/pi-extensions/<name>.from-work for review and
+          # leave the private file untouched.
+          mkdir -p home/nainai/pi-extensions home/nainai/.pi-sync/pi-extensions
+
+          shopt -s nullglob
+          for f in work-repo/home/pi-extensions/*; do
+            name=$(basename "$f")
+            target="home/nainai/pi-extensions/$name"
+            if [ ! -f "$target" ]; then
+              echo "ADD extension: $name"
+              cp "$f" "$target"
+            elif ! cmp -s "$f" "$target"; then
+              echo "DIFFERS (staged for review): $name"
+              cp "$f" "home/nainai/.pi-sync/pi-extensions/$name.from-work"
+            else
+              echo "UNCHANGED: $name"
+            fi
+          done
+
+      - name: Sync skills
+        run: |
+          # Same merge strategy as extensions, but for whole subdirectories.
+          mkdir -p home/nainai/skills home/nainai/.pi-sync/skills
+
+          for d in work-repo/home/skills/*/; do
+            name=$(basename "$d")
+            target="home/nainai/skills/$name"
+            review_dir="home/nainai/.pi-sync/skills/$name.from-work"
+            if [ ! -d "$target" ]; then
+              echo "ADD skill: $name"
+              cp -r "$d" "$target"
+            else
+              # Skill exists locally: if content matches, do nothing.
+              # Otherwise stage work's version as .from-work for review.
+              if diff -rq "$d" "$target" >/dev/null 2>&1; then
+                echo "UNCHANGED: skill $name"
+              else
+                echo "DIFFERS (review): skill $name — staged .from-work copy"
+                rm -rf "$review_dir"
+                mkdir -p "$review_dir"
+                cp -r "$d"/* "$review_dir/"
+              fi
+            fi
+          done
+
+      - name: Update sync state
+        run: |
+          {
+            echo "{"
+            echo "  \"lastSyncedWorkSha\": \"$WORK_SHA\","
+            echo "  \"lastSyncedAt\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\""
+            echo "}"
+          } > .pi-sync-state.json
+          cat .pi-sync-state.json
+
+      - name: Check for changes
+        id: check
+        run: |
+          FORCE="${{ github.event.inputs.force }}"
+          if [ -n "$(git status --porcelain)" ] || [ "$FORCE" = "true" ]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Changes detected (or forced)."
+            git status --short
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No changes to commit."
+          fi
+
+      - name: Open PR
+        if: steps.check.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.BRANCH }}
+          add-paths: |
+            .pi-sync-state.json
+            home/nainai/.pi-sync/**
+            home/nainai/pi.nix
+            home/nainai/pi-extensions/**
+            home/nainai/skills/**
+          title: "chore(pi): sync from work @ ${{ env.WORK_SHORT }}"
+          body: |
+            Daily sync from work repo: https://git.mobilistics.de/n.pujol-mendez/nix-config
+
+            **Work SHA**: `${{ env.WORK_SHA }}` (`${{ env.WORK_SHORT }}`)
+
+            ## What was synced
+
+            ### `home/pi.nix`
+            - Work's version is staged at `home/nainai/.pi-sync/pi.nix.from-work`
+            - `home/nainai/pi.nix` is **only auto-updated** if it matched the previous
+              work import. Otherwise it's left untouched for manual merge.
+
+            ### `home/pi-extensions/`
+            - **New** files from work: copied into `home/nainai/pi-extensions/`
+            - **Modified** files from work: staged as `.from-work` next to your local
+              copy in `home/nainai/.pi-sync/pi-extensions/` — your local file is
+              preserved. Please review and merge by hand.
+
+            ### `home/skills/`
+            - **New** skills from work: copied into `home/nainai/skills/`
+            - **Modified** skills: staged as `.from-work` directories in
+              `home/nainai/.pi-sync/skills/` — your local directory is preserved.
+
+            ## Reminders
+            - Workflow runs daily at 06:00 UTC. Trigger manually with
+              `workflow_dispatch` if you need an out-of-band sync.
+            - This PR was opened automatically. Resolve any conflicts in
+              `home/nainai/pi.nix` and any `.from-work` files before merging.
+          commit-message: "chore(pi): sync from work @ ${{ env.WORK_SHORT }}
+
+            Work SHA: ${{ env.WORK_SHA }}
+            Work repo: https://git.mobilistics.de/n.pujol-mendez/nix-config"
+          delete-branch: true
+
+      - name: No changes summary
+        if: steps.check.outputs.has_changes != 'true'
+        run: |
+          echo "No changes since last sync at $(jq -r .lastSyncedAt .pi-sync-state.json)."
+          echo "Work SHA: ${{ env.WORK_SHA }} (last synced: $(jq -r .lastSyncedWorkSha .pi-sync-state.json))"
