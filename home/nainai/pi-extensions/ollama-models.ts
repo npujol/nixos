@@ -122,8 +122,12 @@ async function detectModels(baseUrl: string, apiKey?: string): Promise<any[]> {
             console.warn("Ollama: Could not fetch cloud models:", cloudError instanceof Error ? cloudError.message : cloudError);
         }
 
-        // Combine local and cloud models, removing duplicates
-        const allModels = [...localData.models, ...cloudModels];
+        // Only use cloud models that are actually available locally
+        // (i.e., have the remote_host field set)
+        const availableCloudModels = cloudModels.filter(model => model.remote_host);
+        
+        // Combine local models with available cloud models
+        const allModels = [...localData.models, ...availableCloudModels];
         const uniqueModels = Array.from(new Map(allModels.map(model => [model.name, model]))).map(([_, model]) => model);
 
         // Convert Ollama model info to pi model config
@@ -160,13 +164,25 @@ async function detectModels(baseUrl: string, apiKey?: string): Promise<any[]> {
                 // Cloud models either have remote_host set OR come from cloud registry with size 0
                 const isCloudModel = !!model.remote_host || (model.size === 0 && !localData.models.some(localModel => localModel.name === model.name));
                 const modelType = isCloudModel ? "cloud" : "local";
-                const displayName = isCloudModel ? 
-                    `${model.name} (cloud)` : 
-                    model.name.split(":")[0]; // Remove tag for display
+                // For cloud models, ensure they have the :cloud suffix
+                let modelId = model.name;
+                let displayName = model.name;
+                
+                if (isCloudModel) {
+                    // Add :cloud suffix if not present
+                    if (!model.name.endsWith(":cloud")) {
+                        modelId = `${model.name}:cloud`;
+                        displayName = `${model.name}:cloud`;
+                    }
+                }
+                
+                // Clean up by removing :latest
+                displayName = displayName.replace(":latest", "");
+                modelId = modelId.replace(":latest", "");
 
                 validModels.push({
-                    id: model.name,
-                    name: model.name, // Use full model name as both ID and display name
+                    id: modelId,
+                    name: displayName, // Use clean display name
                     reasoning: supportsReasoning,
                     input: supportsVision ? (["text", "image"] as const) : (["text"] as const),
                     cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
@@ -289,7 +305,7 @@ export default async function (pi: ExtensionAPI) {
                 if (localModels.length > 0) {
                     message += "📦 Local Models:\n";
                     localModels.forEach(model => {
-                        const displayName = model.metadata?.displayName || model.name;
+                        const displayName = model.name; // Use the cleaned display name
                         const family = model.metadata?.family || "unknown";
                         const context = (model.contextWindow / 1024).toFixed(1) + "K";
                         message += `  • ${displayName} (${family}, ${context} context)`;
@@ -303,7 +319,7 @@ export default async function (pi: ExtensionAPI) {
                 if (cloudModels.length > 0) {
                     message += "☁️ Cloud Models:\n";
                     cloudModels.forEach(model => {
-                        const displayName = model.metadata?.displayName || model.name;
+                        const displayName = model.name; // Use the cleaned display name
                         const family = model.metadata?.family || "unknown";
                         const context = (model.contextWindow / 1024).toFixed(1) + "K";
                         message += `  • ${displayName} (${family}, ${context} context)`;
