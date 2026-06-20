@@ -4,13 +4,9 @@
     ./pi.nix
   ];
   home.packages = with pkgs; [
-    gimp
     nix-tree
-    sops
     thunderbird
     zoom-us
-    thunar
-    pwvucontrol
   ];
   # Force Rewrite
   manual.manpages.enable = false; # Doc framework is broken, so let's stop updating this

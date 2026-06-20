@@ -137,6 +137,10 @@
     (unstablePkgs.typst)
     (unstablePkgs.wineWow64Packages.staging)
     nvtopPackages.amd
+    gimp
+    sops
+    thunar
+    pwvucontrol
   ];
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration

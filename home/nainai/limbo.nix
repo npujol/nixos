@@ -10,16 +10,11 @@
   home.packages = with pkgs; [
     cheese
     myPkgs.eden-emu
-    gimp
     krita
     # unstablePkgs.llama-cpp-vulkan
     pdftk
-    sops
     sqlitebrowser
-    thunar
     yazi
-
-    pwvucontrol
     openrgb
   ];
 }
