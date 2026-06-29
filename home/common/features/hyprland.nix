@@ -27,7 +27,9 @@
     configType = "hyprlang";
     settings = {
       "$mod" = "SUPER";
-
+      xwayland = {
+        force_zero_scaling = true;
+      };
       bind =
         [
           # Apps
