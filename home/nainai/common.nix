@@ -81,7 +81,6 @@
     gparted
     hugo
     htop
-    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
     jq
     kubectl
     kubectx

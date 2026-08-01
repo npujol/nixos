@@ -8,7 +8,6 @@
     ./pi.nix
   ];
   home.packages = with pkgs; [
-    cheese
     myPkgs.eden-emu
     krita
     # unstablePkgs.llama-cpp-vulkan
