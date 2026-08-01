@@ -48,7 +48,6 @@
     alejandra
     android-tools
     anki
-    aria2
     audacity
     autossh
     bash-language-server
@@ -61,7 +60,6 @@
     croc
     ddcutil
     devenv
-    delta
     dmidecode
     doggo
     docker
@@ -71,11 +69,6 @@
     flameshot
     freefilesync
     gcc
-    gh
-    git
-    git-absorb
-    git-lfs
-    git-standup
     gopls
     golangci-lint-langserver
     gparted
@@ -124,7 +117,6 @@
     uv
     vscode
     wget
-    wl-clipboard
     xclip
     xh
     zen-browser
@@ -132,7 +124,6 @@
     ollama
     (unstablePkgs.iosevka-bin.override {variant = "SGr-IosevkaTermSS07";})
     (unstablePkgs.ruff)
-    (unstablePkgs.telegram-desktop)
     (unstablePkgs.typst)
     (unstablePkgs.wineWow64Packages.staging)
     nvtopPackages.amd

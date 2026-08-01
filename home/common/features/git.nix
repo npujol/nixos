@@ -1,5 +1,11 @@
 # Defines the git configurations
-{...}: {
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    delta
+    git-absorb
+    git-standup
+  ];
+
   programs.delta.enableGitIntegration = true;
   programs.git = {
     enable = true;
