@@ -13,11 +13,6 @@
 
   programs.thunderbird = {
     enable = true;
-    profiles.nainai = {
-      isDefault = true;
-      settings = {
-        "mail.root.dir-text" = "/home/nainai/Thunderbird/Mail/Local Folders";
-      };
-    };
+    profiles.nainai.isDefault = true;
   };
 }
