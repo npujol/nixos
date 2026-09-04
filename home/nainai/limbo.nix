@@ -14,7 +14,6 @@
     sqlitebrowser
     yazi
     openrgb
-    steam
   ];
 
   programs.thunderbird = {
