@@ -18,6 +18,7 @@
     ignores = [
       ".direnv"
       ".envrc"
+      ".pi"
     ];
 
     settings = {
