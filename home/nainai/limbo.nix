@@ -14,6 +14,7 @@
     sqlitebrowser
     yazi
     openrgb
+    smartmontools
   ];
 
   programs.thunderbird = {
