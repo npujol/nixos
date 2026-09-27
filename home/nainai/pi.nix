@@ -49,8 +49,16 @@
       source = ./skills/brave-search;
       recursive = true;
     };
+    ".pi/skills/check-review-comments" = {
+      source = ./skills/check-review-comments;
+      recursive = true;
+    };
     ".pi/skills/commit" = {
       source = ./skills/commit;
+      recursive = true;
+    };
+    ".pi/skills/fact-check" = {
+      source = ./skills/fact-check;
       recursive = true;
     };
     ".pi/skills/mermaid" = {
@@ -59,6 +67,18 @@
     };
     ".pi/skills/playwright" = {
       source = ./skills/playwright;
+      recursive = true;
+    };
+    ".pi/skills/refactor-comments" = {
+      source = ./skills/refactor-comments;
+      recursive = true;
+    };
+    ".pi/skills/refactor-patterns" = {
+      source = ./skills/refactor-patterns;
+      recursive = true;
+    };
+    ".pi/skills/update-changelog" = {
+      source = ./skills/update-changelog;
       recursive = true;
     };
   };
