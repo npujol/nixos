@@ -57,6 +57,10 @@
       source = ./skills/mermaid;
       recursive = true;
     };
+    ".pi/skills/playwright" = {
+      source = ./skills/playwright;
+      recursive = true;
+    };
   };
 
   allFileEntries = lib.mkMerge [

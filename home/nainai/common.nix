@@ -11,6 +11,7 @@
     ../../shared/nix.nix
     ../common/features/cmds.nix
     ../common/features/mpv.nix
+    ../common/features/playwright.nix
     ../common/features/git.nix
     ../common/features/kitty.nix
     ../common/features/fish.nix
