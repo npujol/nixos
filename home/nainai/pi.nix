@@ -15,6 +15,11 @@
     "custom-provider-qwen-cli"
   ];
 
+  # CLI wrapper for agent-memory (seed.mjs)
+  agentMemory = pkgs.writeShellScriptBin "agent-memory" ''
+    exec ${pkgs.nodejs}/bin/node ${./memory/seed.mjs} "$@"
+  '';
+
   extensionEntries = lib.mapAttrs' (
     name: type:
       lib.nameValuePair ".pi/agent/extensions/${name}" {
@@ -32,6 +37,12 @@
     })
     builtinExtensionNames
   );
+
+  memoryFileEntries = {
+    ".pi/agent/APPEND_SYSTEM.md" = {
+      source = ./memory/system_append.md;
+    };
+  };
 
   skillsEntries = {
     ".pi/skills/brave-search" = {
@@ -52,9 +63,10 @@
     extensionEntries
     builtinExtensionEntries
     skillsEntries
+    memoryFileEntries
   ];
 in {
-  home.packages = [piPackage];
+  home.packages = [piPackage agentMemory];
 
   home.file = allFileEntries;
 }
