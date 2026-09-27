@@ -131,6 +131,7 @@
     sops
     thunar
     pwvucontrol
+    openspec
   ];
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration
