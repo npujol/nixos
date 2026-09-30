@@ -133,6 +133,8 @@
     thunar
     pwvucontrol
     openspec
+    libreoffice
+    zathura
   ];
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration
