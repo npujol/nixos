@@ -135,6 +135,7 @@
     openspec
     libreoffice
     zathura
+    inkscape
   ];
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration
