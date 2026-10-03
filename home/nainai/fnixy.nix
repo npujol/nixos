@@ -1,8 +1,21 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...,
+}: {
   imports = [
     ./common.nix
     ./pi.nix
+    inputs.sops-nix.homeManagerModules.sops
   ];
+
+  sops = {
+    defaultAgePrivateKeyPath = "/home/nainai/.config/sops/age/keys.txt";
+    secrets."obsidian-api-key" = {
+      sopsFile = ../../secrets/secrets.yaml;
+      format = "yaml";
+    };
+  };
   home.packages = with pkgs; [
     nix-tree
     zoom-us
