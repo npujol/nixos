@@ -1,7 +1,8 @@
 {
   pkgs,
   inputs,
-  ...,
+  config,
+  ...
 }: {
   imports = [
     ./common.nix
@@ -11,11 +12,23 @@
 
   sops = {
     defaultAgePrivateKeyPath = "/home/nainai/.config/sops/age/keys.txt";
-    secrets."obsidian-api-key" = {
-      sopsFile = ../../secrets/secrets.yaml;
-      format = "yaml";
+    secrets = {
+      "github-token" = {
+        sopsFile = ../../secrets/secrets.yaml;
+        format = "yaml";
+      };
+      "obsidian-api-key" = {
+        sopsFile = ../../secrets/secrets.yaml;
+        format = "yaml";
+      };
     };
   };
+
+  home.sessionVariables = {
+    GH_TOKEN = config.sops.secrets."github-token".value;
+    OBSIDIAN_API_KEY = config.sops.secrets."obsidian-api-key".value;
+  };
+
   home.packages = with pkgs; [
     nix-tree
     zoom-us

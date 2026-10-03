@@ -49,13 +49,21 @@
       text = builtins.toJSON {
         mcpServers = {
           obsidian = {
-            # TODO: Switch to HTTPS and remove this comment when moving off localhost. Currently uses HTTP on 127.0.0.1 only.
             url = "http://127.0.0.1:27200/mcp";
             headers = {
               # pi expands env vars in headers at runtime; Nix doesn't interpolate "$ + "{...}""
               Authorization = "$" + "{OBSIDIAN_MCP_TOKEN}";
             };
             description = "Obsidian vault — semantic search, file management, templates, command execution";
+          };
+          github = {
+            command = "npx";
+            args = [
+              "-y"
+              "@modelcontextprotocol/server-github"
+            ];
+            env.GITHUB_TOKEN = "$" + "{GH_TOKEN}";
+            description = "GitHub — repositories, issues, PRs, code search";
           };
         };
       };
