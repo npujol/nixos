@@ -12,7 +12,7 @@
   ];
 
   sops = {
-    defaultAgePrivateKeyPath = "/home/nainai/.config/sops/age/keys.txt";
+    age.keyFile = "/home/nainai/.config/sops/age/keys.txt";
     secrets = {
       "github-token" = {
         sopsFile = ../../secrets/secrets.yaml;
@@ -26,8 +26,8 @@
   };
 
   home.sessionVariables = {
-    GH_TOKEN = config.sops.secrets."github-token".value;
-    OBSIDIAN_API_KEY = config.sops.secrets."obsidian-api-key".value;
+    GH_TOKEN = config.sops.secrets."github-token".path;
+    OBSIDIAN_API_KEY = config.sops.secrets."obsidian-api-key".path;
   };
   home.packages = with pkgs; [
     myPkgs.eden-emu

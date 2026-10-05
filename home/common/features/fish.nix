@@ -13,6 +13,7 @@
       "switch-system" = "sudo nixos-rebuild switch --flake .";
       "switch-home" = "home-manager switch --flake . -b backup";
       "llama" = "llama-server -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q3_K_M --reasoning-preserve --image-min-tokens 1024 --threads $(nproc) -ngl 15 -c 196608 --cache-type-k q4_0 --cache-type-v q4_0 -t 10";
+      "tiel-coder" = "llama-server -hf peculiar-ragdoll/Tiel-Coder-35B-A3B-GGUF-MTP:UD-IQ3_XXS  --spec-draft-n-max 2";
     };
   };
 

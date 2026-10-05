@@ -11,7 +11,7 @@
   ];
 
   sops = {
-    defaultAgePrivateKeyPath = "/home/nainai/.config/sops/age/keys.txt";
+    age.keyFile = "/home/nainai/.config/sops/age/keys.txt";
     secrets = {
       "github-token" = {
         sopsFile = ../../secrets/secrets.yaml;
