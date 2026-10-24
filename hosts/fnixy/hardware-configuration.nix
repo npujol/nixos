@@ -21,7 +21,7 @@
   boot.kernel.sysctl."vm.max_map_count" = 544288;
 
   hardware.cpu.amd.updateMicrocode = true;
-
+  hardware.framework.enableKmod = false;
   nixpkgs.hostPlatform.system = "x86_64-linux";
 
   boot.initrd.luks.devices."luks-c6b52cb3-460b-413f-a012-7cb41e869390".device = "/dev/disk/by-uuid/c6b52cb3-460b-413f-a012-7cb41e869390";
