@@ -1,204 +1,88 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
-  defaultPluginSourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-
-  # Helper function to generate plugin states
-  mkPluginStates = plugins:
-    builtins.listToAttrs (
-      map (
-        plugin: let
-          name =
-            if builtins.isString plugin
-            then plugin
-            else plugin.name;
-          sourceUrl =
-            if builtins.isString plugin
-            then defaultPluginSourceUrl
-            else (plugin.sourceUrl or defaultPluginSourceUrl);
-        in {
-          name = name;
-          value = {
-            enabled = true;
-            sourceUrl = sourceUrl;
-          };
-        }
-      )
-      plugins
-    );
-
-  noctalia-settings = pkgs.writeTextFile {
-    name = "noctalia-settings.json";
-    text = builtins.toJSON {
-      appLauncher.terminalCommand = "kitty";
-      audio.cavaFrameRate = 30;
-      audio.visualizerType = "wave";
-
-      bar = {
-        density = "compact";
+{lib, ...}: {
+  programs.noctalia = {
+    enable = true;
+    checkConfig = true;
+    systemd.enable = true;
+    settings = {
+      audio.enable_overdrive = true;
+      bar.default = {
         position = "top";
-        showCapsule = true;
-        outerCorners = false;
-        widgets = {
-          center = [
-            {
-              colorizeIcons = false;
-              hideMode = "hidden";
-              id = "ActiveWindow";
-              maxWidth = 145;
-              scrollingMode = "hover";
-              showIcon = true;
-              useFixedWidth = false;
-            }
-          ];
-          left = [
-            {
-              colorizeIcons = false;
-              hideUnoccupied = false;
-              id = "TaskbarGrouped";
-              labelMode = "index";
-              showLabelsOnlyWhenOccupied = true;
-            }
-            {
-              hideMode = "hidden";
-              hideWhenIdle = false;
-              id = "MediaMini";
-              maxWidth = 145;
-              scrollingMode = "hover";
-              showAlbumArt = true;
-              showArtistFirst = true;
-              showProgressRing = true;
-              showVisualizer = false;
-              useFixedWidth = false;
-              visualizerType = "linear";
-            }
-          ];
-          right = [
-            {
-              id = "plugin:screen-toolkit";
-            }
-
-            {
-              id = "plugin:usb-drive-manager";
-            }
-            {
-              blacklist = [];
-              colorizeIcons = false;
-              drawerEnabled = false;
-              id = "Tray";
-              pinned = [];
-            }
-            {
-              hideWhenZero = true;
-              id = "NotificationHistory";
-              showUnreadBadge = true;
-            }
-            {
-              displayMode = "onhover";
-              id = "Battery";
-              warningThreshold = 30;
-            }
-            {
-              displayMode = "onhover";
-              id = "Volume";
-            }
-            {
-              displayMode = "onhover";
-              id = "Brightness";
-            }
-            {
-              customFont = "";
-              formatHorizontal = "HH:mm ddd, MMM dd";
-              formatVertical = "HH mm - dd MM";
-              id = "Clock";
-              useCustomFont = false;
-              usePrimaryColor = true;
-            }
-            {
-              colorizeDistroLogo = false;
-              customIconPath = "";
-              icon = "noctalia";
-              id = "ControlCenter";
-              useDistroLogo = false;
-            }
-          ];
+        center = [
+          "taskbar"
+        ];
+        start = [
+          "active_window"
+        ];
+        end = [
+          "media"
+          "tray"
+          "notifications"
+          "network"
+          "bluetooth"
+          "volume"
+          "brightness"
+          "battery"
+          "control-center"
+          # "session"
+          "clock"
+        ];
+        margin_ends = 0;
+        margin_edge = 0;
+        padding = 0;
+        radius = 0;
+        thickness = 25;
+      };
+      brightness.enable_ddcutil = true;
+      desktop_widgets.enabled = true;
+      idle = {
+        enable = true;
+        idle_timeout = 300; # 5 minutes
+        lock_timeout = 330; # 5.5 minutes
+        suspend_timeout = 600; # 10 minutes
+        behavior.lock = {
+          action = "lock";
+          enabled = true;
+          timeout = 600;
+        };
+        behavior.lock-and-suspend = {
+          action = "lock_and_suspend";
+          enabled = false;
+          timeout = 900;
+        };
+        behavior.screen-off = {
+          action = "screen_off";
+          enabled = true;
+          timeout = 660;
         };
       };
-      colorSchemes.predefinedScheme = "Monochrome";
-      wallpaper.enabled = false;
-      general = {
-        # avatarImage = "/home/nainai/.face";
-        radiusRatio = 0.2;
+      lockscreen = {
+        blurred_desktop = true;
+        fingerprint = false; # so it does not activate the fingerprint reader at lock screen already
+        allow_empty_password = true; # this activates the reader on Enter key press
       };
-      wallpaper.defaultWallpaper = "/home/nainai/wall.jpeg";
-      location = {
-        monthBeforeDay = false;
-        name = "Berlin, Germany";
+      location.auto_locate = true;
+      shell = {
+        corner_radius_scale = 0.0;
+        clipboard_enabled = false;
+        screenshot.annotate = true;
       };
-      dock.enabled = false;
-      nightLight.enabled = false;
-    };
-  };
-in {
-  home = {
-    packages = with pkgs; [
-      noctalia-shell
-
-      # screen-toolkit
-      grim
-      slurp
-      wl-clipboard
-      tesseract
-      imagemagick
-      zbar
-      curl
-      translate-shell
-      wl-screenrec
-      ffmpeg
-      gifski
-    ];
-  };
-  systemd.user.services.noctalia-shell = {
-    Unit = {
-      Description = "Noctalia Shell - Wayland desktop shell";
-      Documentation = "https://docs.noctalia.dev";
-      After = "graphical-session.target";
-      PartOf = "graphical-session.target";
-      Restart-Triggers = "${noctalia-settings}";
-    };
-
-    Service = {
-      ExecStart = "${lib.getExe pkgs.noctalia-shell}";
-      Restart = "on-failure";
-    };
-
-    Install = {
-      WantedBy = ["graphical-session.target"];
-    };
-  };
-
-  # Optionally, create a symlink to the settings file in a known location
-  home.file.".config/noctalia/settings.json".source = noctalia-settings;
-
-  home.file.".config/noctalia/plugins.json".source = pkgs.writeTextFile {
-    name = "noctalia-plugins.json";
-    text = builtins.toJSON {
-      sources = [
-        {
-          enabled = true;
-          name = "Noctalia Plugins";
-          url = defaultPluginSourceUrl;
-        }
-      ];
-      states = mkPluginStates [
-        "screen-toolkit"
-        "usb-drive-manager"
-
-        # Add more plugins here as strings, or as { name = "plugin-name"; sourceUrl = "custom-url"; }
-      ];
-      version = 2;
+      theme = {
+        mode = "dark";
+        source = "builtin";
+      };
+      widget.media = {
+        hide_when_no_media = true;
+        max_length = 135;
+        title_scroll = "on_hover";
+      };
+      widget.taskbar = {
+        capsule_radius = 8.0;
+        group_by_workspace = true;
+        hide_empty_workspaces = false;
+        show_all_outputs = true;
+        workspace_label_placement = "inside";
+        inactive_opacity = 0.7;
+      };
     };
   };
 }
