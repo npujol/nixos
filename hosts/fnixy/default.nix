@@ -20,24 +20,24 @@
   programs.nh.flake = "/home/nainai/projects/nix-config";
 
   # SOPS secrets — decrypted at boot and placed in /run/secrets/<name>
-  sops.defaultSopsFile = ../secrets/secrets.yaml;
+  sops.defaultSopsFile = ../../secrets/secrets.yaml;
   sops.secrets = {
     "github-token" = {
-      sopsFile = ../secrets/secrets.yaml;
+      sopsFile = ../../secrets/secrets.yaml;
       format = "yaml";
       owner = "nainai";
       group = "users";
       mode = "0600";
     };
     "obsidian-api-key" = {
-      sopsFile = ../secrets/secrets.yaml;
+      sopsFile = ../../secrets/secrets.yaml;
       format = "yaml";
       owner = "nainai";
       group = "users";
       mode = "0600";
     };
     "restic-password" = {
-      sopsFile = ../secrets/secrets.yaml;
+      sopsFile = ../../secrets/secrets.yaml;
       format = "yaml";
     };
   };

@@ -25,8 +25,8 @@
   };
 
   home.sessionVariables = {
-    GH_TOKEN = config.sops.secrets."github-token".value;
-    OBSIDIAN_API_KEY = config.sops.secrets."obsidian-api-key".value;
+    GH_TOKEN = config.sops.secrets."github-token".path;
+    OBSIDIAN_API_KEY = config.sops.secrets."obsidian-api-key".path;
   };
 
   home.packages = with pkgs; [
