@@ -65,6 +65,7 @@
         corner_radius_scale = 0.0;
         clipboard_enabled = false;
         screenshot.annotate = true;
+        panel.open_near_click_control_center = true;
       };
       theme = {
         mode = "dark";
