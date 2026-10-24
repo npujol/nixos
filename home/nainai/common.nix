@@ -49,13 +49,12 @@
     alejandra
     android-tools
     anki
-    audacity
     autossh
     bash-language-server
     bc
     btop
     cachix
-    calibre
+    # calibre
     cheese
     clinfo
     croc
