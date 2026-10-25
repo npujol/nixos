@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   mklua = lib.generators.mkLuaInline;
   luaf = body: lib.generators.mkLuaInline ("function() " + body + " end");
 
@@ -25,32 +24,35 @@ let
   workspace_move = ws: mklua "hl.dsp.window.move({ workspace = ${toString ws} })";
 
   # Convert bind list to proper Lua table format
-  mkBinds = bindList: map (
-    item:
-    let
-      len = builtins.length item;
-    in
-    if len == 2 then {
-      _args = [ (builtins.elemAt item 0) (builtins.elemAt item 1) ];
-    } else if len == 3 then {
-      _args = [
-        (builtins.elemAt item 0)
-        (builtins.elemAt item 1)
-        (builtins.elemAt item 2)
-      ];
-    } else
-      throw "Invalid bind format: expected 2 or 3 elements"
-  ) bindList;
+  mkBinds = bindList:
+    map (
+      item: let
+        len = builtins.length item;
+      in
+        if len == 2
+        then {
+          _args = [(builtins.elemAt item 0) (builtins.elemAt item 1)];
+        }
+        else if len == 3
+        then {
+          _args = [
+            (builtins.elemAt item 0)
+            (builtins.elemAt item 1)
+            (builtins.elemAt item 2)
+          ];
+        }
+        else throw "Invalid bind format: expected 2 or 3 elements"
+    )
+    bindList;
 
   # Generate workspace bindings
   workspaceBindings = builtins.concatLists (
     lib.lists.imap1 (ws: code: [
-      [ "SUPER+${toString ws}" (workspace_switch ws) ]
-      [ "SUPER+SHIFT+${toString ws}" (workspace_move ws) ]
+      ["SUPER+${toString ws}" (workspace_switch ws)]
+      ["SUPER+SHIFT+${toString ws}" (workspace_move ws)]
     ]) (lib.strings.stringToCharacters "123456789")
   );
-in
-{
+in {
   imports = [
     ./wayland-common.nix
   ];
@@ -72,10 +74,10 @@ in
 
     systemd = {
       enable = true;
-      variables = [ "--all" ];
+      variables = ["--all"];
     };
 
-    plugins = [ ];
+    plugins = [];
 
     settings = {
       config = {
@@ -99,7 +101,7 @@ in
           resize_on_border = true;
           allow_tearing = false;
           "col.active_border" = {
-            colors = [ "rgb(bb3344)" "rgb(33bb44)" ];
+            colors = ["rgb(bb3344)" "rgb(33bb44)"];
             angle = 45;
           };
         };
@@ -221,7 +223,7 @@ in
       };
 
       on = {
-        _args = [ "hyprland.start" (luaf "hl.exec_cmd('hypridle')") ];
+        _args = ["hyprland.start" (luaf "hl.exec_cmd('hypridle')")];
       };
 
       window_rule = [
@@ -231,78 +233,94 @@ in
         }
       ];
 
-      env = lib.attrsets.mapAttrsToList (name: val: {
-        _args = [ name val ];
-      }) {
-        XDG_CURRENT_DESKTOP = "Hyprland";
-        XDG_SESSION_TYPE = "wayland";
-        XDG_SESSION_DESKTOP = "Hyprland";
-        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      };
+      env =
+        lib.attrsets.mapAttrsToList (name: val: {
+          _args = [name val];
+        }) {
+          XDG_CURRENT_DESKTOP = "Hyprland";
+          XDG_SESSION_TYPE = "wayland";
+          XDG_SESSION_DESKTOP = "Hyprland";
+          QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+        };
 
       bind = mkBinds (
         [
           # Apps
-          [ "SUPER+Return" (exec "kitty") ]
-          [ "SUPER+E" (exec "thunar") ]
-          [ "SUPER+D" (exec "noctalia-shell ipc call launcher toggle") ]
-          [ "SUPER+B" (exec "zen") ]
+          ["SUPER+Return" (exec "kitty")]
+          ["SUPER+E" (exec "thunar")]
+          ["SUPER+D" (exec "noctalia msg panel-toggle launcher")]
+          ["SUPER+Space" (exec "noctalia msg panel-toggle launcher")]
+          ["SUPER+B" (exec "zen")]
 
           # Window actions
-          [ "SUPER+Q" kill ]
-          [ "SUPER+F" fullscreen ]
-          [ "SUPER+V" toggle_floating ]
-          [ "SUPER+P" toggle_pseudo ]
-          [ "SUPER+SHIFT+E" exit ]
+          ["SUPER+Q" kill]
+          ["SUPER+F" fullscreen]
+          ["SUPER+V" toggle_floating]
+          ["SUPER+P" toggle_pseudo]
+          ["SUPER+SHIFT+E" exit]
 
           # Move focus
-          [ "SUPER+H" (focus "l") ]
-          [ "SUPER+L" (focus "r") ]
-          [ "SUPER+K" (focus "u") ]
-          [ "SUPER+J" (focus "d") ]
+          ["SUPER+H" (focus "l")]
+          ["SUPER+L" (focus "r")]
+          ["SUPER+K" (focus "u")]
+          ["SUPER+J" (focus "d")]
 
           # Move window
-          [ "SUPER+SHIFT+H" (move "l") ]
-          [ "SUPER+SHIFT+L" (move "r") ]
-          [ "SUPER+SHIFT+K" (move "u") ]
-          [ "SUPER+SHIFT+J" (move "d") ]
+          ["SUPER+SHIFT+H" (move "l")]
+          ["SUPER+SHIFT+L" (move "r")]
+          ["SUPER+SHIFT+K" (move "u")]
+          ["SUPER+SHIFT+J" (move "d")]
 
           # Screenshot
-          [ "Print" (exec "noctalia-shell ipc call plugin:screen-toolkit annotate") { locked = true; } ]
-          [ "SHIFT+Print" (exec "noctalia-shell ipc call plugin:screen-toolkit record") { locked = true; } ]
+          ["Print" (exec "noctalia-shell ipc call plugin:screen-toolkit annotate") {locked = true;}]
+          ["SHIFT+Print" (exec "noctalia-shell ipc call plugin:screen-toolkit record") {locked = true;}]
 
           # Special workspace
-          [ "SUPER+S" (exec "hyprctl togglespecialworkspace magic") { locked = true; } ]
-          [ "SUPER+SHIFT+S" (exec "hyprctl movetoworkspace special:magic") { locked = true; } ]
+          ["SUPER+S" (exec "hyprctl togglespecialworkspace magic") {locked = true;}]
+          ["SUPER+SHIFT+S" (exec "hyprctl movetoworkspace special:magic") {locked = true;}]
 
           # Window cycling
-          [ "SUPER+Tab" (cyclenext) ]
-          [ "SUPER+Tab" (mklua "hl.dsp.window.bring_to_top()") ]
-          [ "SUPER+SHIFT+Tab" (mklua "hl.dsp.window.cycle_next({ prev = true })") ]
-          [ "SUPER+SHIFT+Tab" (mklua "hl.dsp.window.bring_to_top()") ]
+          ["SUPER+Tab" cyclenext]
+          ["SUPER+Tab" (mklua "hl.dsp.window.bring_to_top()")]
+          ["SUPER+SHIFT+Tab" (mklua "hl.dsp.window.cycle_next({ prev = true })")]
+          ["SUPER+SHIFT+Tab" (mklua "hl.dsp.window.bring_to_top()")]
 
           # App launcher
-          [ "SUPER+space" (exec "noctalia-shell ipc call launcher toggle") ]
+          ["SUPER+space" (exec "noctalia-shell ipc call launcher toggle")]
 
           # Volume
-          [ "XF86AudioRaiseVolume" (exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+") { repeating = true; locked = true; } ]
-          [ "XF86AudioLowerVolume" (exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-") { repeating = true; locked = true; } ]
-          [ "XF86AudioMute" (exec "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") { locked = true; } ]
-          [ "XF86AudioMicMute" (exec "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle") { locked = true; } ]
+          [
+            "XF86AudioRaiseVolume"
+            (exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")
+            {
+              repeating = true;
+              locked = true;
+            }
+          ]
+          [
+            "XF86AudioLowerVolume"
+            (exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")
+            {
+              repeating = true;
+              locked = true;
+            }
+          ]
+          ["XF86AudioMute" (exec "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") {locked = true;}]
+          ["XF86AudioMicMute" (exec "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle") {locked = true;}]
 
           # Resize
-          [ "SUPER+CTRL+H" (mklua "hl.dsp.window.resize({ x = -40, y = 0, relative = true })") ]
-          [ "SUPER+CTRL+J" (mklua "hl.dsp.window.resize({ x = 0, y = 40, relative = true })") ]
-          [ "SUPER+CTRL+K" (mklua "hl.dsp.window.resize({ x = 0, y = -40, relative = true })") ]
-          [ "SUPER+CTRL+L" (mklua "hl.dsp.window.resize({ x = 40, y = 0, relative = true })") ]
+          ["SUPER+CTRL+H" (mklua "hl.dsp.window.resize({ x = -40, y = 0, relative = true })")]
+          ["SUPER+CTRL+J" (mklua "hl.dsp.window.resize({ x = 0, y = 40, relative = true })")]
+          ["SUPER+CTRL+K" (mklua "hl.dsp.window.resize({ x = 0, y = -40, relative = true })")]
+          ["SUPER+CTRL+L" (mklua "hl.dsp.window.resize({ x = 40, y = 0, relative = true })")]
 
           # Brightness
-          [ "XF86MonBrightnessUp" (exec "brightnessctl set 10%+") { repeating = true; } ]
-          [ "XF86MonBrightnessDown" (exec "brightnessctl set 10%-") { repeating = true; } ]
+          ["XF86MonBrightnessUp" (exec "brightnessctl set 10%+") {repeating = true;}]
+          ["XF86MonBrightnessDown" (exec "brightnessctl set 10%-") {repeating = true;}]
 
           # Mouse binds
-          [ "SUPER+mouse:272" (mklua "hl.dsp.window.drag()") { mouse = true; } ]
-          [ "SUPER+mouse:273" (mklua "hl.dsp.window.resize()") { mouse = true; } ]
+          ["SUPER+mouse:272" (mklua "hl.dsp.window.drag()") {mouse = true;}]
+          ["SUPER+mouse:273" (mklua "hl.dsp.window.resize()") {mouse = true;}]
         ]
         ++ workspaceBindings
       );
