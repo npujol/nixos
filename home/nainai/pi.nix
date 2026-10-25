@@ -123,8 +123,8 @@
   ];
 in {
   home.sessionVariables = {
-    PI_ACTIVITY_TRACE_ROOT = "${config.home.homeDirectory}/.pi/agent/activity-trace";
-    PI_ACTIVITY_TRACE_CORE = "${config.home.homeDirectory}/.pi/agent/lib/activity-trace-core.mjs";
+    PI_ACTIVITY_TRACE_ROOT = "$HOME/.pi/agent/activity-trace";
+    PI_ACTIVITY_TRACE_CORE = "$HOME/.pi/agent/lib/activity-trace-core.mjs";
   };
 
   home.packages = [piPackage agentMemory];
