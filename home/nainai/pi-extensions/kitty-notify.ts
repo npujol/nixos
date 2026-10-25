@@ -3,7 +3,6 @@
  * 
  * Sends a desktop notification via Kitty's OSC-99 protocol on macOS
  * every time Pi finishes processing a user command (only shows if kitty is not visible)
- * Ref: https://github.com/leiserfg/nix-config/blob/master/home/leiserfg/pi-extensions/kitty-notify.ts
  */
 
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";

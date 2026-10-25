@@ -28,8 +28,6 @@
  *
  * Use `/todos` to bring up the visual todo manager or just let the LLM use them
  * naturally.
- *
- * Source: https://github.com/mitsuhiko/agent-stuff/blob/main/extensions/todos.ts
  */
 import { DynamicBorder, copyToClipboard, getMarkdownTheme, keyHint, type ExtensionAPI, type ExtensionContext, type Theme } from "@earendil-works/pi-coding-agent";
 import { StringEnum } from "@earendil-works/pi-ai";

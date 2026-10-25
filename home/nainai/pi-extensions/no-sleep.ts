@@ -4,8 +4,6 @@
  * Uses caffeinate(8). No footer/status UI is rendered, and no chat
  * notifications are emitted for routine caffeination state changes.
  * Error/warning notifications are still surfaced.
- *
- * Source: https://github.com/mitsuhiko/agent-stuff/blob/main/extensions/no-sleep.ts
  */
 
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";

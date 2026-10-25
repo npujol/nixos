@@ -14,7 +14,6 @@
  * - `/review pr 123` - review PR #123 (checks out locally)
  * - `/review pr https://github.com/owner/repo/pull/123` - review PR from URL
  *
- * Source: https://github.com/mitsuhiko/agent-stuff/blob/main/extensions/review.ts
  * - `/review uncommitted` - review uncommitted changes directly
  * - `/review branch main` - review against main branch
  * - `/review commit abc123` - review specific commit
@@ -461,6 +460,7 @@ Include only applicable callouts (no yes/no lines):
 - **This change modifies auth/permission behavior:** <what changed and where>
 - **This change introduces backwards-incompatible public schema/API/contract changes:** <what changed and where>
 - **This change includes irreversible or destructive operations:** <operation and scope>
+- **This change includes new environment variable:** <what changed and where>
 
 Rules for this section:
 1. These are informational callouts for the human reviewer, not fix items.
