@@ -115,8 +115,18 @@
     skillsEntries
     memoryFileEntries
     mcpEntries
+    {
+      ".pi/agent/lib/activity-trace-core.mjs" = {
+        source = ./lib/activity-trace-core.mjs;
+      };
+    }
   ];
 in {
+  home.sessionVariables = {
+    PI_ACTIVITY_TRACE_ROOT = "${config.home.homeDirectory}/.pi/agent/activity-trace";
+    PI_ACTIVITY_TRACE_CORE = "${config.home.homeDirectory}/.pi/agent/lib/activity-trace-core.mjs";
+  };
+
   home.packages = [piPackage agentMemory];
 
   home.file = allFileEntries;
