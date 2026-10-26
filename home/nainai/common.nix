@@ -135,6 +135,9 @@
     libreoffice
     zathura
     inkscape
+    whisper-cpp-vulkan
+    python313Packages.huggingface-hub
+    voxtype-vulkan
   ];
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration
