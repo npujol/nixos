@@ -110,4 +110,6 @@
       };
     };
   };
+
+  services.greetd.enable = lib.mkForce false;
 }

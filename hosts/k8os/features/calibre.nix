@@ -7,7 +7,7 @@
   };
 
   services.calibre-web = {
-    enable = true;
+    enable = false;
     group = "media";
     package = pkgs.calibre-web.overridePythonAttrs {
       pythonRelaxDeps = [
