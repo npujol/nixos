@@ -21,10 +21,12 @@
     ../common/features/sops.nix
   ];
 
+  sops.age.keyFile = lib.mkForce "/var/lib/sops-nix/key.txt";
+
   networking.hostName = "k8os";
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
-    zenpower
+    # zenpower
   ];
   programs.nh.flake = "/home/k8os/nixos";
 
