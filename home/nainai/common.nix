@@ -160,12 +160,6 @@
   #---------------------------------------------------------------------------
   # In this section we configure the user services, such as: mpris-proxy, etc.
   #---------------------------------------------------------------------------
-  services = {
-    # ollama = {
-    #   enable = false;
-    #   package = unstablePkgs.ollama-vulkan;
-    # };
-  };
   services.tailscale-systray.enable = true;
   xdg.configFile."wireplumber/wireplumber.conf.d/10-bluetooth.conf".text = ''
     wireplumber.settings = {
