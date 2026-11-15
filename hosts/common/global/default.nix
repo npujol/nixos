@@ -60,6 +60,7 @@
   };
   environment.systemPackages = with pkgs; [
     vim
+    tmux
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
   ];
 }
