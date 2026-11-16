@@ -13,8 +13,8 @@
       "switch-system" = "sudo nixos-rebuild switch --flake .";
       "switch-home" = "home-manager switch --flake . -b backup";
       "llama" = "llama-server -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q3_K_M --reasoning-preserve --image-min-tokens 1024 --threads $(nproc) -ngl 15 -c 196608 --cache-type-k q4_0 --cache-type-v q4_0 -t 10";
-      "llama-qwen38" = "llama-server -hf unsloth/Qwen3.8-27B-GGUF:UD-Q3_K_XL --threads $(nproc) -ngl 15 -c 32768 --cache-type-k q4_0 --cache-type-v q4_0 --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --chat-template-kwargs '{\"reasoning_effort\":\"medium\"}'";
-      "llama-router" = "llama-server --no-models-autoload -ngl all -c 32768";
+      "llama-qwen38" = "llama-server -hf unsloth/Qwen3.8-27B-GGUF:UD-Q3_K_XL --threads $(nproc) -ngl 15 -c 65536 --cache-type-k q4_0 --cache-type-v q4_0 --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --chat-template-kwargs '{\"reasoning_effort\":\"medium\"}'";
+      "llama-router" = "llama-server --no-models-autoload -ngl all -c 65536";
       "tiel-coder" = "llama-server -hf peculiar-ragdoll/Tiel-Coder-35B-A3B-GGUF-MTP:UD-IQ3_XXS  --spec-draft-n-max 2";
     };
   };
