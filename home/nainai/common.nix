@@ -166,4 +166,8 @@
        bluetooth.autoswitch-to-headset-profile = false
     }
   '';
+  services.udiskie = {
+    enable = true;
+    automount = true;
+  };
 }
