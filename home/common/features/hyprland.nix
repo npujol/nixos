@@ -271,7 +271,7 @@ in {
           ["SUPER+SHIFT+K" (move "u")]
           ["SUPER+SHIFT+J" (move "d")]
           [
-            "SUPER+O"
+            "Print"
             (exec "noctalia msg screenshot-fullscreen")
           ]
           [
