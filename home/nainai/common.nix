@@ -138,6 +138,7 @@
     whisper-cpp-vulkan
     python313Packages.huggingface-hub
     voxtype-vulkan
+    geeqie
   ];
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration
