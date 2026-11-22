@@ -139,6 +139,7 @@
     python313Packages.huggingface-hub
     voxtype-vulkan
     geeqie
+    darktable
   ];
   #--------------------------------------------------------------------
   #-- Programs & Services Configuration
