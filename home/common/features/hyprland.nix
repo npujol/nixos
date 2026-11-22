@@ -270,6 +270,14 @@ in {
           ["SUPER+SHIFT+L" (move "r")]
           ["SUPER+SHIFT+K" (move "u")]
           ["SUPER+SHIFT+J" (move "d")]
+          [
+            "SUPER+O"
+            (exec "noctalia msg screenshot-fullscreen")
+          ]
+          [
+            "SUPER+P"
+            (exec "noctalia msg annotate")
+          ]
 
           # Screenshot
           ["Print" (exec "noctalia-shell ipc call plugin:screen-toolkit annotate") {locked = true;}]
