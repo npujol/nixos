@@ -41,4 +41,15 @@
       format = "yaml";
     };
   };
+  # set vram to grow to 20Gb
+  boot.kernelParams = let
+    gttGiB = 20;
+    gttMiB = gttGiB * 1024;
+    pageSizeKiB = 4;
+    ttmPages = (gttMiB * 1024) / pageSizeKiB; # Convert MiB -> KiB, then divide by 4 KiB per page
+  in [
+    "amdgpu.gttsize=${toString gttMiB}"
+    "ttm.pages_limit=${toString ttmPages}"
+    "ttm.page_pool_size=${toString ttmPages}"
+  ];
 }
